@@ -1,7 +1,8 @@
 import { Router, Request, Response } from "express";
 import { UserModel } from "../../models/User";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+
+import { jwt } from "../../token/jwt";
 
 export class LoginAPI {
 	public router = Router();
@@ -18,12 +19,9 @@ export class LoginAPI {
 						const areMatching = await bcrypt.compare(email, user.email);
 						if (areMatching) {
 							res.status(200).send(
-								jwt.sign(
-									{
-										id: user.id
-									},
-									process.env.JWT_SECRET!
-								)
+								jwt.sign({
+									id: user.id
+								})
 							);
 						} else {
 							res.status(400).send("Wrong email or password.");
