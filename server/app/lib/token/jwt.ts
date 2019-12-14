@@ -1,10 +1,10 @@
 import jsonwebtoken from "jsonwebtoken";
+import EnvVarError from "../errors/EnvVarError";
 
 const secret = process.env.JWT_SECRET;
-if (!secret)
-	throw new Error("JWT_SECRET environmental variable is essential, but was not provided.");
+if (!secret) throw new EnvVarError("JWT_SECRET");
 
-export abstract class jwt {
+export default abstract class jwt {
 	private static secret = secret!;
 
 	static sign(payload: string | object): string {
