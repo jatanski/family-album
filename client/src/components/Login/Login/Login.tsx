@@ -2,10 +2,13 @@ import React, { FormEvent, useState, SyntheticEvent } from 'react';
 import View from './View';
 import { Props } from './types';
 import BaseModel from '../../../utils/baseModel';
+import { useHistory } from 'react-router-dom';
 
-const Login = ({ toggleForm, history }: Props) => {
+const Login = ({ toggleForm }: Props) => {
   const [loginValue, setLoginValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
+
+  let history = useHistory();
 
   const endpoint = 'login';
 
@@ -32,6 +35,7 @@ const Login = ({ toggleForm, history }: Props) => {
       if (token) BaseModel.saveAuthToken(token);
 
       history.push('/dashboard');
+      console.log('Loguje...');
     } catch (error) {
       console.error(error);
     }

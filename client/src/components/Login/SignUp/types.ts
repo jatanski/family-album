@@ -1,7 +1,6 @@
 import { FormEvent, SyntheticEvent } from 'react';
 
 export type Props = {
-  history?: any;
   invalidPassword?: boolean;
   toggleForm: () => void;
   handleEmailInput?: (e: FormEvent<HTMLInputElement>) => void;

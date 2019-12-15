@@ -1,13 +1,17 @@
 import React, { useState, FormEvent, SyntheticEvent } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import View from './View';
 import { Props } from './types';
 import BaseModel from '../../../utils/baseModel';
 
-const SignUp = ({ toggleForm, history }: Props) => {
+const SignUp = ({ toggleForm }: Props) => {
   const [loginValue, setLoginValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [repeatPasswordValue, setRepeatPasswordValue] = useState('');
   const [invalidPassword, setInvalidPassword] = useState(false);
+
+  let history = useHistory();
 
   const endpoint = 'register';
 
@@ -63,7 +67,6 @@ const SignUp = ({ toggleForm, history }: Props) => {
       handleEmailInput={handleEmailInputChange}
       handlePasswordInput={handlePasswordInputChange}
       handleRepeatPasswordInput={handleRepeatPasswordInputChange}
-      history={history}
       invalidPassword={invalidPassword}
       submitRegister={submitRegister}
     ></View>
