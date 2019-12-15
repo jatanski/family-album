@@ -8,6 +8,11 @@ export interface UserDocument extends Document {
 const UserScheme = new Schema({
 	email: {
 		type: String,
+		required: true,
+		unique: true
+	},
+	password: {
+		type: String,
 		required: true
 	}
 });
