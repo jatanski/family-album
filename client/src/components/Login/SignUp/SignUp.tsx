@@ -11,7 +11,7 @@ const SignUp = ({ toggleForm }: Props) => {
   const [repeatPasswordValue, setRepeatPasswordValue] = useState('');
   const [invalidPassword, setInvalidPassword] = useState(false);
 
-  let history = useHistory();
+  const history = useHistory();
 
   const endpoint = 'register';
 

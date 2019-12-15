@@ -8,7 +8,7 @@ const Login = ({ toggleForm }: Props) => {
   const [loginValue, setLoginValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
 
-  let history = useHistory();
+  const history = useHistory();
 
   const endpoint = 'login';
 
