@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from '../assets/logo.svg';
+import { Link } from 'react-router-dom';
 
 const App: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ const App: React.FC = () => {
         <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
           Learn React
         </a>
+        <Link to="/login">Zaloguj</Link>
       </header>
     </div>
   );
