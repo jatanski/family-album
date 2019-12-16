@@ -1,11 +1,11 @@
-import React, { useState, FormEvent, SyntheticEvent } from 'react';
+import React, { useState, FormEvent, SyntheticEvent, FC } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import View from './View';
 import { Props } from './types';
 import BaseModel from '../../../utils/baseModel';
 
-const SignUp = ({ toggleForm }: Props) => {
+const SignUp: FC<Props> = ({ toggleForm }) => {
   const [loginValue, setLoginValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [repeatPasswordValue, setRepeatPasswordValue] = useState('');
@@ -13,14 +13,14 @@ const SignUp = ({ toggleForm }: Props) => {
 
   const history = useHistory();
 
-  const endpoint = 'register';
+  const endpoint: string = 'register';
 
-  const handleEmailInputChange = (e: FormEvent<HTMLInputElement>) => setLoginValue(e.currentTarget.value);
-  const handlePasswordInputChange = (e: FormEvent<HTMLInputElement>) => setPasswordValue(e.currentTarget.value);
-  const handleRepeatPasswordInputChange = (e: FormEvent<HTMLInputElement>) =>
+  const handleEmailInputChange = (e: FormEvent<HTMLInputElement>): void => setLoginValue(e.currentTarget.value);
+  const handlePasswordInputChange = (e: FormEvent<HTMLInputElement>): void => setPasswordValue(e.currentTarget.value);
+  const handleRepeatPasswordInputChange = (e: FormEvent<HTMLInputElement>): void =>
     setRepeatPasswordValue(e.currentTarget.value);
 
-  const validPassword = () => {
+  const validPassword = (): boolean => {
     if (repeatPasswordValue !== passwordValue) {
       setInvalidPassword(true);
       return false;
@@ -30,7 +30,7 @@ const SignUp = ({ toggleForm }: Props) => {
     }
   };
 
-  const submitRegister = async (e: SyntheticEvent<HTMLButtonElement>) => {
+  const submitRegister = async (e: SyntheticEvent<HTMLButtonElement>): Promise<void> => {
     e.preventDefault();
 
     const passwordIsValid = validPassword();

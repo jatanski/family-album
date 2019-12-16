@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 import { Props } from './types';
 
-const View = ({
+const View: FC<Props> = ({
   toggleForm,
   handleEmailInput,
   handlePasswordInput,
   handleRepeatPasswordInput,
   invalidPassword,
   submitRegister,
-}: Props) => {
+}) => {
   return (
     <MDBContainer>
       <MDBRow>
