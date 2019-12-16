@@ -5,7 +5,7 @@ export interface UserDocument extends Document {
 	password: string;
 }
 
-const UserScheme = new Schema({
+const userSchema = new Schema({
 	email: {
 		type: String,
 		required: true,
@@ -17,4 +17,4 @@ const UserScheme = new Schema({
 	}
 });
 
-export const UserModel = model<UserDocument>("User", UserScheme);
+export const UserModel = model<UserDocument>("User", userSchema);
