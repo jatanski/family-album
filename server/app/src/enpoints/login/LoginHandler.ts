@@ -70,7 +70,10 @@ export default class LoginHandler {
 	}
 
 	private sendSuccess(): void {
-		this.res.status(200).send(this.getToken());
+		this.res
+			.header("x-auth-token", this.getToken())
+			.status(200)
+			.send({});
 	}
 
 	private getToken(): string {
