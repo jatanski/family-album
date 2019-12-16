@@ -1,11 +1,11 @@
 import { Schema, Document, model } from "mongoose";
 
-interface ImageDocument extends Document {
+export interface ImageDocument extends Document {
 	data: Buffer;
 	contentType: string;
 }
 
-const imageSchema = new Schema({
+export const ImageSchema = new Schema({
 	data: {
 		type: Buffer,
 		required: true
@@ -16,4 +16,4 @@ const imageSchema = new Schema({
 	}
 });
 
-export const ImageModel = model<ImageDocument>("Image", imageSchema);
+export const ImageModel = model<ImageDocument>("Image", ImageSchema);

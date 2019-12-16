@@ -1,12 +1,12 @@
 import { Response } from "express";
 import EmptyQueryError from "../../../lib/errors/EmptyQueryError";
 import InvalidArgumentError from "../../../lib/errors/InvalidArgumentError";
-import AuthError from "../../../lib/errors/AuthError";
+import LoginError from "../../../lib/errors/LoginError";
 
 export default class LoginErrorHandler {
 	private error: any;
 	private res: Response;
-	private expectedErrors = [EmptyQueryError, InvalidArgumentError, AuthError];
+	private expectedErrors = [EmptyQueryError, InvalidArgumentError, LoginError];
 
 	private constructor(error: any, res: Response) {
 		this.error = error;
@@ -14,8 +14,7 @@ export default class LoginErrorHandler {
 	}
 
 	static handleErrorAndSendFailure(error: any, res: Response) {
-		const handler = new LoginErrorHandler(error, res);
-		handler.handleError();
+		new LoginErrorHandler(error, res).handleError();
 	}
 
 	private handleError(): void {
