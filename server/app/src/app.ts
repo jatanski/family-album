@@ -21,7 +21,11 @@ const PORT: string = process.env.PORT ?? "3000";
 const app = express();
 
 app.use(json());
-app.use(cors());
+app.use(
+	cors({
+		exposedHeaders: "x-token"
+	})
+);
 app.use("/login", new LoginAPI().router);
 
 app.listen(PORT, () => {
