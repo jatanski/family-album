@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import Root from './pages/Root';
 import * as serviceWorker from './others/serviceWorker';
 import './scss/global.scss';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
 
 ReactDOM.render(<Root />, document.getElementById('root'));
 
