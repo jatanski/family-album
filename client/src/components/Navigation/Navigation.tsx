@@ -1,43 +1,35 @@
-import React, { useState, FC } from 'react';
-import {
-  MDBNavbar,
-  MDBNavbarBrand,
-  MDBNavbarNav,
-  MDBNavbarToggler,
-  MDBCollapse,
-  MDBNavItem,
-  MDBNavLink,
-} from 'mdbreact';
+import React, { useState, FC, useEffect } from 'react';
+import { MDBNavbar, MDBNavbarToggler, MDBCollapse } from 'mdbreact';
+import Portal from '../Utils/Portal';
+import Menu from './Menu';
+import NavBarBrand from './NavBarBrand';
+import AddPhoto from '../Dashboard/AddPhoto/AddPhoto';
+import BaseModel from '../../utils/baseModel';
 
 const Navigation: FC = () => {
   const [collapse, setCollapse] = useState(false);
+  const [showNavigation, setShowNavigation] = useState(false);
 
-  const toggleCollapse = () => setCollapse(!collapse);
+  useEffect(() => {
+    const token = BaseModel.getAuthToken();
+    if (token) setShowNavigation(true);
+    else setShowNavigation(false);
+  });
 
-  return (
+  const toggleCollapse = (): void => setCollapse(!collapse);
+
+  return showNavigation ? (
     <MDBNavbar className="flexible-navbar" light expand="md" scrolling>
-      <MDBNavbarBrand href="/">
-        <strong>Prezent od psa</strong>
-      </MDBNavbarBrand>
+      <NavBarBrand />
       <MDBNavbarToggler onClick={toggleCollapse} />
       <MDBCollapse isOpen={collapse} navbar>
-        <MDBNavbarNav left>
-          <MDBNavItem active>
-            <MDBNavLink to="#">Home</MDBNavLink>
-          </MDBNavItem>
-          <MDBNavItem>
-            <MDBNavLink to="/add">Dodaj zdjęcia</MDBNavLink>
-          </MDBNavItem>
-          <MDBNavItem>
-            <MDBNavLink to="/albums">Twoje albumy</MDBNavLink>
-          </MDBNavItem>
-          <MDBNavItem>
-            <MDBNavLink to="/photos">Przeglądaj zdjęcia</MDBNavLink>
-          </MDBNavItem>
-        </MDBNavbarNav>
+        <Menu />
+        <Portal>
+          <AddPhoto></AddPhoto>
+        </Portal>
       </MDBCollapse>
     </MDBNavbar>
-  );
+  ) : null;
 };
 
 export default Navigation;
