@@ -30,7 +30,7 @@ const Login: FC<Props> = ({ toggleForm }) => {
         body: JSON.stringify(loginData),
       });
 
-      const token = response.headers.get('x-auth-token');
+      const token = response.headers.get('x-token');
 
       // const data = await response.json();
 
@@ -38,7 +38,7 @@ const Login: FC<Props> = ({ toggleForm }) => {
       if (response.status === 200) {
         history.push('/dashboard');
         console.log('Loguje...');
-        console.log(response);
+        console.log(response.headers);
         console.log(token);
       } else {
         setLoginValue('');
