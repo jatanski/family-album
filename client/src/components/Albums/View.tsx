@@ -15,17 +15,7 @@ const View: FC<ViewProps> = ({ albumsArr, toggleShowModal, showModalAddAlbum, ha
       </div>
       <div className="albums__wrap">
         <div className="albums__wrap--newAlbumButton"></div>
-        {albumsArr
-          ? albumsArr.map((album: AlbumProps, index) => (
-              <Album
-                key={index}
-                title={album.title}
-                desc={album.desc}
-                timeStart={album.timeStart}
-                timeEnd={album.timeEnd}
-              ></Album>
-            ))
-          : null}
+        {albumsArr ? albumsArr.map((album: AlbumProps, index) => <Album key={index} {...album}></Album>) : null}
       </div>
       <Portal>
         <AddNewAlbum

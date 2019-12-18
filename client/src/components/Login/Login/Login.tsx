@@ -30,10 +30,10 @@ const Login: FC<Props> = ({ toggleForm }) => {
         body: JSON.stringify(loginData),
       });
 
-      const responseData = await response.json();
+      const token = response.headers.get('x-token');
 
       if (response.status === 200) {
-        BaseModel.saveAuthToken(responseData.token);
+        if (token) BaseModel.saveAuthToken(token);
         history.push('/dashboard');
         console.log('Loguje...');
       } else {
