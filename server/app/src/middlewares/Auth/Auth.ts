@@ -16,10 +16,10 @@ abstract class Auth {
 		try {
 			this.tryAuth();
 		} catch (error) {
-			AuthErrorHandler.handleErrorAndSendFailure(error, res)
+			AuthErrorHandler.handleErrorAndSendFailure(error, res);
 		}
 	}
-	
+
 	private static setReqResNext(req: Request, next: NextFunction) {
 		this.req = req;
 		this.next = next;
@@ -59,6 +59,7 @@ abstract class Auth {
 	}
 
 	private static processToken() {
+		if (!this.req.body) this.req.body = {};
 		this.req.body.userId = this.token.id;
 	}
 }
