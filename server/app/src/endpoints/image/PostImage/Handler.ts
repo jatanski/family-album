@@ -17,6 +17,7 @@ export default class PostImageHandler {
 	private body: PostImageInput;
 	private res: Response;
 	private image: UploadedFile;
+	private imageId: string = "";
 
 	static async callback(req: Request, res: Response) {
 		try {
@@ -38,7 +39,7 @@ export default class PostImageHandler {
 
 	private async handle() {
 		await this.saveImage();
-		this.res.status(201).send();
+		this.res.status(201).send(this.imageId);
 	}
 
 	private async saveImage() {
@@ -46,6 +47,7 @@ export default class PostImageHandler {
 			data: this.image.data,
 			contentType: this.image.mimetype
 		});
+		this.imageId = imageDocument.id;
 		const { userId: ownerId, name, description } = this.body;
 		const miniature = await this.getMiniature();
 		const imageDate = new ImageDataModel({

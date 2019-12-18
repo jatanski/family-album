@@ -37,8 +37,12 @@ abstract class Auth {
 	}
 
 	private static setToken(tokenHeader: any) {
-		const token = jwt.verify(tokenHeader);
-		if (this.checkTokenType(token)) this.token = token;
+		try {
+			const token = jwt.verify(tokenHeader);
+			if (this.checkTokenType(token)) this.token = token;
+		} catch (error) {
+			this.throwTokenError();
+		}
 	}
 
 	private static checkTokenType(token: tokenType): token is AuthToken {
