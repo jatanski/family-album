@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
-import { ViewProps } from '../types';
+import { FormProps } from '../../types';
 
-const FileInput = forwardRef(({ handleFileInput }: ViewProps, ref: any) => {
+const FileInput = forwardRef(({ handleFileInput }: FormProps, ref: any) => {
   return (
     <div className="input-group">
       <div className="input-group-prepend">

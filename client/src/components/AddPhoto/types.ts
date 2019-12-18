@@ -1,9 +1,16 @@
-import { FormEvent, ReactNode } from 'react';
+import { ReactNode, SyntheticEvent } from 'react';
 
-export type ViewProps = {
-  handleFileInput: (e: FormEvent<HTMLInputElement>) => void;
-};
+export interface ViewProps {
+  handleFileInput: () => void;
+  submitForm: (e: SyntheticEvent<HTMLButtonElement>) => Promise<void>;
+  photos: Array<HTMLInputElement>;
+}
 
-export type AlbumFormProps = {
+export interface FormProps {
+  handleFileInput: () => void;
+}
+
+export interface AlbumFormProps {
   children: ReactNode;
-};
+  submitForm: (e: SyntheticEvent<HTMLButtonElement>) => Promise<void>;
+}

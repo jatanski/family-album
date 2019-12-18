@@ -1,17 +1,26 @@
-import React, { Component, createRef, FormEvent, SyntheticEvent } from 'react';
+import React, { Component, createRef, SyntheticEvent, RefObject } from 'react';
 import View from './View';
 import BaseModel from '../../utils/baseModel';
 
-class AddPhoto extends Component {
-  private endpoint: string = 'image';
+interface AddPhotoStateI {
+  images: Array<HTMLInputElement>;
+}
 
-  public fileInput = createRef<HTMLInputElement>();
-
-  public handleFileInput = (e: FormEvent<HTMLInputElement>): void => {
-    console.log(this.fileInput.current?.files);
+class AddPhoto extends Component<any, AddPhotoStateI> {
+  state = {
+    images: [],
   };
 
-  public sendImageToServer = async (e: SyntheticEvent<HTMLButtonElement>) => {
+  private endpoint: string = 'image';
+
+  public fileInput: RefObject<HTMLInputElement> = createRef();
+
+  public handleFileInput = (): void => {
+    // @ts-ignore
+    this.setState({ images: [...this.state.images, this.fileInput.current?.files[0]] });
+  };
+
+  public sendImageToServer = async (e: SyntheticEvent<HTMLButtonElement>): Promise<void> => {
     e.preventDefault();
 
     const image = this.fileInput.current;
@@ -19,23 +28,34 @@ class AddPhoto extends Component {
     const formData = new FormData();
     // @ts-ignore
     formData.append('file', image?.files[0]);
-    formData.append('name', 'some value');
-    formData.append('description', 'some value');
+    formData.append('name', 'przykład');
+    formData.append('description', 'przykład');
 
-    try {
-      const response = await fetch(BaseModel.baseApiUrl + this.endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'multipart/form-data' },
-        body: formData,
-      });
+    const token = BaseModel.getAuthToken();
+    if (token) {
+      try {
+        const response = await fetch(BaseModel.baseApiUrl + this.endpoint, {
+          method: 'POST',
+          headers: { 'x-token': token },
+          body: formData,
+        });
 
-      console.log(response);
-    } catch (error) {
-      console.error(error);
+        if (response.status === 200) alert('Zdjęcia zostały zapisane');
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
   render() {
-    return <View handleFileInput={this.handleFileInput} ref={this.fileInput}></View>;
+    console.log(this.state);
+    return (
+      <View
+        photos={this.state.images}
+        submitForm={this.sendImageToServer}
+        handleFileInput={this.handleFileInput}
+        ref={this.fileInput}
+      ></View>
+    );
   }
 }
 

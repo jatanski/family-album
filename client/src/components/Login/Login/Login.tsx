@@ -30,6 +30,8 @@ const Login: FC<Props> = ({ toggleForm }) => {
         body: JSON.stringify(loginData),
       });
 
+      const responseData = await response.json();
+
       const token = response.headers.get('x-token');
 
       if (response.status === 200) {
