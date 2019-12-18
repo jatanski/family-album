@@ -4,8 +4,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 const dotenvConfigResult = dotenv.config();
 import EnvVarError from "../lib/errors/EnvVarError";
-import { LoginAPI } from "./enpoints/login/LoginAPI";
-import ImageAPI from "./enpoints/image/ImageAPI";
+import { LoginAPI } from "./endpoints/login/LoginAPI";
+import ImageAPI from "./endpoints/image/ImageAPI";
 if (dotenvConfigResult.error) throw dotenvConfigResult.error;
 
 console.clear();

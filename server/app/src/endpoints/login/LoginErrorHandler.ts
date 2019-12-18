@@ -18,9 +18,11 @@ export default class LoginErrorHandler {
 	}
 
 	private handleError(): void {
-		console.error(this.error);
 		if (this.isErrorExpected()) this.res.status(400).send("Wrong email or password.");
-		else this.res.status(500).send("Unexpected error. Try again later.");
+		else {
+			console.error(this.error);
+			this.res.status(500).send("Unexpected error. Try again later.");
+		}
 	}
 
 	private isErrorExpected(): boolean {
