@@ -39,7 +39,9 @@ export default class PostImageHandler {
 
 	private async handle() {
 		await this.saveImage();
-		this.res.status(200).send(this.imageId);
+		this.res.status(200).send({
+			id: this.imageId
+		});
 	}
 
 	private async saveImage() {
