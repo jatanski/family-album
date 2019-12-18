@@ -21,11 +21,14 @@ if (MONGO_URI) {
 const PORT: string = process.env.PORT ?? "3000";
 const app = express();
 
-app.use(cors());
+app.use(
+	cors({
+		exposedHeaders: ["x-token", "Content-Type"]
+	})
+);
 app.use("/login", new LoginAPI().router);
 app.use("/image", new ImageAPI().router);
 
 app.listen(PORT, () => {
 	console.log(`Listening at ${PORT} port.`);
 });
-
