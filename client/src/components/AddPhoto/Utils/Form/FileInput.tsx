@@ -1,29 +1,25 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, Ref, HTMLProps } from 'react';
 import { FormProps } from '../../types';
+import FileInputContainer from './FileInputContainer';
 
-const FileInput = forwardRef(({ handleFileInput }: FormProps, ref: any) => {
-  return (
-    <div className="input-group">
-      <div className="input-group-prepend">
-        <span className="input-group-text" id="inputGroupFileAddon01">
-          Dodaj zdjęcie
-        </span>
-      </div>
-      <div className="custom-file">
-        <input
-          type="file"
-          className="custom-file-input"
-          id="inputGroupFile01"
-          aria-describedby="inputGroupFileAddon01"
-          ref={ref}
-          onChange={handleFileInput}
-        />
-        <label className="custom-file-label" htmlFor="inputGroupFile01">
-          Wybierz plik
-        </label>
-      </div>
-    </div>
-  );
-});
+type InputProps = React.ComponentPropsWithoutRef<'input'>;
+
+const FileInput = forwardRef(({ handleFileInput }: FormProps, ref: Ref<HTMLInputElement>) => (
+  <FileInputContainer>
+    <input
+      type="file"
+      className="custom-file-input"
+      id="inputGroupFile01"
+      aria-describedby="inputGroupFileAddon01"
+      ref={ref}
+      onChange={handleFileInput}
+      multiple
+      accept="image/x-png,image/gif,image/jpeg"
+    />
+    <label className="custom-file-label" htmlFor="inputGroupFile01">
+      Wybierz plik
+    </label>
+  </FileInputContainer>
+));
 
 export default FileInput;

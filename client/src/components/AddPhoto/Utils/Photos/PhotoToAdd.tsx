@@ -1,21 +1,28 @@
 import React, { useState } from 'react';
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCol, MDBInput } from 'mdbreact';
+import { PhotoPropsI } from '../../types';
 
-const PhotoToAdd = ({ photo }: any) => {
-  const [showInput, setShowInput] = useState(false);
+const PhotoToAdd = ({ photo, handleDescInput, index }: PhotoPropsI) => {
+  const [showInputOrButton, setShowInputOrButton] = useState(false);
 
-  const toggleInput = () => setShowInput(!showInput);
+  const toggleInput = (): void => setShowInputOrButton(!showInputOrButton);
 
-  const photoToRead = URL.createObjectURL(photo);
+  const photoToRead: string = URL.createObjectURL(photo);
+
+  const indexToString: string = index.toString();
+
   return (
     <MDBCol>
       <MDBCard style={{ width: '14rem' }}>
         <MDBCardImage className="img-fluid" src={photoToRead} waves />
         <MDBCardBody>
-          <MDBBtn size="sm" onClick={toggleInput}>
-            Dodaj opis
-          </MDBBtn>
-          {showInput ? <MDBInput label="Opis" icon="image" type="textarea" /> : null}
+          {showInputOrButton ? (
+            <MDBInput id={indexToString} onChange={handleDescInput} label="Opis" icon="image" type="textarea" />
+          ) : (
+            <MDBBtn size="sm" onClick={toggleInput}>
+              Dodaj opis
+            </MDBBtn>
+          )}
         </MDBCardBody>
       </MDBCard>
     </MDBCol>
