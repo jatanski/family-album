@@ -9,23 +9,30 @@ const AddAlbumForm: FC<AddAlbumModalProps> = ({ handleInputChange, addAlbum }) =
         <MDBCol>
           <form>
             <div className="grey-text">
-              <MDBInput onChange={handleInputChange} id="title" label="Nazwa" icon="images" group type="text" />
-              <MDBInput onChange={handleInputChange} id="desc" label="Opis" icon="pen-nib" group type="textarea" />
+              <MDBInput onChange={handleInputChange} id="name" label="Nazwa" icon="images" group type="text" />
               <MDBInput
                 onChange={handleInputChange}
-                id="startTime"
-                label="Data początkowa"
-                icon="calendar-alt"
+                id="description"
+                label="Opis"
+                icon="pen-nib"
                 group
-                type="text"
+                type="textarea"
               />
               <MDBInput
                 onChange={handleInputChange}
-                id="endTime"
+                id="beginningDate"
+                label="Data początkowa"
+                icon="calendar-alt"
+                group
+                type="date"
+              />
+              <MDBInput
+                onChange={handleInputChange}
+                id="endDate"
                 label="Data końcowa"
                 icon="calendar"
                 group
-                type="text"
+                type="date"
               />
             </div>
             <div className="text-center">

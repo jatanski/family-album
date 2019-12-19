@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { MDBBtn } from 'mdbreact';
 import { ViewProps, AlbumProps } from './types';
-import Album from './Albums.utils/Albums.album';
 import Portal from '../Utils/Portal';
-import AddNewAlbum from './Albums.utils/AddNewAlbum/Modal';
+import Album from './Albums.utils/Albums.album';
+import AddNewAlbum from './Albums.utils/AddNewAlbum/AddNewAlbum';
 
 const View: FC<ViewProps> = ({ albumsArr, toggleShowModal, showModalAddAlbum, handleInputChange, addAlbum }) => {
   return (

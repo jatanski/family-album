@@ -1,10 +1,10 @@
 import { FormEvent } from 'react';
 
 export interface AlbumProps {
-  title: string;
-  desc: string;
-  timeStart: string;
-  timeEnd: string;
+  name: string;
+  description: string;
+  beginningDate: Date | string;
+  endDate: Date | string;
 }
 
 export interface ViewProps {
@@ -20,4 +20,13 @@ export interface AddAlbumModalProps {
   toggle?: () => void;
   handleInputChange: (e: FormEvent<HTMLInputElement>) => void;
   addAlbum: () => void;
+}
+
+export interface AlbumsState {
+  showModalAddAlbum: boolean;
+  name: string;
+  description: string;
+  beginningDate: string;
+  endDate: string;
+  albums: Array<AlbumProps>;
 }
