@@ -6,11 +6,14 @@ import AlbumForm from './Utils/Form/AlbumForm';
 import Gallery from './Utils/Photos/Gallery';
 
 const View = forwardRef(
-  ({ handleFileInput, handleDescInput, photos, submitForm }: ViewProps, ref: Ref<HTMLInputElement>) => {
+  (
+    { handleFileInput, handleDescInput, handleSelectAlbumInput, photos, submitForm, albums }: ViewProps,
+    ref: Ref<HTMLInputElement>,
+  ) => {
     return (
       <>
         <AlbumForm submitForm={submitForm}>
-          <SelectAlbumInput />
+          <SelectAlbumInput handleSelectAlbumInput={handleSelectAlbumInput} albums={albums} />
           <FileInput handleFileInput={handleFileInput} ref={ref} />
         </AlbumForm>
         <Gallery handleDescInput={handleDescInput} photos={photos}></Gallery>

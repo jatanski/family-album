@@ -1,10 +1,12 @@
-import { ReactNode, SyntheticEvent, FormEvent } from 'react';
+import { ReactNode, SyntheticEvent, FormEvent, ChangeEvent } from 'react';
 
 export interface ViewProps {
   handleFileInput: () => void;
   handleDescInput: (e: FormEvent<HTMLInputElement>) => void;
+  handleSelectAlbumInput: (e: ChangeEvent<HTMLSelectElement>) => void;
   submitForm: (e: SyntheticEvent<HTMLButtonElement>) => Promise<void>;
   photos: Array<HTMLImageElement>;
+  albums: Array<AddPhotoAlbum>;
 }
 
 export interface FormProps {
@@ -34,4 +36,11 @@ export interface handleDescInputState {
 export interface AddPhotoState {
   images: Array<HTMLImageElement>;
   desc: Array<string>;
+  albums: Array<AddPhotoAlbum>;
+  selectedAlbum: AddPhotoAlbum | {};
 }
+
+export type AddPhotoAlbum = {
+  name: string;
+  id: string;
+};

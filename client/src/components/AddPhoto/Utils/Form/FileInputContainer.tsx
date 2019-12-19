@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
-const FileInputContainer = (children: any) => (
+const FileInputContainer = ({ children }: any) => (
   <div className="input-group">
     <div className="input-group-prepend">
       <span className="input-group-text" id="inputGroupFileAddon01">

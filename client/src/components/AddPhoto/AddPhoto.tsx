@@ -1,4 +1,4 @@
-import React, { Component, createRef, SyntheticEvent, RefObject, FormEvent } from 'react';
+import React, { Component, createRef, SyntheticEvent, RefObject, FormEvent, ChangeEvent } from 'react';
 import View from './View';
 import BaseModel from '../../utils/baseModel';
 import { AddPhotoState, handleDescInputState } from './types';
@@ -7,17 +7,30 @@ class AddPhoto extends Component<{}, AddPhotoState> {
   state = {
     images: [],
     desc: [],
+    albums: [
+      { name: 'Album 1', id: '123' },
+      { name: 'Album 2', id: '234' },
+    ],
+    selectedAlbum: { name: 'Album 2', id: '234' },
   };
 
   private endpoint: string = 'image';
 
   public fileInput: RefObject<HTMLInputElement> = createRef();
 
+  componentDidMount = () => {
+    // download albums ...
+  };
+
   public handleFileInput = (): void => {
     // @ts-ignore
     const photos = Array.from(this.fileInput.current?.files);
 
     this.setState({ images: [...this.state.images, ...photos] });
+  };
+
+  public handleSelectAlbumInput = (e: ChangeEvent<HTMLSelectElement>): void => {
+    console.log(e.target.value);
   };
 
   public handleDescInput = (e: FormEvent<HTMLInputElement>): void => {
@@ -67,6 +80,9 @@ class AddPhoto extends Component<{}, AddPhotoState> {
 
     photoData.append('file', photo);
     photoData.append('description', this.state.desc[photoIndex]);
+    photoData.append('albumId', this.state.selectedAlbum.id);
+
+    console.log(photoData);
 
     return photoData;
   };
@@ -75,11 +91,13 @@ class AddPhoto extends Component<{}, AddPhotoState> {
     console.log(this.state);
     return (
       <View
+        ref={this.fileInput}
+        albums={this.state.albums}
         photos={this.state.images}
         submitForm={this.submitPhotos}
         handleFileInput={this.handleFileInput}
         handleDescInput={this.handleDescInput}
-        ref={this.fileInput}
+        handleSelectAlbumInput={this.handleSelectAlbumInput}
       ></View>
     );
   }
