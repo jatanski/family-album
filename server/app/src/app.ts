@@ -6,6 +6,7 @@ const dotenvConfigResult = dotenv.config();
 import EnvVarError from "../lib/errors/EnvVarError";
 import { LoginAPI } from "./endpoints/login/LoginAPI";
 import ImageAPI from "./endpoints/image/ImageAPI";
+import AlbumAPI from "./endpoints/album/AlbumAPI";
 if (dotenvConfigResult.error) throw dotenvConfigResult.error;
 
 console.clear();
@@ -28,6 +29,7 @@ app.use(
 );
 app.use("/login", new LoginAPI().router);
 app.use("/image", new ImageAPI().router);
+app.use("/album", new AlbumAPI().router);
 
 app.listen(PORT, () => {
 	console.log(`Listening at ${PORT} port.`);
