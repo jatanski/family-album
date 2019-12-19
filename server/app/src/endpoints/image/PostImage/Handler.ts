@@ -2,14 +2,14 @@ import { ImageDataDocument, ImageDataModel } from "../../../models/ImageData";
 import { UploadedFile } from "express-fileupload";
 import { Response, Request } from "express";
 import { ImageModel } from "../../../models/Image";
-import MiniatureCreator from "./MiniatureCreater";
+import MiniatureCreator from "./MiniatureCreator";
 import PostImageValidator from "./Validator";
 import InvalidDataError from "../../../../lib/errors/InvalidDataError";
 import PostImageErrorHandler from "./ErrorHandler";
 
 interface PostImageInput {
 	userId: ImageDataDocument["ownerId"];
-	name?: ImageDataDocument["name"];
+	albumId: ImageDataDocument["albumId"];
 	description?: ImageDataDocument["description"];
 }
 
@@ -50,14 +50,14 @@ export default class PostImageHandler {
 			contentType: this.image.mimetype
 		});
 		this.imageId = imageDocument.id;
-		const { userId: ownerId, name, description } = this.body;
+		const { userId: ownerId, description, albumId } = this.body;
 		const miniature = await this.getMiniature();
 		const imageDate = new ImageDataModel({
 			imageId: imageDocument.id.toString(),
 			miniature,
 			ownerId,
-			name,
-			description
+			description,
+			albumId
 		});
 		await imageDocument.save();
 		await imageDate.save();

@@ -1,21 +1,20 @@
 import InvalidArgumentError from "../../../../lib/errors/InvalidArgumentError";
 import { FileArray, UploadedFile } from "express-fileupload";
 
-export default class PostImageValidator {
+export default abstract class PostImageValidator {
 	static checkBody(body: any): void {
+		this.checkAlbumId(body.albumId);
 		this.checkUserId(body.userId);
 		this.checkDescription(body.description);
-		this.checkName(body.name);
+	}
+
+	private static checkAlbumId(albumId: any): void {
+		if (typeof albumId != "string") throw new InvalidArgumentError("albumId", "string", typeof albumId);
 	}
 
 	private static checkUserId(userId: any): void {
 		if (typeof userId != "string")
 			throw new InvalidArgumentError("userId", "string", typeof userId);
-	}
-
-	private static checkName(name: any): void {
-		if (this.isStringOrUndefined(name))
-			throw new InvalidArgumentError("name", "string?", typeof name);
 	}
 
 	private static checkDescription(description: any) {
