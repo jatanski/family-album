@@ -1,10 +1,11 @@
-import express, { json } from "express";
+import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 const dotenvConfigResult = dotenv.config();
 import EnvVarError from "../lib/errors/EnvVarError";
-import { LoginAPI } from "./enpoints/login/LoginAPI";
+import { LoginAPI } from "./endpoints/login/LoginAPI";
+import ImageAPI from "./endpoints/image/ImageAPI";
 if (dotenvConfigResult.error) throw dotenvConfigResult.error;
 
 console.clear();
@@ -20,13 +21,13 @@ if (MONGO_URI) {
 const PORT: string = process.env.PORT ?? "3000";
 const app = express();
 
-app.use(json());
 app.use(
 	cors({
-		exposedHeaders: "x-token"
+		exposedHeaders: ["x-token", "Content-Type"]
 	})
 );
 app.use("/login", new LoginAPI().router);
+app.use("/image", new ImageAPI().router);
 
 app.listen(PORT, () => {
 	console.log(`Listening at ${PORT} port.`);

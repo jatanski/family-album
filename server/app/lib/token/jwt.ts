@@ -4,6 +4,8 @@ import EnvVarError from "../errors/EnvVarError";
 const secret = process.env.JWT_SECRET;
 if (!secret) throw new EnvVarError("JWT_SECRET");
 
+export type tokenType = string | { [propName: string]: any };;
+
 export default abstract class jwt {
 	private static secret = secret!;
 
@@ -11,7 +13,7 @@ export default abstract class jwt {
 		return jsonwebtoken.sign(payload, this.secret);
 	}
 
-	static verify(token: string): string | object {
+	static verify(token: string): tokenType {
 		try {
 			return jsonwebtoken.verify(token, this.secret);
 		} catch (error) {
@@ -19,7 +21,7 @@ export default abstract class jwt {
 		}
 	}
 
-	static decode(token: string): string | { [propName: string]: any } | null {
+	static decode(token: string): tokenType | null {
 		return jsonwebtoken.decode(token);
 	}
 }

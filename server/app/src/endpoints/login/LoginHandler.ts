@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import jwt from "../../../lib/token/jwt";
 import EmptyQueryError from "../../../lib/errors/EmptyQueryError";
 import InvalidArgumentError from "../../../lib/errors/InvalidArgumentError";
-import AuthError from "../../../lib/errors/AuthError";
+import LoginError from "../../../lib/errors/LoginError";
 import LoginErrorHandler from "./LoginErrorHandler";
 
 interface LoginInput {
@@ -17,6 +17,15 @@ export default class LoginHandler {
 	private res: Response;
 	private body: LoginInput;
 	private userFromDB: UserDocument = {} as UserDocument;
+
+	static callback = async (req: Request, res: Response) => {
+		try {
+			await new LoginHandler(req, res).handle();
+		} catch (error) {
+			LoginErrorHandler.handleErrorAndSendFailure(error, res);
+		}
+
+	};
 
 	private constructor(req: Request, res: Response) {
 		this.res = res;
@@ -34,23 +43,10 @@ export default class LoginHandler {
 		throw new InvalidArgumentError(varName, "string", typeof variable);
 	}
 
-	static callback = async (req: Request, res: Response) => {
-		const handler = new LoginHandler(req, res);
-		await handler.handle();
-	};
-
 	private async handle() {
-		try {
-			await this.tryLoggingIn();
-		} catch (error) {
-			LoginErrorHandler.handleErrorAndSendFailure(error, this.res);
-		}
-	}
-
-	private async tryLoggingIn(): Promise<void> {
 		await this.findUser();
 		if (await this.arePasswordMatching()) this.sendSuccess();
-		else throw new AuthError();
+		else throw new LoginError();
 	}
 
 	private async findUser(): Promise<void> {
