@@ -55,10 +55,10 @@ export default class ImageAPI {
 			.equals(id)
 			.select("-miniature");
 		if (imageData) {
-			const { name, description } = imageData;
+			const { description, imageId } = imageData;
 			res.status(200).send({
-				name,
-				description
+				description,
+				imageId
 			});
 		} else {
 			res.status(404).send("There is no image with provided id.");
