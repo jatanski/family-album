@@ -6,7 +6,7 @@ class BaseModel {
   }
 
   public static saveAuthToken = (token: string) => {
-    localStorage.setItem('x-auth-token', token);
+    localStorage.setItem('token', token);
   };
 
   public static saveToLocalStorage(where: string, what: string) {
@@ -18,12 +18,12 @@ class BaseModel {
   };
 
   public static getAuthToken() {
-    return localStorage.getItem('x-auth-token');
+    return localStorage.getItem('token');
   }
 
   public static onLogout() {
     localStorage.removeItem('user');
-    localStorage.removeItem('x-auth-token');
+    localStorage.removeItem('token');
   }
 }
 

@@ -1,21 +1,21 @@
-import React, { FormEvent, useState, SyntheticEvent } from 'react';
+import React, { FormEvent, useState, SyntheticEvent, FC } from 'react';
+import { useHistory } from 'react-router-dom';
+import BaseModel from '../../../utils/baseModel';
 import View from './View';
 import { Props } from './types';
-import BaseModel from '../../../utils/baseModel';
-import { useHistory } from 'react-router-dom';
 
-const Login = ({ toggleForm }: Props) => {
+const Login: FC<Props> = ({ toggleForm }) => {
   const [loginValue, setLoginValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
 
   const history = useHistory();
 
-  const endpoint = 'login';
+  const endpoint: string = 'login';
 
-  const handleEmailInputChange = (e: FormEvent<HTMLInputElement>) => setLoginValue(e.currentTarget.value);
-  const handlePasswordInputChange = (e: FormEvent<HTMLInputElement>) => setPasswordValue(e.currentTarget.value);
+  const handleEmailInputChange = (e: FormEvent<HTMLInputElement>): void => setLoginValue(e.currentTarget.value);
+  const handlePasswordInputChange = (e: FormEvent<HTMLInputElement>): void => setPasswordValue(e.currentTarget.value);
 
-  const submitLogin = async (e: SyntheticEvent<HTMLButtonElement>) => {
+  const submitLogin = async (e: SyntheticEvent<HTMLButtonElement>): Promise<void> => {
     e.preventDefault();
 
     try {
@@ -30,12 +30,17 @@ const Login = ({ toggleForm }: Props) => {
         body: JSON.stringify(loginData),
       });
 
-      const token = response.headers.get('x-auth-token');
+      const responseData = await response.json();
 
-      if (token) BaseModel.saveAuthToken(token);
-
-      history.push('/dashboard');
-      console.log('Loguje...');
+      if (response.status === 200) {
+        BaseModel.saveAuthToken(responseData.token);
+        history.push('/dashboard');
+        console.log('Loguje...');
+      } else {
+        setLoginValue('');
+        setPasswordValue('');
+        alert('Niepoprawny email lub hasło.');
+      }
     } catch (error) {
       console.error(error);
     }
@@ -43,6 +48,8 @@ const Login = ({ toggleForm }: Props) => {
 
   return (
     <View
+      loginValue={loginValue}
+      passwordValue={passwordValue}
       toggleForm={toggleForm}
       handleEmailInput={handleEmailInputChange}
       handlePasswordInput={handlePasswordInputChange}
