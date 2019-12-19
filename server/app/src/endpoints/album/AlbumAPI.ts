@@ -9,11 +9,28 @@ export default class AlbumAPI {
 
 	constructor() {
 		this.router.post("/", json(), Auth.middleware, PostAlbumHandler.callback);
+		this.router.get("/", this.getAllAlbumsCallback);
+		this.router.get("/user/:userId", this.getAllUserAlbumsCallback);
 		this.router.get("/:albumId", this.getAlbumCallback);
 		this.router.get("/:albumId/cover", this.getAlbumCoverCallback);
 		this.router.get("/:albumId/info", this.getAlbumInfoCallback);
 		this.router.get("/:albumId/images", this.getAlbumImagesCallback);
 	}
+
+	private getAllAlbumsCallback = async (_req: Request, res: Response) => {
+		const albumDocuments = await AlbumModel.find();
+		const albums = albumDocuments.map(document => document.toSerializableObject());
+		res.status(200).send(albums);
+	};
+
+	private getAllUserAlbumsCallback = async (req: Request, res: Response) => {
+		const { userId } = req.params;
+		const albumDocuments = await AlbumModel.find()
+			.where("authorsId")
+			.elemMatch({ $eq: userId });
+		const albums = albumDocuments.map(document => document.toSerializableObject());
+		res.status(200).send(albums);
+	};
 
 	private getAlbumCallback = async (req: Request, res: Response) => {
 		const { albumId } = req.params;
@@ -24,15 +41,9 @@ export default class AlbumAPI {
 				.equals(albumId)
 				.select("imageId");
 			const images = imageDocuments.map(document => document.imageId);
-			const { name, description, beginningDate, endDate, authorsId } = album;
 			res.status(200).send({
-				name,
-				description,
-				beginningDate: beginningDate?.getTime(),
-				endDate: endDate?.getTime(),
-				authorsId,
-				images,
-				albumId
+				...album.toSerializableObject(),
+				images
 			});
 		} else {
 			res.status(404).send("There is no album with provided id.");
@@ -58,17 +69,8 @@ export default class AlbumAPI {
 	private getAlbumInfoCallback = async (req: Request, res: Response) => {
 		const { albumId } = req.params;
 		const album = await AlbumModel.findById(albumId);
-		if (album) {
-			const { name, description, beginningDate, endDate, authorsId } = album;
-			res.status(200).send({
-				name,
-				description,
-				beginningDate: beginningDate?.getTime(),
-				endDate: endDate?.getTime(),
-				authorsId,
-				albumId
-			});
-		}
+		if (album) res.status(200).send(album.toSerializableObject());
+		else res.status(404).send("There is no album with provided id.");
 	};
 
 	private getAlbumImagesCallback = async (req: Request, res: Response) => {
