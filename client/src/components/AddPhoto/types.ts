@@ -39,6 +39,7 @@ export interface AddPhotoState {
   desc: Array<string>;
   albums: Array<AlbumType>;
   selectedAlbum: string;
+  sendedImages: number;
 }
 
 export type AddPhotoAlbum = {

@@ -14,9 +14,10 @@ class AddPhoto extends Component<{}, AddPhotoState> {
     desc: [],
     albums: [],
     selectedAlbum: '',
+    sendedImages: 0,
   };
 
-  componentDidMount = () => {
+  public componentDidMount = () => {
     this.saveDownloadAlbumsToState();
   };
 
@@ -25,14 +26,23 @@ class AddPhoto extends Component<{}, AddPhotoState> {
     this.setState({ albums: albums });
   };
 
+  public componentDidUpdate = (prevState: AddPhotoState): void => {
+    if (prevState.sendedImages !== this.state.sendedImages) this.clearImagesInStateAfterSendToServer();
+  };
+
+  private clearImagesInStateAfterSendToServer = (): void => {
+    if (this.state.sendedImages === this.state.images.length && this.state.images.length !== 0) {
+      this.setState({ images: [], desc: [] });
+    }
+  };
+  public handleSelectAlbumInput = (e: ChangeEvent<HTMLSelectElement>): void =>
+    this.setState({ selectedAlbum: e.target.value });
+
   public handleFileInput = (): void => {
     // @ts-ignore
     const photos = Array.from(this.fileInput.current?.files);
     this.setState({ images: [...this.state.images, ...photos] });
   };
-
-  public handleSelectAlbumInput = (e: ChangeEvent<HTMLSelectElement>): void =>
-    this.setState({ selectedAlbum: e.target.value });
 
   public handleDescInput = (e: FormEvent<HTMLInputElement>): void => {
     const imageIndex: number = parseInt(e.currentTarget.id);
@@ -66,7 +76,10 @@ class AddPhoto extends Component<{}, AddPhotoState> {
           body: photoData,
         });
 
-        if (response.status === 200) console.log(`Zdjęcie numer ${photoIndex} zostało wysłane.`);
+        if (response.status === 200) {
+          this.setState({ sendedImages: this.state.sendedImages + 1 });
+          console.log(`Zdjęcie numer ${photoIndex} zostało wysłane.`);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -80,13 +93,10 @@ class AddPhoto extends Component<{}, AddPhotoState> {
     photoData.append('description', this.state.desc[photoIndex]);
     photoData.append('albumId', this.state.selectedAlbum);
 
-    console.log(photoData);
-
     return photoData;
   };
 
   render() {
-    console.log(this.state);
     return (
       <View
         ref={this.fileInput}

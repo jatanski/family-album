@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from 'react';
-import { AddPhotoAlbum } from '../../types';
 import { AlbumType } from '../../../Albums/types';
 
 type SelectAlbumInputProps = {
@@ -9,6 +8,7 @@ type SelectAlbumInputProps = {
 
 const SelectAlbumInput = ({ albums, handleSelectAlbumInput }: SelectAlbumInputProps) => (
   <select onChange={handleSelectAlbumInput} className="browser-default custom-select">
+    <option>Wybierz album</option>
     {albums.map((album, i) => (
       <option key={i} value={album._id}>
         {album.name}
