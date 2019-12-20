@@ -6,6 +6,13 @@ export interface AlbumDocument extends Document {
 	description: string;
 	beginningDate?: Date;
 	endDate?: Date;
+	toSerializableObject(): {
+		name: string;
+		authorsId: string[];
+		description: string;
+		beginningDate?: number;
+		endDate?: number;
+	};
 }
 
 export const AlbumSchema = new Schema({
@@ -24,5 +31,17 @@ export const AlbumSchema = new Schema({
 		required: true
 	}
 });
+
+AlbumSchema.methods.toSerializableObject = function toSerializableObject(this: AlbumDocument) {
+	const { name, description, beginningDate, endDate, authorsId, _id } = this;
+	return {
+		name,
+		description,
+		beginningDate: beginningDate?.getTime(),
+		endDate: endDate?.getTime(),
+		authorsId,
+		_id: _id?.toString()
+	};
+};
 
 export const AlbumModel = model<AlbumDocument>("Album", AlbumSchema);
