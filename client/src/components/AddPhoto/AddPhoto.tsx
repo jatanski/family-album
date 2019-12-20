@@ -2,44 +2,42 @@ import React, { Component, createRef, SyntheticEvent, RefObject, FormEvent, Chan
 import View from './View';
 import BaseModel from '../../utils/baseModel';
 import { AddPhotoState, handleDescInputState } from './types';
+import AlbumService from '../Albums/albums.service';
 
 class AddPhoto extends Component<{}, AddPhotoState> {
+  readonly albumService = new AlbumService();
+  private endpoint: string = 'image';
+  public fileInput: RefObject<HTMLInputElement> = createRef();
+
   state = {
     images: [],
     desc: [],
-    albums: [
-      { name: 'Album 1', id: '123' },
-      { name: 'Album 2', id: '234' },
-    ],
-    selectedAlbum: { name: 'Album 2', id: '234' },
+    albums: [],
+    selectedAlbum: '',
   };
 
-  private endpoint: string = 'image';
-
-  public fileInput: RefObject<HTMLInputElement> = createRef();
-
   componentDidMount = () => {
-    // download albums ...
+    this.saveDownloadAlbumsToState();
+  };
+
+  private saveDownloadAlbumsToState = async (): Promise<void> => {
+    const albums = await this.albumService.downloadAllAlbums();
+    this.setState({ albums: albums });
   };
 
   public handleFileInput = (): void => {
     // @ts-ignore
     const photos = Array.from(this.fileInput.current?.files);
-
     this.setState({ images: [...this.state.images, ...photos] });
   };
 
-  public handleSelectAlbumInput = (e: ChangeEvent<HTMLSelectElement>): void => {
-    console.log(e.target.value);
-  };
+  public handleSelectAlbumInput = (e: ChangeEvent<HTMLSelectElement>): void =>
+    this.setState({ selectedAlbum: e.target.value });
 
   public handleDescInput = (e: FormEvent<HTMLInputElement>): void => {
     const imageIndex: number = parseInt(e.currentTarget.id);
 
-    const state: handleDescInputState = {
-      desc: this.state.desc,
-    };
-
+    const state: handleDescInputState = { desc: this.state.desc };
     state.desc[imageIndex] = e.currentTarget.value;
     this.setState(state);
   };
@@ -80,7 +78,7 @@ class AddPhoto extends Component<{}, AddPhotoState> {
 
     photoData.append('file', photo);
     photoData.append('description', this.state.desc[photoIndex]);
-    photoData.append('albumId', this.state.selectedAlbum.id);
+    photoData.append('albumId', this.state.selectedAlbum);
 
     console.log(photoData);
 

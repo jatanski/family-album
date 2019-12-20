@@ -4,5 +4,9 @@
 
   &--el {
     margin: 2vh 0;
+
+    &--buttons {
+      display: flex;
+    }
   }
 }

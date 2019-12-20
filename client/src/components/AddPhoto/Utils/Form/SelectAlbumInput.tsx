@@ -1,15 +1,16 @@
 import React, { ChangeEvent } from 'react';
 import { AddPhotoAlbum } from '../../types';
+import { AlbumType } from '../../../Albums/types';
 
 type SelectAlbumInputProps = {
-  albums: Array<AddPhotoAlbum>;
+  albums: Array<AlbumType>;
   handleSelectAlbumInput: (e: ChangeEvent<HTMLSelectElement>) => void;
 };
 
 const SelectAlbumInput = ({ albums, handleSelectAlbumInput }: SelectAlbumInputProps) => (
   <select onChange={handleSelectAlbumInput} className="browser-default custom-select">
     {albums.map((album, i) => (
-      <option key={i} value={album.id}>
+      <option key={i} value={album._id}>
         {album.name}
       </option>
     ))}
