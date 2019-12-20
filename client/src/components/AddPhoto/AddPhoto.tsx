@@ -1,10 +1,12 @@
 import React, { Component, createRef, SyntheticEvent, RefObject, FormEvent, ChangeEvent } from 'react';
+import { connect } from 'react-redux';
+import { AppState } from '../../redux/reducers';
 import View from './View';
 import BaseModel from '../../utils/baseModel';
 import { AddPhotoState, handleDescInputState } from './types';
 import AlbumService from '../Albums/albums.service';
 
-class AddPhoto extends Component<{}, AddPhotoState> {
+class AddPhoto extends Component<any, AddPhotoState> {
   readonly albumService = new AlbumService();
   private endpoint: string = 'image';
   public fileInput: RefObject<HTMLInputElement> = createRef();
@@ -17,8 +19,9 @@ class AddPhoto extends Component<{}, AddPhotoState> {
     sendedImages: 0,
   };
 
-  public componentDidMount = () => {
+  componentDidMount = () => {
     this.saveDownloadAlbumsToState();
+    this.setSelectedAlbum();
   };
 
   private saveDownloadAlbumsToState = async (): Promise<void> => {
@@ -26,7 +29,13 @@ class AddPhoto extends Component<{}, AddPhotoState> {
     this.setState({ albums: albums });
   };
 
-  public componentDidUpdate = (prevState: AddPhotoState): void => {
+  private setSelectedAlbum = () => {
+    const selectedAlbum = this.props.album.album;
+
+    this.setState({ selectedAlbum: this.props.album.album });
+  };
+
+  componentDidUpdate = (prevState: AddPhotoState): void => {
     if (prevState.sendedImages !== this.state.sendedImages) this.clearImagesInStateAfterSendToServer();
   };
 
@@ -102,6 +111,7 @@ class AddPhoto extends Component<{}, AddPhotoState> {
         ref={this.fileInput}
         albums={this.state.albums}
         photos={this.state.images}
+        selectedAlbum={this.state.selectedAlbum}
         submitForm={this.submitPhotos}
         handleFileInput={this.handleFileInput}
         handleDescInput={this.handleDescInput}
@@ -111,4 +121,8 @@ class AddPhoto extends Component<{}, AddPhotoState> {
   }
 }
 
-export default AddPhoto;
+const mapStateToProps = (state: AppState) => ({
+  album: state.album,
+});
+
+export default connect(mapStateToProps, {})(AddPhoto);

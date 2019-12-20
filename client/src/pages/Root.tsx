@@ -7,19 +7,23 @@ import LandingPage from './LandingPage';
 import Albums from './Albums';
 import AddPhoto from './AddPhoto';
 import WatchPhotos from './WatchPhotos';
+import { Provider } from 'react-redux';
+import { store } from '../redux/store';
 
 const Root: FC = () => (
-  <BrowserRouter>
-    <Navigation />
-    <Switch>
-      <Route exact path="/" component={LandingPage} />
-      <Route path="/login" component={SignInAndSignUp} />
-      <Route path="/dashboard" component={Dashboard} />
-      <Route path="/albums" component={Albums} />
-      <Route path="/add" component={AddPhoto} />
-      <Route path="/photos" component={WatchPhotos} />
-    </Switch>
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <Navigation />
+      <Switch>
+        <Route exact path="/" component={LandingPage} />
+        <Route path="/login" component={SignInAndSignUp} />
+        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/albums" component={Albums} />
+        <Route path="/add" component={AddPhoto} />
+        <Route path="/photos" component={WatchPhotos} />
+      </Switch>
+    </BrowserRouter>
+  </Provider>
 );
 
 export default Root;

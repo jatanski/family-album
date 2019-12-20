@@ -1,4 +1,4 @@
-import { FormEvent } from 'react';
+import { FormEvent, SyntheticEvent } from 'react';
 
 export interface AlbumType {
   name: string;
@@ -9,12 +9,23 @@ export interface AlbumType {
   authorId?: Array<string>;
 }
 
+export interface AlbumTypeAndSetAlbum extends AlbumType {
+  name: string;
+  description: string;
+  beginningDate: number | string | Date;
+  endDate: number | string;
+  _id?: string;
+  authorId?: Array<string>;
+  setAlbum: (e: SyntheticEvent<HTMLButtonElement>) => void;
+}
+
 export interface AlbumViewProps {
   albumsArr: Array<AlbumType>;
   toggleShowModal: () => void;
   showModalAddAlbum: boolean;
   handleInputChange: (e: FormEvent<HTMLInputElement>) => void;
   addAlbum: () => void;
+  setAlbum: (e: SyntheticEvent<HTMLButtonElement>) => void;
 }
 
 export interface AddAlbumModalProps {

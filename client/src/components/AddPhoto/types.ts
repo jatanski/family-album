@@ -8,6 +8,7 @@ export interface ViewProps {
   submitForm: (e: SyntheticEvent<HTMLButtonElement>) => Promise<void>;
   photos: Array<HTMLImageElement>;
   albums: Array<AlbumType>;
+  selectedAlbum: string;
 }
 
 export interface FormProps {
@@ -45,4 +46,10 @@ export interface AddPhotoState {
 export type AddPhotoAlbum = {
   name: string;
   id: string;
+};
+
+export type SelectAlbumInputProps = {
+  albums: Array<AlbumType>;
+  handleSelectAlbumInput: (e: ChangeEvent<HTMLSelectElement>) => void;
+  selectedAlbum: string;
 };

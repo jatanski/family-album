@@ -6,8 +6,14 @@ import Portal from '../Utils/Portal';
 import Album from './Albums.utils/Albums.album';
 import AddNewAlbum from './Albums.utils/AddNewAlbum/AddNewAlbum';
 
-const View: FC<AlbumViewProps> = ({ albumsArr, toggleShowModal, showModalAddAlbum, handleInputChange, addAlbum }) => {
-  console.log(albumsArr);
+const View: FC<AlbumViewProps> = ({
+  albumsArr,
+  toggleShowModal,
+  showModalAddAlbum,
+  handleInputChange,
+  addAlbum,
+  setAlbum,
+}) => {
   return (
     <>
       <div className="albums__addButton">
@@ -17,7 +23,9 @@ const View: FC<AlbumViewProps> = ({ albumsArr, toggleShowModal, showModalAddAlbu
       </div>
       <div className="albums__wrap">
         <div className="albums__wrap--newAlbumButton"></div>
-        {albumsArr ? albumsArr.map((album: AlbumType, index) => <Album key={index} {...album}></Album>) : null}
+        {albumsArr
+          ? albumsArr.map((album: AlbumType, index) => <Album key={index} {...album} setAlbum={setAlbum}></Album>)
+          : null}
       </div>
       <Portal>
         <AddNewAlbum

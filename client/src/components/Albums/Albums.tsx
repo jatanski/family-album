@@ -1,7 +1,8 @@
-import React, { Component, FormEvent } from 'react';
+import React, { Component, FormEvent, SyntheticEvent } from 'react';
 import View from './View';
 import { AlbumsState } from './types';
 import AlbumService from './albums.service';
+import { allActions } from '../../redux/store';
 
 class Albums extends Component<{}, AlbumsState> {
   startState = {
@@ -53,6 +54,10 @@ class Albums extends Component<{}, AlbumsState> {
     }
   };
 
+  public setAlbum = (e: SyntheticEvent<HTMLButtonElement>): void => {
+    allActions.setAlbum(e.currentTarget.id);
+  };
+
   render() {
     return (
       <View
@@ -61,6 +66,7 @@ class Albums extends Component<{}, AlbumsState> {
         toggleShowModal={this.toggleShowModal}
         albumsArr={this.state.albums}
         addAlbum={this.addAlbum}
+        setAlbum={this.setAlbum}
       />
     );
   }
