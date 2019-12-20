@@ -7,21 +7,17 @@ import LandingPage from './LandingPage';
 import Albums from './Albums';
 import AddPhoto from './AddPhoto';
 
-const Root: FC = () => {
-  return (
-    <>
-      <BrowserRouter>
-        <Navigation />
-        <Switch>
-          <Route exact path="/" component={LandingPage}></Route>
-          <Route path="/login" component={SignInAndSignUp}></Route>
-          <Route path="/dashboard" component={Dashboard}></Route>
-          <Route path="/albums" component={Albums}></Route>
-          <Route path="/add" component={AddPhoto}></Route>
-        </Switch>
-      </BrowserRouter>
-    </>
-  );
-};
+const Root: FC = () => (
+  <BrowserRouter>
+    <Navigation />
+    <Switch>
+      <Route exact path="/" component={LandingPage}></Route>
+      <Route path="/login" component={SignInAndSignUp}></Route>
+      <Route path="/dashboard" component={Dashboard}></Route>
+      <Route path="/albums" component={Albums}></Route>
+      <Route path="/add" component={AddPhoto}></Route>
+    </Switch>
+  </BrowserRouter>
+);
 
 export default Root;

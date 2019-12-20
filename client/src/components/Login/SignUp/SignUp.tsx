@@ -1,9 +1,8 @@
 import React, { useState, FormEvent, SyntheticEvent, FC } from 'react';
 import { useHistory } from 'react-router-dom';
-
-import View from './View';
 import { Props } from './types';
 import BaseModel from '../../../utils/baseModel';
+import View from './View';
 
 const SignUp: FC<Props> = ({ toggleForm }) => {
   const [loginValue, setLoginValue] = useState('');
