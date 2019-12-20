@@ -1,6 +1,6 @@
 import { FormEvent, SyntheticEvent } from 'react';
 
-export type Props = {
+export type LoginViewProps = {
   loginValue?: string;
   passwordValue?: string;
   toggleForm: () => void;

@@ -1,12 +1,12 @@
 import ReactDOM from 'react-dom';
 import { ReactNode } from 'react';
 
-const portalRoot: any = document.getElementById('portal');
-
-type Props = {
+type PortalProps = {
   children: ReactNode;
 };
 
-const Portal = ({ children }: Props) => ReactDOM.createPortal(children, portalRoot);
+const portalRoot: any = document.getElementById('portal');
+
+const Portal = ({ children }: PortalProps) => ReactDOM.createPortal(children, portalRoot);
 
 export default Portal;

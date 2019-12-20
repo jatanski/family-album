@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol } from 'mdbreact';
-import { AlbumProps } from '../types';
+import { AlbumType } from '../types';
 
-const Album: FC<AlbumProps> = ({ name, description, beginningDate, endDate }) => {
+const Album: FC<AlbumType> = ({ name, description, beginningDate, endDate }) => {
   return (
     <div className="albums__wrap--el">
       <MDBCol>
