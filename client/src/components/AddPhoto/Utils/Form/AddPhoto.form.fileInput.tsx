@@ -1,6 +1,6 @@
 import React, { forwardRef, Ref } from 'react';
-import { FormProps } from '../../types';
-import FileInputContainer from './FileInputContainer';
+import { FormProps } from '../../AddPhoto.types';
+import FileInputContainer from './AddPhoto.form.fileInputContainer';
 
 const FileInput = forwardRef(({ handleFileInput }: FormProps, ref: Ref<HTMLInputElement>) => (
   <FileInputContainer>

@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
+import Main from '../components/Miniatures/Miniatures';
 
 const Miniatures: FC = () => (
   <section className="miniatures">
-    <p>Miniatures</p>
+    <Main />
   </section>
 );
 

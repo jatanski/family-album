@@ -8,6 +8,7 @@ export interface AlbumType {
   _id?: string;
   authorId?: Array<string>;
   children?: ReactNode;
+  images?: Array<string>;
 }
 
 export interface AlbumTypeAndSetAlbum extends AlbumType {

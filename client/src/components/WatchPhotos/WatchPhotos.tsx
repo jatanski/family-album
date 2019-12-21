@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import View from './View';
+import React, { Component, SyntheticEvent } from 'react';
+import View from './WatchPhotos.view';
 import AlbumService from '../Albums/albums.service';
+import BaseModel from '../../utils/baseModel';
 
-export default class Photos extends Component {
+export default class WatchPhotos extends Component {
   albumService = new AlbumService();
 
   state = {
@@ -19,7 +20,9 @@ export default class Photos extends Component {
     this.setState({ albums: albums });
   };
 
+  setSelectedAlbum = (e: SyntheticEvent<HTMLButtonElement>) => BaseModel.setSelectedAlbum(e);
+
   render() {
-    return <View albums={this.state.albums}></View>;
+    return <View setSelectedAlbum={this.setSelectedAlbum} albums={this.state.albums}></View>;
   }
 }

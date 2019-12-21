@@ -1,10 +1,17 @@
-import SET_ALBUM from './types';
+import types from './types';
+import { AlbumType } from '../../../components/Albums/Album.types';
 
-const setAlbum = (item: string) => ({
-  type: SET_ALBUM,
+const setSelectedAlbum = (item: string) => ({
+  type: types.SET_SELECTED_ALBUM,
+  item,
+});
+
+const saveAlbums = (item: AlbumType) => ({
+  type: types.SAVE_ALBUMS,
   item,
 });
 
 export default {
-  setAlbum,
+  setSelectedAlbum,
+  saveAlbums,
 };

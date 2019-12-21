@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { AlbumTypeAndSetAlbum } from '../types';
+import { AlbumTypeAndSetAlbum } from '../Album.types';
 import AlbumMain from '../../Utils/AlbumMain';
 import AlbumButtons from './Album.buttons';
 

@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { MDBBtn, MDBJumbotron } from 'mdbreact';
-import { AlbumViewProps, AlbumType } from './types';
+import { AlbumViewProps, AlbumType } from './Album.types';
 import './albums.scss';
 import Portal from '../Utils/Portal';
 import Album from './Albums.utils/Albums.album';
-import AddNewAlbum from './Albums.utils/AddNewAlbum/AddNewAlbum';
+import AddNewAlbum from './Albums.utils/AddNewAlbum/Albums.addNewAlbum';
 
 const View: FC<AlbumViewProps> = ({
   albumsArr,

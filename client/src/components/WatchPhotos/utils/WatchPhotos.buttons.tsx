@@ -1,12 +1,13 @@
 import React from 'react';
 import { MDBBtn } from 'mdbreact';
 import { Link } from 'react-router-dom';
+import { WatchPhotosAlbumButtonsProps } from '../WatchPhotos.types';
 
-const WatchPhotosAlbumButtons = () => {
+const WatchPhotosAlbumButtons = ({ setSelectedAlbum, id }: WatchPhotosAlbumButtonsProps) => {
   return (
     <div className="albums__wrap--el--buttons">
       <Link to="miniatures">
-        <MDBBtn color="red" size="sm">
+        <MDBBtn id={id} onClick={setSelectedAlbum} color="red" size="sm">
           Zobasz wszystkie
         </MDBBtn>
       </Link>

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol } from 'mdbreact';
-import { AlbumType } from '../Albums/types';
+import { AlbumType } from '../Albums/Album.types';
 
 const Album: FC<AlbumType> = ({ name, description, beginningDate, endDate, children }) => (
   <div className="albums__wrap--el">

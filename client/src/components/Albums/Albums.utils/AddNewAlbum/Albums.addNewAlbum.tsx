@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { MDBModal, MDBModalBody, MDBModalHeader } from 'mdbreact';
-import { AddAlbumModalProps } from '../../types';
-import Form from './Form';
+import { AddAlbumModalProps } from '../../Album.types';
+import Form from './Albums.addNewAlbum.form';
 
 const AddNewAlbum: FC<AddAlbumModalProps> = props => {
   const { show, toggle } = props;

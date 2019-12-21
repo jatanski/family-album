@@ -1,7 +1,7 @@
 import React from 'react';
 
-const AddPhoto = () => {
+const Dashboard = () => {
   return <p>AddPhoto</p>;
 };
 
-export default AddPhoto;
+export default Dashboard;

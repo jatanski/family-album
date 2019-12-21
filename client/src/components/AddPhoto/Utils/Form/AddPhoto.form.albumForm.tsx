@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlbumFormProps } from '../../types';
+import { AlbumFormProps } from '../../AddPhoto.types';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 
 const AlbumForm = ({ children, submitForm }: AlbumFormProps) => (

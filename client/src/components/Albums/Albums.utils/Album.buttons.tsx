@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { MDBBtn } from 'mdbreact';
-import { AlbumTypeAndSetAlbum } from '../types';
+import { AlbumTypeAndSetAlbum } from '../Album.types';
 import { Link } from 'react-router-dom';
 
 const AlbumButtons: FC<AlbumTypeAndSetAlbum> = ({ setAlbum, _id }) => (

@@ -1,9 +1,9 @@
 import React, { forwardRef, Ref } from 'react';
-import { ViewProps } from './types';
-import FileInput from './Utils/Form/FileInput';
-import SelectAlbumInput from './Utils/Form/SelectAlbumInput';
-import AlbumForm from './Utils/Form/AlbumForm';
-import Gallery from './Utils/Photos/Gallery';
+import { ViewProps } from './AddPhoto.types';
+import FileInput from './Utils/Form/AddPhoto.Form.fileInput';
+import SelectAlbumInput from './Utils/Form/AddPhoto.form.selectAlbumInput';
+import AlbumForm from './Utils/Form/AddPhoto.form.albumForm';
+import Gallery from './Utils/Photos/AddPhoto.photos.gallery';
 
 const View = forwardRef(
   (

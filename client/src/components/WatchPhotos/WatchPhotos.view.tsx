@@ -1,14 +1,14 @@
 import React from 'react';
-import { WatchPhotoProps } from './types';
+import { WatchPhotoProps } from './WatchPhotos.types';
 import AlbumMain from '../Utils/AlbumMain';
 import AlbumButtons from './utils/WatchPhotos.buttons';
 
-const View = ({ albums }: WatchPhotoProps) => (
+const View = ({ albums, setSelectedAlbum }: WatchPhotoProps) => (
   <>
     {albums
       ? albums.map(album => (
           <AlbumMain key={album._id} {...album}>
-            <AlbumButtons />
+            <AlbumButtons id={album._id} setSelectedAlbum={setSelectedAlbum} />
           </AlbumMain>
         ))
       : null}

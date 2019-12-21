@@ -1,6 +1,6 @@
 import React from 'react';
-import PhotoToAdd from './PhotoToAdd';
-import { GalleryPropsI } from '../../types';
+import PhotoToAdd from './AddPhoto.photos.photoToAdd';
+import { GalleryPropsI } from '../../AddPhoto.types';
 
 const Gallery = ({ photos, handleDescInput }: GalleryPropsI) => {
   return photos.map((photo: HTMLImageElement, i: number) => {

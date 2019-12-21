@@ -8,7 +8,8 @@ const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk
 
 const allActions = bindActionCreators(
   {
-    setAlbum: albumActions.setAlbum,
+    setAlbum: albumActions.setSelectedAlbum,
+    saveAllAlbums: albumActions.saveAlbums,
   },
   store.dispatch,
 );

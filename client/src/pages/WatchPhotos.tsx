@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import Photos from '../components/WatchPhotos/Photos';
+import Main from '../components/WatchPhotos/WatchPhotos';
 
 const WatchPhotos: FC = () => (
   <section className="watchPhotos">
-    <Photos />
+    <Main />
   </section>
 );
 

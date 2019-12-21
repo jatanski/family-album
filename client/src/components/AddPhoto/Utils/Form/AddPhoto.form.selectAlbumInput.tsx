@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { SelectAlbumInputProps } from '../../types';
+import { SelectAlbumInputProps } from '../../AddPhoto.types';
 
 const SelectAlbumInput: FC<SelectAlbumInputProps> = ({ albums, handleSelectAlbumInput, selectedAlbum }) => (
   <select value={selectedAlbum} onChange={handleSelectAlbumInput} className="browser-default custom-select">

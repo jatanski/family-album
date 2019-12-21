@@ -1,10 +1,10 @@
 import React, { Component, createRef, SyntheticEvent, RefObject, FormEvent, ChangeEvent } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../../redux/reducers';
-import View from './View';
+import View from './AddPhoto.view';
 import BaseModel from '../../utils/baseModel';
-import { AddPhotoState, handleDescInputState } from './types';
-import AlbumService from '../Albums/albums.service';
+import { AddPhotoState, handleDescInputState } from './AddPhoto.types';
+import AlbumService from '../Albums/Albums.service';
 
 class AddPhoto extends Component<any, AddPhotoState> {
   readonly albumService = new AlbumService();
@@ -30,7 +30,7 @@ class AddPhoto extends Component<any, AddPhotoState> {
   };
 
   private setSelectedAlbum = () => {
-    const selectedAlbum = this.props.album.album;
+    const selectedAlbum = this.props.album;
 
     this.setState({ selectedAlbum: selectedAlbum });
   };
@@ -106,6 +106,7 @@ class AddPhoto extends Component<any, AddPhotoState> {
   };
 
   render() {
+    console.log(this.props);
     return (
       <View
         ref={this.fileInput}
@@ -122,7 +123,7 @@ class AddPhoto extends Component<any, AddPhotoState> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-  album: state.album,
+  album: state.album.selectedAlbum,
 });
 
 export default connect(mapStateToProps, {})(AddPhoto);

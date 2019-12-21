@@ -1,8 +1,8 @@
 import React, { Component, FormEvent, SyntheticEvent } from 'react';
-import View from './View';
-import { AlbumsState } from './types';
+import { AlbumsState } from './Album.types';
 import AlbumService from './albums.service';
-import { allActions } from '../../redux/store';
+import BaseModel from '../../utils/baseModel';
+import View from './Albums.view';
 
 class Albums extends Component<{}, AlbumsState> {
   startState = {
@@ -54,9 +54,7 @@ class Albums extends Component<{}, AlbumsState> {
     }
   };
 
-  public setAlbum = (e: SyntheticEvent<HTMLButtonElement>): void => {
-    allActions.setAlbum(e.currentTarget.id);
-  };
+  public setSelectedAlbum = (e: SyntheticEvent<HTMLButtonElement>) => BaseModel.setSelectedAlbum(e);
 
   render() {
     return (
@@ -66,7 +64,7 @@ class Albums extends Component<{}, AlbumsState> {
         toggleShowModal={this.toggleShowModal}
         albumsArr={this.state.albums}
         addAlbum={this.addAlbum}
-        setAlbum={this.setAlbum}
+        setAlbum={this.setSelectedAlbum}
       />
     );
   }

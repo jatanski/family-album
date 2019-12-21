@@ -1,5 +1,5 @@
 import { ReactNode, SyntheticEvent, FormEvent, ChangeEvent } from 'react';
-import { AlbumType } from '../Albums/types';
+import { AlbumType } from '../Albums/Album.types';
 
 export interface ViewProps {
   handleFileInput: () => void;
