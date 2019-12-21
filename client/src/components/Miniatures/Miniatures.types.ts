@@ -11,3 +11,7 @@ export interface MiniaturesProps {
 export interface MiniaturesViewProps {
   images: Array<string> | undefined;
 }
+
+export interface MiniaturesImageProps {
+  image: string;
+}

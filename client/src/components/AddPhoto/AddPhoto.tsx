@@ -4,7 +4,7 @@ import { AppState } from '../../redux/reducers';
 import View from './AddPhoto.view';
 import BaseModel from '../../utils/baseModel';
 import { AddPhotoState, handleDescInputState } from './AddPhoto.types';
-import AlbumService from '../Albums/Albums.service';
+import AlbumService from '../Albums/albums.service';
 
 class AddPhoto extends Component<any, AddPhotoState> {
   readonly albumService = new AlbumService();
