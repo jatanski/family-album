@@ -1,4 +1,4 @@
-import { FormEvent, SyntheticEvent } from 'react';
+import { FormEvent, SyntheticEvent, ReactNode } from 'react';
 
 export interface AlbumType {
   name: string;
@@ -7,6 +7,7 @@ export interface AlbumType {
   endDate: number | string;
   _id?: string;
   authorId?: Array<string>;
+  children?: ReactNode;
 }
 
 export interface AlbumTypeAndSetAlbum extends AlbumType {

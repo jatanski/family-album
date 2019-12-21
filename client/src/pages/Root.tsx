@@ -7,6 +7,7 @@ import LandingPage from './LandingPage';
 import Albums from './Albums';
 import AddPhoto from './AddPhoto';
 import WatchPhotos from './WatchPhotos';
+import Miniatures from './Miniatures';
 import { Provider } from 'react-redux';
 import { store } from '../redux/store';
 
@@ -21,6 +22,7 @@ const Root: FC = () => (
         <Route path="/albums" component={Albums} />
         <Route path="/add" component={AddPhoto} />
         <Route path="/photos" component={WatchPhotos} />
+        <Route path="/miniatures" component={Miniatures} />
       </Switch>
     </BrowserRouter>
   </Provider>

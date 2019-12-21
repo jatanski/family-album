@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { MDBBtn } from 'mdbreact';
+import { MDBBtn, MDBJumbotron } from 'mdbreact';
 import { AlbumViewProps, AlbumType } from './types';
 import './albums.scss';
 import Portal from '../Utils/Portal';
@@ -21,12 +21,21 @@ const View: FC<AlbumViewProps> = ({
           Dodaj nowy album
         </MDBBtn>
       </div>
-      <div className="albums__wrap">
-        <div className="albums__wrap--newAlbumButton"></div>
-        {albumsArr
-          ? albumsArr.map((album: AlbumType, index) => <Album key={index} {...album} setAlbum={setAlbum}></Album>)
-          : null}
-      </div>
+      <MDBJumbotron>
+        <h2 className="albums__header">Twoje albumy</h2>
+        <div className="albums__wrap">
+          <div className="albums__wrap--newAlbumButton"></div>
+          {albumsArr
+            ? albumsArr.map((album: AlbumType, index) => <Album key={index} {...album} setAlbum={setAlbum}></Album>)
+            : null}
+        </div>
+      </MDBJumbotron>
+      <MDBJumbotron>
+        {
+          <h2>Here will be albums others users</h2>
+          // here will be albums others users
+        }
+      </MDBJumbotron>
       <Portal>
         <AddNewAlbum
           handleInputChange={handleInputChange}
