@@ -3,7 +3,7 @@ import BaseModel from '../../utils/baseModel';
 
 export default class AlbumService {
   readonly endpoint: string = `album`;
-  public downloadAllAlbums = async (): Promise<Array<AlbumType>> => {
+  public async downloadAllAlbums(): Promise<Array<AlbumType>> {
     const token: string | null = BaseModel.getAuthToken();
 
     if (token) {
@@ -21,9 +21,9 @@ export default class AlbumService {
       }
     }
     return [];
-  };
+  }
 
-  private changeDatesToDateType = (albums: Array<AlbumType>): Array<AlbumType> => {
+  private changeDatesToDateType(albums: Array<AlbumType>): Array<AlbumType> {
     const albumsAfterChange = albums.map(album => {
       const { beginningDate, endDate, ...restAlbum } = album;
 
@@ -35,9 +35,9 @@ export default class AlbumService {
     });
 
     return albumsAfterChange;
-  };
+  }
 
-  public submitAlbum = async (state: AlbumsState): Promise<boolean> => {
+  public async submitAlbum(state: AlbumsState): Promise<boolean> {
     const token = BaseModel.getAuthToken();
 
     const { showModalAddAlbum, albums, beginningDate, endDate, ...stateToSend } = state;
@@ -68,5 +68,5 @@ export default class AlbumService {
       }
     }
     return false;
-  };
+  }
 }

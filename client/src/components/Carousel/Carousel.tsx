@@ -6,24 +6,53 @@ import { AlbumType } from '../Albums/Album.types';
 import BaseModel from '../../utils/baseModel';
 import { CarouselProps, CarouselState } from './Carousel.types';
 
+type fullImageObjectsType = { description: string; imageId: string };
+
 class Carousel extends Component<CarouselProps, CarouselState> {
   albumEndpoint: string = `album/${this.props.selectedAlbum}`;
 
   state = {
-    images: [],
+    imageIds: [],
+    imageDescriptions: [],
   };
 
-  componentDidMount = (): void => {
-    this.downloadMiniatures();
-  };
+  async componentDidMount(): Promise<void> {
+    const imageIds = await this.downloadImagesIds();
 
-  downloadMiniatures = async (): Promise<void> => {
+    await this.downloadAndSetStateImageDescriptions(imageIds);
+  }
+
+  private async downloadImagesIds(): Promise<Array<string> | undefined> {
     const albumWithImageIds: AlbumType = await BaseModel.downloadAnythingWithBody(this.albumEndpoint);
-    this.setState({ images: albumWithImageIds.images });
-  };
+    const imageIds = albumWithImageIds.images;
+    this.setState({ imageIds: imageIds });
+
+    return imageIds;
+  }
+
+  private async downloadAndSetStateImageDescriptions(imageIds: Array<string> | undefined): Promise<void> {
+    const imageDescriptions: Array<string> = [];
+
+    if (imageIds) {
+      await BaseModel.asyncForEach(imageIds, async (imageId: string) => {
+        const fullImageObjects = await this.downloadFullImageObjects(imageId);
+
+        imageDescriptions.push(fullImageObjects.description);
+      });
+    }
+
+    this.setState({ imageDescriptions: imageDescriptions });
+  }
+
+  private async downloadFullImageObjects(imageId: string): Promise<fullImageObjectsType> {
+    const imageEndpoint: string = `image/${imageId}`;
+    const fullImageObjects: fullImageObjectsType = await BaseModel.downloadAnythingWithBody(imageEndpoint);
+
+    return fullImageObjects;
+  }
 
   render() {
-    return <View images={this.state.images}></View>;
+    return <View imageDescriptions={this.state.imageDescriptions} imageIds={this.state.imageIds}></View>;
   }
 }
 

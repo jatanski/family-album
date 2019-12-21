@@ -13,14 +13,14 @@ class Miniatures extends Component<MiniaturesProps, MiniaturesState> {
     images: [],
   };
 
-  componentDidMount = (): void => {
+  componentDidMount(): void {
     this.downloadMiniatures();
-  };
+  }
 
-  downloadMiniatures = async (): Promise<void> => {
+  private async downloadMiniatures(): Promise<void> {
     const albumWithImageIds: AlbumType = await BaseModel.downloadAnythingWithBody(this.albumEndpoint);
     this.setState({ images: albumWithImageIds.images });
-  };
+  }
 
   render() {
     return <View images={this.state.images}></View>;

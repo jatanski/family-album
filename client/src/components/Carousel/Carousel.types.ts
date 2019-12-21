@@ -3,14 +3,17 @@ export interface CarouselProps {
 }
 
 export interface CarouselState {
-  images: Array<string> | undefined;
+  imageIds: Array<string> | undefined;
+  imageDescriptions: Array<string>;
 }
 
 export interface CarouselViewProps {
-  images: Array<string> | undefined;
+  imageIds: Array<string> | undefined;
+  imageDescriptions: Array<string>;
 }
 
 export interface CarouselImageProps {
   image: string;
   itemId: number;
+  description: string;
 }
