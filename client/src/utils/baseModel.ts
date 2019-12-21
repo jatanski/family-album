@@ -2,21 +2,21 @@ import { SyntheticEvent } from 'react';
 import { allActions } from '../redux/store';
 
 class BaseModel {
-  public static baseApiUrl = 'http://localhost:3069/';
+  static baseApiUrl = 'http://localhost:3069/';
 
-  public static saveAuthToken = (token: string) => {
+  static saveAuthToken(token: string): void {
     localStorage.setItem('token', token);
-  };
+  }
 
-  public static getAuthToken() {
+  static getAuthToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  public static onLogout() {
+  static onLogout(): void {
     localStorage.removeItem('token');
   }
 
-  public static downloadAnythingWithBody = async (endpoint: string): Promise<any> => {
+  static async downloadAnythingWithBody(endpoint: string): Promise<any> {
     const token: string | null = BaseModel.getAuthToken();
 
     if (token) {
@@ -34,11 +34,23 @@ class BaseModel {
         console.error(error);
       }
     }
-  };
+  }
 
-  public static setSelectedAlbum = (e: SyntheticEvent<HTMLButtonElement>): void => {
+  static setSelectedAlbum(e: SyntheticEvent<HTMLButtonElement>): void {
     allActions.setAlbum(e.currentTarget.id);
-  };
+  }
+
+  static async asyncForEach<T>(
+    array: Array<T>,
+    callbackfn: (value: T, index: number, array: T[]) => Promise<void>,
+    thisArg?: any,
+  ): Promise<void> {
+    let index = 0;
+    for (let item of array) {
+      await callbackfn(item, index, array);
+      index++;
+    }
+  }
 }
 
 export default BaseModel;

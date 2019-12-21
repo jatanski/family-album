@@ -18,14 +18,14 @@ class Albums extends Component<{}, AlbumsState> {
 
   albumService = new AlbumService();
 
-  componentDidMount = (): void => {
+  componentDidMount(): void {
     this.saveDownloadAlbumsToState();
-  };
+  }
 
-  private saveDownloadAlbumsToState = async (): Promise<void> => {
+  private async saveDownloadAlbumsToState(): Promise<void> {
     const albums = await this.albumService.downloadAllAlbums();
     this.setState({ albums: albums });
-  };
+  }
 
   public toggleShowModal = (): void => {
     const { showModalAddAlbum, albums, ...restStartState } = this.startState;

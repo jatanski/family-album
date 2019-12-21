@@ -19,31 +19,31 @@ class AddPhoto extends Component<any, AddPhotoState> {
     sendedImages: 0,
   };
 
-  componentDidMount = () => {
+  componentDidMount(): void {
     this.saveDownloadAlbumsToState();
     this.setSelectedAlbum();
-  };
+  }
 
-  private saveDownloadAlbumsToState = async (): Promise<void> => {
+  private async saveDownloadAlbumsToState(): Promise<void> {
     const albums = await this.albumService.downloadAllAlbums();
     this.setState({ albums: albums });
-  };
+  }
 
-  private setSelectedAlbum = () => {
+  private setSelectedAlbum(): void {
     const selectedAlbum = this.props.album;
 
     this.setState({ selectedAlbum: selectedAlbum });
-  };
+  }
 
-  componentDidUpdate = (prevState: AddPhotoState): void => {
+  componentDidUpdate(prevState: AddPhotoState): void {
     if (prevState.sendedImages !== this.state.sendedImages) this.clearImagesInStateAfterSendToServer();
-  };
+  }
 
-  private clearImagesInStateAfterSendToServer = (): void => {
+  private clearImagesInStateAfterSendToServer(): void {
     if (this.state.sendedImages === this.state.images.length && this.state.images.length !== 0) {
       this.setState({ images: [], desc: [] });
     }
-  };
+  }
   public handleSelectAlbumInput = (e: ChangeEvent<HTMLSelectElement>): void =>
     this.setState({ selectedAlbum: e.target.value });
 
@@ -95,7 +95,7 @@ class AddPhoto extends Component<any, AddPhotoState> {
     }
   };
 
-  private createPhotoData = (photo: any, photoIndex: number): FormData => {
+  private createPhotoData(photo: any, photoIndex: number): FormData {
     const photoData = new FormData();
 
     photoData.append('file', photo);
@@ -103,7 +103,7 @@ class AddPhoto extends Component<any, AddPhotoState> {
     photoData.append('albumId', this.state.selectedAlbum);
 
     return photoData;
-  };
+  }
 
   render() {
     console.log(this.props);
