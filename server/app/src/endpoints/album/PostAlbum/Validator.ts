@@ -27,7 +27,6 @@ export default abstract class PostAlbumValidator {
 	}
 
 	private static checkBeginningDate(beginningDate: any): void {
-		console.log(beginningDate);
 		if (!this.isTime(beginningDate) && beginningDate !== void 0)
 			throw new InvalidArgumentError("beginningDate", "number? && time", typeof beginningDate);
 	}
