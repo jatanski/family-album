@@ -1,5 +1,3 @@
-import { AlbumType } from '../Albums/Album.types';
-
 export interface MiniaturesState {
   images: Array<string> | undefined;
 }

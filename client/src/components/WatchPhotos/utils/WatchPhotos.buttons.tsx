@@ -12,7 +12,7 @@ const WatchPhotosAlbumButtons = ({ setSelectedAlbum, id }: WatchPhotosAlbumButto
         </MDBBtn>
       </Link>
       <Link to="carousel">
-        <MDBBtn color="green" size="sm">
+        <MDBBtn id={id} onClick={setSelectedAlbum} color="green" size="sm">
           Oglądaj po kolei
         </MDBBtn>
       </Link>

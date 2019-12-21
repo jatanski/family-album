@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
+import View from './Carousel.view';
 import { connect } from 'react-redux';
-import { MiniaturesState, MiniaturesProps } from './Miniatures.types';
-import View from './Miniatures.view';
-import BaseModel from '../../utils/baseModel';
 import { AppState } from '../../redux/reducers';
 import { AlbumType } from '../Albums/Album.types';
+import BaseModel from '../../utils/baseModel';
+import { CarouselProps, CarouselState } from './Carousel.types';
 
-class Miniatures extends Component<MiniaturesProps, MiniaturesState> {
+class Carousel extends Component<CarouselProps, CarouselState> {
   albumEndpoint: string = `album/${this.props.selectedAlbum}`;
 
   state = {
@@ -31,4 +31,4 @@ const mapStateToProps = (state: AppState) => ({
   selectedAlbum: state.album.selectedAlbum,
 });
 
-export default connect(mapStateToProps, {})(Miniatures);
+export default connect(mapStateToProps, {})(Carousel);
