@@ -3,6 +3,7 @@ import Auth from "../../middlewares/Auth/Auth";
 import PostAlbumHandler from "./PostAlbum/Handler";
 import { AlbumModel } from "../../models/Album";
 import { ImageDataModel } from "../../models/ImageData";
+import PatchAlbumHandler from "./PatchAlbum/Handler";
 
 export default class AlbumAPI {
 	readonly router: Router = Router();
@@ -15,6 +16,7 @@ export default class AlbumAPI {
 		this.router.get("/:albumId/cover", this.getAlbumCoverCallback);
 		this.router.get("/:albumId/info", this.getAlbumInfoCallback);
 		this.router.get("/:albumId/images", this.getAlbumImagesCallback);
+		this.router.patch("/:albumId", json(), PatchAlbumHandler.callback);
 	}
 
 	private getAllAlbumsCallback = async (_req: Request, res: Response) => {

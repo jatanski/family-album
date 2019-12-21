@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import PostAlbumValidator from "./Validator";
 import { PostAlbumErrorHandler } from "./ErrorHandler";
 
-interface PostAlbumInput {
+export interface PostAlbumInput {
 	name: AlbumDocument["name"];
 	description?: AlbumDocument["description"];
 	beginningDate?: number;
