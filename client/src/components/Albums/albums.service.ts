@@ -1,8 +1,8 @@
-import { AlbumType, AlbumsState } from './types';
+import { AlbumType, AlbumsState } from './Album.types';
 import BaseModel from '../../utils/baseModel';
 
 export default class AlbumService {
-  readonly endpoint: string = 'album';
+  readonly endpoint: string = `album`;
   public downloadAllAlbums = async (): Promise<Array<AlbumType>> => {
     const token: string | null = BaseModel.getAuthToken();
 

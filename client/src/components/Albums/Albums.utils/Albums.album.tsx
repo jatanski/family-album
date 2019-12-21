@@ -1,25 +1,12 @@
 import React, { FC } from 'react';
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol } from 'mdbreact';
-import { AlbumType } from '../types';
+import { AlbumTypeAndSetAlbum } from '../Album.types';
+import AlbumMain from '../../Utils/AlbumMain';
+import AlbumButtons from './Album.buttons';
 
-const Album: FC<AlbumType> = ({ name, description, beginningDate, endDate }) => {
-  return (
-    <div className="albums__wrap--el">
-      <MDBCol>
-        <MDBCard style={{ width: '20rem' }}>
-          <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/42.jpg" waves />
-          <MDBCardBody>
-            <MDBCardTitle>{name}</MDBCardTitle>
-            <MDBCardText>{description}</MDBCardText>
-            <MDBCardText>Pierwszy dzień: {beginningDate}</MDBCardText>
-            <MDBCardText>Ostatni dzień: {endDate}</MDBCardText>
-
-            <MDBBtn href="#">Obejrzyj</MDBBtn>
-          </MDBCardBody>
-        </MDBCard>
-      </MDBCol>
-    </div>
-  );
-};
+const Album: FC<AlbumTypeAndSetAlbum> = props => (
+  <AlbumMain {...props}>
+    <AlbumButtons {...props}></AlbumButtons>
+  </AlbumMain>
+);
 
 export default Album;

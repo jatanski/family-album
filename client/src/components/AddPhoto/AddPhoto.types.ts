@@ -1,4 +1,5 @@
 import { ReactNode, SyntheticEvent, FormEvent, ChangeEvent } from 'react';
+import { AlbumType } from '../Albums/Album.types';
 
 export interface ViewProps {
   handleFileInput: () => void;
@@ -6,7 +7,8 @@ export interface ViewProps {
   handleSelectAlbumInput: (e: ChangeEvent<HTMLSelectElement>) => void;
   submitForm: (e: SyntheticEvent<HTMLButtonElement>) => Promise<void>;
   photos: Array<HTMLImageElement>;
-  albums: Array<AddPhotoAlbum>;
+  albums: Array<AlbumType>;
+  selectedAlbum: string;
 }
 
 export interface FormProps {
@@ -36,11 +38,18 @@ export interface handleDescInputState {
 export interface AddPhotoState {
   images: Array<HTMLImageElement>;
   desc: Array<string>;
-  albums: Array<AddPhotoAlbum>;
-  selectedAlbum: AddPhotoAlbum | {};
+  albums: Array<AlbumType>;
+  selectedAlbum: string;
+  sendedImages: number;
 }
 
 export type AddPhotoAlbum = {
   name: string;
   id: string;
+};
+
+export type SelectAlbumInputProps = {
+  albums: Array<AlbumType>;
+  handleSelectAlbumInput: (e: ChangeEvent<HTMLSelectElement>) => void;
+  selectedAlbum: string;
 };

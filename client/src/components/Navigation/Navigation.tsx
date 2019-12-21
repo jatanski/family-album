@@ -1,9 +1,9 @@
 import React, { useState, FC, useEffect } from 'react';
 import { MDBNavbar, MDBNavbarToggler, MDBCollapse } from 'mdbreact';
 import Portal from '../Utils/Portal';
-import Menu from './Menu';
-import NavBarBrand from './NavBarBrand';
-import AddPhoto from '../Dashboard/AddPhoto/AddPhoto';
+import Menu from './Navigatgion.menu';
+import NavBarBrand from './Navigation.navBarBrand';
+import Dashboard from '../Dashboard/AddPhoto/AddPhoto';
 import BaseModel from '../../utils/baseModel';
 
 const Navigation: FC = () => {
@@ -25,7 +25,7 @@ const Navigation: FC = () => {
       <MDBCollapse isOpen={collapse} navbar>
         <Menu />
         <Portal>
-          <AddPhoto></AddPhoto>
+          <Dashboard></Dashboard>
         </Portal>
       </MDBCollapse>
     </MDBNavbar>

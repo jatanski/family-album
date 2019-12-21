@@ -1,8 +1,8 @@
 import React, { FormEvent, useState, SyntheticEvent, FC } from 'react';
 import { useHistory } from 'react-router-dom';
-import { LoginViewProps } from './types';
+import { LoginViewProps } from './Login.types';
 import BaseModel from '../../../utils/baseModel';
-import View from './View';
+import View from './Login.view';
 
 const Login: FC<LoginViewProps> = ({ toggleForm }) => {
   const [loginValue, setLoginValue] = useState('');

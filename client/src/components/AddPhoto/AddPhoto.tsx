@@ -1,45 +1,62 @@
 import React, { Component, createRef, SyntheticEvent, RefObject, FormEvent, ChangeEvent } from 'react';
-import View from './View';
+import { connect } from 'react-redux';
+import { AppState } from '../../redux/reducers';
+import View from './AddPhoto.view';
 import BaseModel from '../../utils/baseModel';
-import { AddPhotoState, handleDescInputState } from './types';
+import { AddPhotoState, handleDescInputState } from './AddPhoto.types';
+import AlbumService from '../Albums/albums.service';
 
-class AddPhoto extends Component<{}, AddPhotoState> {
+class AddPhoto extends Component<any, AddPhotoState> {
+  readonly albumService = new AlbumService();
+  private endpoint: string = 'image';
+  public fileInput: RefObject<HTMLInputElement> = createRef();
+
   state = {
     images: [],
     desc: [],
-    albums: [
-      { name: 'Album 1', id: '123' },
-      { name: 'Album 2', id: '234' },
-    ],
-    selectedAlbum: { name: 'Album 2', id: '234' },
+    albums: [],
+    selectedAlbum: '',
+    sendedImages: 0,
   };
-
-  private endpoint: string = 'image';
-
-  public fileInput: RefObject<HTMLInputElement> = createRef();
 
   componentDidMount = () => {
-    // download albums ...
+    this.saveDownloadAlbumsToState();
+    this.setSelectedAlbum();
   };
+
+  private saveDownloadAlbumsToState = async (): Promise<void> => {
+    const albums = await this.albumService.downloadAllAlbums();
+    this.setState({ albums: albums });
+  };
+
+  private setSelectedAlbum = () => {
+    const selectedAlbum = this.props.album;
+
+    this.setState({ selectedAlbum: selectedAlbum });
+  };
+
+  componentDidUpdate = (prevState: AddPhotoState): void => {
+    if (prevState.sendedImages !== this.state.sendedImages) this.clearImagesInStateAfterSendToServer();
+  };
+
+  private clearImagesInStateAfterSendToServer = (): void => {
+    if (this.state.sendedImages === this.state.images.length && this.state.images.length !== 0) {
+      this.setState({ images: [], desc: [] });
+    }
+  };
+  public handleSelectAlbumInput = (e: ChangeEvent<HTMLSelectElement>): void =>
+    this.setState({ selectedAlbum: e.target.value });
 
   public handleFileInput = (): void => {
     // @ts-ignore
     const photos = Array.from(this.fileInput.current?.files);
-
     this.setState({ images: [...this.state.images, ...photos] });
-  };
-
-  public handleSelectAlbumInput = (e: ChangeEvent<HTMLSelectElement>): void => {
-    console.log(e.target.value);
   };
 
   public handleDescInput = (e: FormEvent<HTMLInputElement>): void => {
     const imageIndex: number = parseInt(e.currentTarget.id);
 
-    const state: handleDescInputState = {
-      desc: this.state.desc,
-    };
-
+    const state: handleDescInputState = { desc: this.state.desc };
     state.desc[imageIndex] = e.currentTarget.value;
     this.setState(state);
   };
@@ -68,7 +85,10 @@ class AddPhoto extends Component<{}, AddPhotoState> {
           body: photoData,
         });
 
-        if (response.status === 200) console.log(`Zdjęcie numer ${photoIndex} zostało wysłane.`);
+        if (response.status === 200) {
+          this.setState({ sendedImages: this.state.sendedImages + 1 });
+          console.log(`Zdjęcie numer ${photoIndex} zostało wysłane.`);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -80,20 +100,19 @@ class AddPhoto extends Component<{}, AddPhotoState> {
 
     photoData.append('file', photo);
     photoData.append('description', this.state.desc[photoIndex]);
-    photoData.append('albumId', this.state.selectedAlbum.id);
-
-    console.log(photoData);
+    photoData.append('albumId', this.state.selectedAlbum);
 
     return photoData;
   };
 
   render() {
-    console.log(this.state);
+    console.log(this.props);
     return (
       <View
         ref={this.fileInput}
         albums={this.state.albums}
         photos={this.state.images}
+        selectedAlbum={this.state.selectedAlbum}
         submitForm={this.submitPhotos}
         handleFileInput={this.handleFileInput}
         handleDescInput={this.handleDescInput}
@@ -103,4 +122,8 @@ class AddPhoto extends Component<{}, AddPhotoState> {
   }
 }
 
-export default AddPhoto;
+const mapStateToProps = (state: AppState) => ({
+  album: state.album.selectedAlbum,
+});
+
+export default connect(mapStateToProps, {})(AddPhoto);

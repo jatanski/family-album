@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCol, MDBInput } from 'mdbreact';
-import { PhotoPropsI } from '../../types';
+import { PhotoPropsI } from '../../AddPhoto.types';
 
 const PhotoToAdd = ({ photo, handleDescInput, index }: PhotoPropsI) => {
   const [showInputOrButton, setShowInputOrButton] = useState(false);

@@ -1,7 +1,8 @@
-import React, { Component, FormEvent } from 'react';
-import View from './View';
-import { AlbumsState } from './types';
+import React, { Component, FormEvent, SyntheticEvent } from 'react';
+import { AlbumsState } from './Album.types';
 import AlbumService from './albums.service';
+import BaseModel from '../../utils/baseModel';
+import View from './Albums.view';
 
 class Albums extends Component<{}, AlbumsState> {
   startState = {
@@ -53,6 +54,8 @@ class Albums extends Component<{}, AlbumsState> {
     }
   };
 
+  public setSelectedAlbum = (e: SyntheticEvent<HTMLButtonElement>) => BaseModel.setSelectedAlbum(e);
+
   render() {
     return (
       <View
@@ -61,6 +64,7 @@ class Albums extends Component<{}, AlbumsState> {
         toggleShowModal={this.toggleShowModal}
         albumsArr={this.state.albums}
         addAlbum={this.addAlbum}
+        setAlbum={this.setSelectedAlbum}
       />
     );
   }

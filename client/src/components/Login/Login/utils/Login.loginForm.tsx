@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { MDBInput, MDBBtn } from 'mdbreact';
-import { LoginViewProps } from '../types';
+import { LoginViewProps } from '../Login.types';
 
 const LoginForm: FC<LoginViewProps> = ({
   toggleForm,

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
-import { AddAlbumModalProps } from '../../types';
+import { AddAlbumModalProps } from '../../Album.types';
 
 const AddAlbumForm: FC<AddAlbumModalProps> = ({ handleInputChange, addAlbum }) => {
   return (
