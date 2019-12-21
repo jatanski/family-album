@@ -32,7 +32,7 @@ class AddPhoto extends Component<any, AddPhotoState> {
   private setSelectedAlbum = () => {
     const selectedAlbum = this.props.album.album;
 
-    this.setState({ selectedAlbum: this.props.album.album });
+    this.setState({ selectedAlbum: selectedAlbum });
   };
 
   componentDidUpdate = (prevState: AddPhotoState): void => {
