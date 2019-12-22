@@ -3,12 +3,15 @@ import { useHistory } from 'react-router-dom';
 import { LoginViewProps } from './Login.types';
 import BaseModel from '../../../utils/baseModel';
 import View from './Login.view';
+import { useDispatch } from 'react-redux';
+import { startLoginRequest, endLoginRequest } from '../../../redux/request/duck/actions';
 
 const Login: FC<LoginViewProps> = ({ toggleForm }) => {
 	const [loginValue, setLoginValue] = useState('');
 	const [passwordValue, setPasswordValue] = useState('');
 
 	const history = useHistory();
+	const dispatch = useDispatch();
 
 	const endpoint: string = 'login';
 
@@ -17,7 +20,7 @@ const Login: FC<LoginViewProps> = ({ toggleForm }) => {
 
 	const submitLogin = async (e: SyntheticEvent<HTMLButtonElement>): Promise<void> => {
 		e.preventDefault();
-
+		dispatch(startLoginRequest());
 		try {
 			const loginData = {
 				email: loginValue,
@@ -29,8 +32,7 @@ const Login: FC<LoginViewProps> = ({ toggleForm }) => {
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(loginData),
 			});
-
-			if (response.status === 200) {
+			if (response.ok) {
 				const token = response.headers.get('x-token');
 				if (token) BaseModel.saveAuthToken(token);
 
@@ -42,6 +44,8 @@ const Login: FC<LoginViewProps> = ({ toggleForm }) => {
 			}
 		} catch (error) {
 			console.error(error);
+		} finally {
+			dispatch(endLoginRequest());
 		}
 	};
 

@@ -45,6 +45,7 @@ class AddPhoto extends Component<any, AddPhotoState> {
 			this.setState({ images: [], desc: [] });
 		}
 	}
+
 	handleSelectAlbumInput = (e: ChangeEvent<HTMLSelectElement>): void =>
 		this.setState({ selectedAlbum: e.target.value });
 
@@ -127,9 +128,6 @@ class AddPhoto extends Component<any, AddPhotoState> {
 		photoData.append('description', this.state.desc[photoIndex]);
 		photoData.append('createdDate', this.state.createdDates[photoIndex]);
 		photoData.append('albumId', this.state.selectedAlbum);
-
-		console.log(photoData);
-
 		return photoData;
 	}
 

@@ -5,12 +5,12 @@ const ALBUM_STATE: AlbumStateType = {
 	albums: [],
 };
 
-const albumReducer = (state = ALBUM_STATE, action: any) => {
+const albumReducer = (state = ALBUM_STATE, action: any): AlbumStateType => {
 	switch (action.type) {
 		case types.SET_SELECTED_ALBUM:
-			return { selectedAlbum: action.item };
+			return { ...state, selectedAlbum: action.item };
 		case types.SAVE_ALBUMS:
-			return { albums: action.item };
+			return { ...state, albums: action.item };
 		default:
 			return state;
 	}
