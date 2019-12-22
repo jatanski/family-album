@@ -78,7 +78,7 @@ export default class PostImageHandler {
 			id: this.imageId,
 			imageId: this.imageId,
 			description,
-			creationDate,
+			creationDate: +creationDate || undefined,
 			albumId
 		});
 	}

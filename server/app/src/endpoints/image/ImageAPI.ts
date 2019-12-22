@@ -59,7 +59,7 @@ export default class ImageAPI {
 			res.status(200).send({
 				description,
 				imageId,
-				creationDate: +creationDate,
+				creationDate: +creationDate || undefined,
 				albumId
 			});
 		} else {
@@ -76,7 +76,7 @@ export default class ImageAPI {
 		res.status(200).send(images.map(({description, imageId, creationDate, albumId}) => ({
 			description,
 			imageId,
-			creationDate: +creationDate,
+			creationDate: +creationDate || undefined,
 			albumId
 		})));
 	};
