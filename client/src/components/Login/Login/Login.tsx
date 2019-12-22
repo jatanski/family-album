@@ -32,7 +32,6 @@ const Login: FC<LoginViewProps> = ({ toggleForm }) => {
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(loginData),
 			});
-
 			if (response.ok) {
 				const token = response.headers.get('x-token');
 				if (token) BaseModel.saveAuthToken(token);

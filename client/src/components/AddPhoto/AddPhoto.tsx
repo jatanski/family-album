@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { AppState } from '../../redux/reducers';
 import View from './AddPhoto.view';
 import BaseModel from '../../utils/baseModel';
-import { AddPhotoState, handleDescInputState } from './AddPhoto.types';
+import { AddPhotoState, handleDescInputState, handleDateInputState } from './AddPhoto.types';
 import AlbumService from '../Albums/albums.service';
 
 class AddPhoto extends Component<any, AddPhotoState> {
@@ -14,6 +14,7 @@ class AddPhoto extends Component<any, AddPhotoState> {
 	state = {
 		images: [],
 		desc: [],
+		createdDates: [],
 		albums: [],
 		selectedAlbum: '',
 		sendedImages: 0,
@@ -44,36 +45,61 @@ class AddPhoto extends Component<any, AddPhotoState> {
 			this.setState({ images: [], desc: [] });
 		}
 	}
-	public handleSelectAlbumInput = (e: ChangeEvent<HTMLSelectElement>): void =>
+
+	handleSelectAlbumInput = (e: ChangeEvent<HTMLSelectElement>): void =>
 		this.setState({ selectedAlbum: e.target.value });
 
-	public handleFileInput = (): void => {
+	handleFileInput = (): void => {
 		// @ts-ignore
 		const photos = Array.from(this.fileInput.current?.files);
-		this.setState({ images: [...this.state.images, ...photos] });
+		const emptyDescriptionsAndDate = photos.map(() => '');
+
+		this.setState({
+			images: [...this.state.images, ...photos],
+			desc: [...emptyDescriptionsAndDate],
+			createdDates: [...emptyDescriptionsAndDate],
+		});
 	};
 
-	public handleDescInput = (e: FormEvent<HTMLInputElement>): void => {
-		const imageIndex: number = parseInt(e.currentTarget.id);
+	handleDescInput = (e: FormEvent<HTMLInputElement>): void => {
+		const imageIndex: number = Number(e.currentTarget.name);
 
 		const state: handleDescInputState = { desc: this.state.desc };
 		state.desc[imageIndex] = e.currentTarget.value;
+
 		this.setState(state);
 	};
 
-	public submitPhotos = async (e: SyntheticEvent<HTMLButtonElement>): Promise<void> => {
-		e.preventDefault();
+	handleDateInput = (e: FormEvent<HTMLInputElement>): void => {
+		const imageIndex: number = Number(e.currentTarget.name);
 
-		try {
-			this.state.images.forEach(async (image, i) => {
-				await this.sendImageToServer(image, i);
-			});
-		} catch (error) {
-			console.log(error);
-		}
+		const state: handleDateInputState = { createdDates: this.state.createdDates };
+		state.createdDates[imageIndex] = e.currentTarget.value;
+		this.setState(state);
 	};
 
-	private sendImageToServer = async (photo: HTMLImageElement, photoIndex: number): Promise<void> => {
+	deletePhoto = (e: SyntheticEvent<HTMLButtonElement>) => {
+		const imageIndex: number = Number(e.currentTarget.name);
+		console.log(this.state);
+
+		const images = this.state.images;
+		const desc = this.state.desc;
+
+		images.splice(imageIndex, 1);
+		desc.splice(imageIndex, 1);
+
+		this.setState({ images: images, desc: desc });
+	};
+
+	submitPhotos = async (e: SyntheticEvent<HTMLButtonElement>): Promise<void> => {
+		e.preventDefault();
+
+		this.state.images.forEach(async (image, i) => {
+			await this.sendImageToServer(image, i);
+		});
+	};
+
+	private sendImageToServer = async (photo: File, photoIndex: number): Promise<void> => {
 		const photoData = this.createPhotoData(photo, photoIndex);
 		const token = BaseModel.getAuthToken();
 
@@ -95,18 +121,17 @@ class AddPhoto extends Component<any, AddPhotoState> {
 		}
 	};
 
-	private createPhotoData(photo: any, photoIndex: number): FormData {
+	private createPhotoData(photo: File, photoIndex: number): FormData {
 		const photoData = new FormData();
 
 		photoData.append('file', photo);
 		photoData.append('description', this.state.desc[photoIndex]);
+		photoData.append('createdDate', this.state.createdDates[photoIndex]);
 		photoData.append('albumId', this.state.selectedAlbum);
-
 		return photoData;
 	}
 
 	render() {
-		console.log(this.props);
 		return (
 			<View
 				ref={this.fileInput}
@@ -116,7 +141,9 @@ class AddPhoto extends Component<any, AddPhotoState> {
 				submitForm={this.submitPhotos}
 				handleFileInput={this.handleFileInput}
 				handleDescInput={this.handleDescInput}
+				handleDateInput={this.handleDateInput}
 				handleSelectAlbumInput={this.handleSelectAlbumInput}
+				deletePhoto={this.deletePhoto}
 			></View>
 		);
 	}

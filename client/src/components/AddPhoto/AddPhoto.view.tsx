@@ -10,11 +10,13 @@ const View = forwardRef(
 		{
 			handleFileInput,
 			handleDescInput,
+			handleDateInput,
 			handleSelectAlbumInput,
 			photos,
 			submitForm,
 			albums,
 			selectedAlbum,
+			deletePhoto,
 		}: ViewProps,
 		ref: Ref<HTMLInputElement>,
 	) => {
@@ -28,7 +30,12 @@ const View = forwardRef(
 					/>
 					<FileInput handleFileInput={handleFileInput} ref={ref} />
 				</AlbumForm>
-				<Gallery handleDescInput={handleDescInput} photos={photos}></Gallery>
+				<Gallery
+					deletePhoto={deletePhoto}
+					handleDescInput={handleDescInput}
+					handleDateInput={handleDateInput}
+					photos={photos}
+				></Gallery>
 			</>
 		);
 	},
