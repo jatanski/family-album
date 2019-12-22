@@ -7,11 +7,11 @@ import { albumActions } from './album';
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 const allActions = bindActionCreators(
-  {
-    setAlbum: albumActions.setSelectedAlbum,
-    saveAllAlbums: albumActions.saveAlbums,
-  },
-  store.dispatch,
+	{
+		setAlbum: albumActions.setSelectedAlbum,
+		saveAllAlbums: albumActions.saveAlbums,
+	},
+	store.dispatch,
 );
 
 export { store, allActions };

@@ -6,24 +6,32 @@ import AlbumForm from './Utils/Form/AddPhoto.form.albumForm';
 import Gallery from './Utils/Photos/AddPhoto.photos.gallery';
 
 const View = forwardRef(
-  (
-    { handleFileInput, handleDescInput, handleSelectAlbumInput, photos, submitForm, albums, selectedAlbum }: ViewProps,
-    ref: Ref<HTMLInputElement>,
-  ) => {
-    return (
-      <>
-        <AlbumForm submitForm={submitForm}>
-          <SelectAlbumInput
-            handleSelectAlbumInput={handleSelectAlbumInput}
-            selectedAlbum={selectedAlbum}
-            albums={albums}
-          />
-          <FileInput handleFileInput={handleFileInput} ref={ref} />
-        </AlbumForm>
-        <Gallery handleDescInput={handleDescInput} photos={photos}></Gallery>
-      </>
-    );
-  },
+	(
+		{
+			handleFileInput,
+			handleDescInput,
+			handleSelectAlbumInput,
+			photos,
+			submitForm,
+			albums,
+			selectedAlbum,
+		}: ViewProps,
+		ref: Ref<HTMLInputElement>,
+	) => {
+		return (
+			<>
+				<AlbumForm submitForm={submitForm}>
+					<SelectAlbumInput
+						handleSelectAlbumInput={handleSelectAlbumInput}
+						selectedAlbum={selectedAlbum}
+						albums={albums}
+					/>
+					<FileInput handleFileInput={handleFileInput} ref={ref} />
+				</AlbumForm>
+				<Gallery handleDescInput={handleDescInput} photos={photos}></Gallery>
+			</>
+		);
+	},
 );
 
 export default View;

@@ -4,9 +4,9 @@ import AlbumMain from '../../Utils/AlbumMain';
 import AlbumButtons from './Album.buttons';
 
 const Album: FC<AlbumTypeAndSetAlbum> = props => (
-  <AlbumMain {...props}>
-    <AlbumButtons {...props}></AlbumButtons>
-  </AlbumMain>
+	<AlbumMain {...props}>
+		<AlbumButtons {...props}></AlbumButtons>
+	</AlbumMain>
 );
 
 export default Album;

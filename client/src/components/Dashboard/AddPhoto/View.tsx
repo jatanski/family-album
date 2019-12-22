@@ -1,5 +1,5 @@
 import React from 'react';
 
 const View = () => {
-  return <p>View</p>;
+	return <p>View</p>;
 };

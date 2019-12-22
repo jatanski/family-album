@@ -1,13 +1,13 @@
 import React, { createContext, ReactNode } from 'react';
 
 type Props = {
-  children: ReactNode;
+	children: ReactNode;
 };
 
 export const AlbumContext = createContext('');
 
 export const AlbumContextProvider = ({ children }: Props) => {
-  const { Provider } = AlbumContext;
+	const { Provider } = AlbumContext;
 
-  return <Provider value={''}>{children}</Provider>;
+	return <Provider value={''}>{children}</Provider>;
 };

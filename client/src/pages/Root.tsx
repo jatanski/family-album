@@ -13,21 +13,21 @@ import { Provider } from 'react-redux';
 import { store } from '../redux/store';
 
 const Root: FC = () => (
-  <Provider store={store}>
-    <BrowserRouter>
-      <Navigation />
-      <Switch>
-        <Route exact path="/" component={LandingPage} />
-        <Route path="/login" component={SignInAndSignUp} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/albums" component={Albums} />
-        <Route path="/add" component={AddPhoto} />
-        <Route path="/photos" component={WatchPhotos} />
-        <Route path="/miniatures" component={Miniatures} />
-        <Route path="/carousel" component={Carousel} />
-      </Switch>
-    </BrowserRouter>
-  </Provider>
+	<Provider store={store}>
+		<BrowserRouter>
+			<Navigation />
+			<Switch>
+				<Route exact path="/" component={LandingPage} />
+				<Route path="/login" component={SignInAndSignUp} />
+				<Route path="/dashboard" component={Dashboard} />
+				<Route path="/albums" component={Albums} />
+				<Route path="/add" component={AddPhoto} />
+				<Route path="/photos" component={WatchPhotos} />
+				<Route path="/miniatures" component={Miniatures} />
+				<Route path="/carousel" component={Carousel} />
+			</Switch>
+		</BrowserRouter>
+	</Provider>
 );
 
 export default Root;
