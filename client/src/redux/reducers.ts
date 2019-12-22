@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import albumReducer from './album';
 
 const rootReducer = combineReducers({
-  album: albumReducer,
+	album: albumReducer,
 });
 
 export default rootReducer;

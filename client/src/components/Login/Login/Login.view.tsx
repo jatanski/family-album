@@ -5,9 +5,9 @@ import LoginFormContainer from './utils/Login.formContainer';
 import LoginForm from './utils/Login.loginForm';
 
 const View: FC<LoginViewProps> = props => (
-  <LoginFormContainer>
-    <LoginForm {...props} />
-  </LoginFormContainer>
+	<LoginFormContainer>
+		<LoginForm {...props} />
+	</LoginFormContainer>
 );
 
 export default View;
