@@ -3,7 +3,7 @@ import { FormEvent, SyntheticEvent, ReactNode } from 'react';
 export interface AlbumType {
   name: string;
   description: string;
-  beginningDate: number | string | Date;
+  beginningDate: number | string;
   endDate: number | string;
   _id?: string;
   authorId?: Array<string>;
@@ -14,7 +14,7 @@ export interface AlbumType {
 export interface AlbumTypeAndSetAlbum extends AlbumType {
   name: string;
   description: string;
-  beginningDate: number | string | Date;
+  beginningDate: number | string;
   endDate: number | string;
   _id?: string;
   authorId?: Array<string>;

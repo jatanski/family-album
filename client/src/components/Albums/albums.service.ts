@@ -4,23 +4,9 @@ import BaseModel from '../../utils/baseModel';
 export default class AlbumService {
   readonly endpoint: string = `album`;
   public async downloadAllAlbums(): Promise<Array<AlbumType>> {
-    const token: string | null = BaseModel.getAuthToken();
+    const downloadAlbums = (await BaseModel.downloadAnythingWithBody(this.endpoint)) as AlbumType[];
 
-    if (token) {
-      try {
-        const response = await fetch(BaseModel.baseApiUrl + this.endpoint, {
-          method: 'GET',
-          headers: { 'x-token': token },
-        });
-
-        const downloadAlbums: Array<AlbumType> = await response.json();
-
-        return this.changeDatesToDateType(downloadAlbums);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    return [];
+    return this.changeDatesToDateType(downloadAlbums);
   }
 
   private changeDatesToDateType(albums: Array<AlbumType>): Array<AlbumType> {
@@ -29,23 +15,23 @@ export default class AlbumService {
 
       return {
         ...restAlbum,
-        beginningDate: new Date(beginningDate).toDateString(),
-        endDate: new Date(endDate).toDateString(),
+        beginningDate: beginningDate ? new Date(beginningDate).toDateString() : '',
+        endDate: endDate ? new Date(endDate).toDateString() : '',
       };
     });
 
     return albumsAfterChange;
   }
 
-  public async submitAlbum(state: AlbumsState): Promise<boolean> {
+  public async submitAlbum(albumState: AlbumsState): Promise<boolean> {
     const token = BaseModel.getAuthToken();
 
-    const { showModalAddAlbum, albums, beginningDate, endDate, ...stateToSend } = state;
+    const { showModalAddAlbum, albums, beginningDate, endDate, ...stateToSend } = albumState;
 
     const albumData = {
       ...stateToSend,
-      beginningDate: new Date(beginningDate).getTime(),
-      endDate: new Date(endDate).getTime(),
+      beginningDate: Date.parse(beginningDate) || undefined,
+      endDate: Date.parse(endDate) || undefined,
     };
 
     if (token) {
@@ -59,9 +45,6 @@ export default class AlbumService {
           body: JSON.stringify(albumData),
         });
 
-        const responseData = await response.json();
-
-        console.log(responseData);
         return true;
       } catch (error) {
         console.error(error);

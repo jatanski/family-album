@@ -30,12 +30,11 @@ const Login: FC<LoginViewProps> = ({ toggleForm }) => {
         body: JSON.stringify(loginData),
       });
 
-      const token = response.headers.get('x-token');
-
       if (response.status === 200) {
+        const token = response.headers.get('x-token');
         if (token) BaseModel.saveAuthToken(token);
+
         history.push('/dashboard');
-        console.log('Loguje...');
       } else {
         setLoginValue('');
         setPasswordValue('');
