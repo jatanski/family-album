@@ -6,10 +6,16 @@ export default abstract class PostImageValidator {
 		this.checkAlbumId(body.albumId);
 		this.checkUserId(body.userId);
 		this.checkDescription(body.description);
+		this.checkCreationDate(body.creationDate);
 	}
 
 	private static checkAlbumId(albumId: any): void {
-		if (typeof albumId != "string") throw new InvalidArgumentError("albumId", "string", typeof albumId);
+		if (typeof albumId != "string" || !this.isObjectId(albumId))
+			throw new InvalidArgumentError("albumId", "string", typeof albumId);
+	}
+
+	private static isObjectId(id: string): boolean {
+		return /^[0-9a-fA-F]{24}$/.test(id);
 	}
 
 	private static checkUserId(userId: any): void {
@@ -25,6 +31,16 @@ export default abstract class PostImageValidator {
 	private static isStringOrUndefined(value: any): boolean {
 		return typeof value != "string" && typeof value != "undefined";
 	}
+
+	private static checkCreationDate(creationDate: any) {
+		if (!this.isTime(creationDate) && creationDate != void 0)
+			throw new InvalidArgumentError("creationDate", "number? && time", typeof creationDate);
+	}
+
+	private static isTime(time: any): boolean {
+		return typeof time == "number" && !Number.isNaN(new Date(time).getTime());
+	}
+
 	static checkFiles(files: FileArray | undefined): void {
 		if (!files) throw new InvalidArgumentError("files", "defined", "undefined");
 		if (!this.isExactlyOneFile(files)) {
