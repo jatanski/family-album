@@ -7,6 +7,7 @@ export interface ImageDataDocument extends Document {
 	description: string;
 	miniature: ImageDocument;
 	albumId: string;
+	creationDate: Date;
 }
 
 const ImageDataSchema = new Schema({
@@ -30,6 +31,10 @@ const ImageDataSchema = new Schema({
 	albumId: {
 		type: String,
 		required: true
+	},
+	creationDate: {
+		type: Date,
+		required: false
 	}
 });
 
