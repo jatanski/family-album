@@ -37,6 +37,7 @@ class Carousel extends Component<CarouselProps, CarouselState> {
 			await BaseModel.asyncForEach(imageIds, async (imageId: string) => {
 				const fullImageObjects = await this.downloadFullImageObjects(imageId);
 
+
 				imageDescriptions.push(fullImageObjects.description);
 			});
 		}

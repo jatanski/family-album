@@ -20,7 +20,7 @@ const CarouselView: FC<CarouselViewProps> = ({ imageIds, imageDescriptions }) =>
 									description={imageDescriptions[i]}
 									key={image}
 									image={image}
-									itemId={i}
+									itemId={i + 1}
 								></CarouselImage>
 						  ))
 						: null}

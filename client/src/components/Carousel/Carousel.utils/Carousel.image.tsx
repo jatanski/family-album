@@ -8,7 +8,6 @@ const CarouselImage: FC<CarouselImageProps> = ({ image, itemId, description }) =
 		<MDBCarouselItem itemId={itemId}>
 			<MDBView>
 				<img className="d-block w-100" src={src} alt="First slide" />
-				<MDBMask overlay="black-light" />
 			</MDBView>
 			<MDBCarouselCaption>
 				{/* <h3 className="h3-responsive">Light mask</h3> */}
