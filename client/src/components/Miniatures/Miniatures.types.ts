@@ -1,15 +1,15 @@
 export interface MiniaturesState {
-  images: Array<string> | undefined;
+	images: Array<string> | undefined;
 }
 
 export interface MiniaturesProps {
-  selectedAlbum: string;
+	selectedAlbum: string;
 }
 
 export interface MiniaturesViewProps {
-  images: Array<string> | undefined;
+	images: Array<string> | undefined;
 }
 
 export interface MiniaturesImageProps {
-  image: string;
+	image: string;
 }

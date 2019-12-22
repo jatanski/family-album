@@ -1,32 +1,55 @@
 import React, { useState } from 'react';
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCol, MDBInput } from 'mdbreact';
+import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCol, MDBInput, MDBIcon } from 'mdbreact';
 import { PhotoPropsI } from '../../AddPhoto.types';
 
-const PhotoToAdd = ({ photo, handleDescInput, index }: PhotoPropsI) => {
-  const [showInputOrButton, setShowInputOrButton] = useState(false);
+const PhotoToAdd = ({ photo, handleDescInput, handleDateInput, index, deletePhoto }: PhotoPropsI) => {
+	const [showInputDescOrButton, setShowInputDescOrButton] = useState(false);
+	const [showInputDateOrButton, setShowInputDateOrButton] = useState(false);
 
-  const toggleInput = (): void => setShowInputOrButton(!showInputOrButton);
+	const toggleInputDesc = (): void => setShowInputDescOrButton(!showInputDescOrButton);
+	const toggleInputDate = (): void => setShowInputDateOrButton(!showInputDateOrButton);
 
-  const photoToRead: string = URL.createObjectURL(photo);
+	const photoToRead: string = URL.createObjectURL(photo);
 
-  const indexToString: string = index.toString();
+	const indexInString: string = index.toString();
 
-  return (
-    <MDBCol>
-      <MDBCard style={{ width: '14rem' }}>
-        <MDBCardImage className="img-fluid" src={photoToRead} waves />
-        <MDBCardBody>
-          {showInputOrButton ? (
-            <MDBInput id={indexToString} onChange={handleDescInput} label="Opis" icon="image" type="textarea" />
-          ) : (
-            <MDBBtn size="sm" onClick={toggleInput}>
-              Dodaj opis
-            </MDBBtn>
-          )}
-        </MDBCardBody>
-      </MDBCard>
-    </MDBCol>
-  );
+	return (
+		<MDBCol>
+			<MDBCard style={{ width: '14rem' }}>
+				<MDBCardImage className="img-fluid" src={photoToRead} waves />
+				<MDBCardBody>
+					{showInputDescOrButton ? (
+						<MDBInput
+							name={indexInString}
+							onChange={handleDescInput}
+							label="Opis"
+							icon="image"
+							type="textarea"
+						/>
+					) : (
+						<MDBBtn size="sm" onClick={toggleInputDesc}>
+							Dodaj opis
+						</MDBBtn>
+					)}
+					<MDBIcon id={indexInString} onClick={deletePhoto} icon="times" />
+
+					{showInputDateOrButton ? (
+						<MDBInput
+							name={indexInString}
+							onChange={handleDateInput}
+							label="Data"
+							icon="date"
+							type="date"
+						/>
+					) : (
+						<MDBBtn onClick={toggleInputDate} size="sm" color="orange">
+							Dodaj date
+						</MDBBtn>
+					)}
+				</MDBCardBody>
+			</MDBCard>
+		</MDBCol>
+	);
 };
 
 export default PhotoToAdd;

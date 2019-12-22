@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import { ReactNode } from 'react';
 
 type PortalProps = {
-  children: ReactNode;
+	children: ReactNode;
 };
 
 const portalRoot: any = document.getElementById('portal');

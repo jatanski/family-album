@@ -4,11 +4,11 @@ import SignUp from './SignUp/SignUp';
 import './wrapper.scss';
 
 const Wrap: FC = () => {
-  const [showSignUp, setShowSignUp] = useState(false);
+	const [showSignUp, setShowSignUp] = useState(false);
 
-  const toggleForm = (): void => setShowSignUp(!showSignUp);
+	const toggleForm = (): void => setShowSignUp(!showSignUp);
 
-  return showSignUp ? <SignUp toggleForm={toggleForm}></SignUp> : <Login toggleForm={toggleForm}></Login>;
+	return showSignUp ? <SignUp toggleForm={toggleForm}></SignUp> : <Login toggleForm={toggleForm}></Login>;
 };
 
 export default Wrap;
