@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, Switch, HashRouter } from 'react-router-dom';
 import Navigation from '../components/Navigation/Navigation';
 import SignInAndSignUp from './SignInAndSignUp';
 import Dashboard from './Dashboard';

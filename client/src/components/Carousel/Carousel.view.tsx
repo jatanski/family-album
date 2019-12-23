@@ -2,8 +2,11 @@ import React, { FC } from 'react';
 import { MDBCarousel, MDBCarouselInner, MDBContainer } from 'mdbreact';
 import CarouselImage from './Carousel.utils/Carousel.image';
 import { CarouselViewProps } from './Carousel.types';
+import { useHistory } from 'react-router-dom';
 
-const CarouselView: FC<CarouselViewProps> = ({ imageIds, imageDescriptions }) => {
+const CarouselView: FC<CarouselViewProps> = ({ imageIds, imageDescriptions, imageCreationDates }) => {
+	const history = useHistory();
+	// console.log(history);
 	return (
 		<MDBContainer>
 			<MDBCarousel
@@ -18,6 +21,7 @@ const CarouselView: FC<CarouselViewProps> = ({ imageIds, imageDescriptions }) =>
 						? imageIds.map((image, i) => (
 								<CarouselImage
 									description={imageDescriptions[i]}
+									creationDate={imageCreationDates[i]}
 									key={image}
 									image={image}
 									itemId={i + 1}

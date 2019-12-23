@@ -27,7 +27,7 @@ class Albums extends Component<{}, AlbumsState> {
 		this.setState({ albums: albums });
 	}
 
-	public toggleShowModal = (): void => {
+	toggleShowModal = (): void => {
 		const { showModalAddAlbum, albums, ...restStartState } = this.startState;
 
 		// reset several state property
@@ -38,14 +38,14 @@ class Albums extends Component<{}, AlbumsState> {
 		});
 	};
 
-	public handleInputChange = (e: FormEvent<HTMLInputElement>): void => {
+	handleInputChange = (e: FormEvent<HTMLInputElement>): void => {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const state: any = {};
 		state[`${e.currentTarget.id}`] = e.currentTarget.value;
 		this.setState(state);
 	};
 
-	public addAlbum = (): void => {
+	addAlbum = (): void => {
 		const albumIsCreated = this.albumService.submitAlbum(this.state);
 
 		if (albumIsCreated) {
@@ -54,7 +54,7 @@ class Albums extends Component<{}, AlbumsState> {
 		}
 	};
 
-	public setSelectedAlbum = (e: SyntheticEvent<HTMLButtonElement>) => BaseModel.setSelectedAlbum(e);
+	setSelectedAlbum = (e: SyntheticEvent<HTMLButtonElement>) => BaseModel.setSelectedAlbum(e);
 
 	render() {
 		return (

@@ -1,19 +1,25 @@
+import { History } from 'history';
+
 export interface CarouselProps {
 	selectedAlbum: string;
+	history: History<any>;
 }
 
 export interface CarouselState {
 	imageIds: Array<string> | undefined;
 	imageDescriptions: Array<string>;
+	imageCreationDates: Array<string>;
 }
 
 export interface CarouselViewProps {
-	imageIds: Array<string> | undefined;
+	imageIds: CarouselState['imageIds'];
 	imageDescriptions: Array<string>;
+	imageCreationDates: Array<string>;
 }
 
 export interface CarouselImageProps {
 	image: string;
 	itemId: number;
 	description: string;
+	creationDate: string;
 }
