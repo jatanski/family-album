@@ -111,7 +111,7 @@ class AddPhoto extends Component<any, AddPhotoState> {
 					body: photoData,
 				});
 
-				if (response.status === 200) {
+				if (response.ok) {
 					this.setState({ sendedImages: this.state.sendedImages + 1 });
 					console.log(`Zdjęcie numer ${photoIndex} zostało wysłane.`);
 				}
@@ -128,7 +128,7 @@ class AddPhoto extends Component<any, AddPhotoState> {
 
 		photoData.append('file', photo);
 		photoData.append('description', this.state.desc[photoIndex]);
-		photoData.append('creationDate', this.state.createdDates[photoIndex]);
+		photoData.append('creationDate', Date.parse(this.state.createdDates[photoIndex]) + '');
 		photoData.append('albumId', this.state.selectedAlbum);
 		return photoData;
 	}
