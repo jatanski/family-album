@@ -46,7 +46,7 @@ class BaseModel {
 		thisArg?: any,
 	): Promise<void> {
 		let index = 0;
-		for (let item of array) {
+		for (const item of thisArg ?? array) {
 			await callbackfn(item, index, array);
 			index++;
 		}

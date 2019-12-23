@@ -4,7 +4,7 @@ import { LoginViewProps } from './Login.types';
 import BaseModel from '../../../utils/baseModel';
 import View from './Login.view';
 import { useDispatch } from 'react-redux';
-import { startLoginRequest, endLoginRequest } from '../../../redux/request/duck/actions';
+import { startLoginRequest, endLoginRequest } from '../../../redux/request/actions';
 
 const Login: FC<LoginViewProps> = ({ toggleForm }) => {
 	const [loginValue, setLoginValue] = useState('');
