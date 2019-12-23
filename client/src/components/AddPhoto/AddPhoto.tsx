@@ -5,12 +5,7 @@ import View from './AddPhoto.view';
 import BaseModel from '../../utils/baseModel';
 import { AddPhotoState, HandleDescInputState, HandleDateInputState } from './AddPhoto.types';
 import AlbumService from '../Albums/albums.service';
-import {
-	resetUploadImagesRequest,
-	startUploadImageRequest,
-	endUploadImageRequest,
-	displayUploadImageSuccess,
-} from '../../redux/request/actions';
+import { resetUploadImagesRequest, startUploadImageRequest, endUploadImageRequest } from '../../redux/request/actions';
 import { bindActionCreators, AnyAction, Dispatch } from 'redux';
 import { withToastManager, ToastConsumerContext } from 'react-toast-notifications';
 
@@ -61,7 +56,7 @@ class AddPhoto extends Component<Props, AddPhotoState> {
 	}
 
 	handleSelectAlbumInput = (e: ChangeEvent<HTMLSelectElement>): void =>
-		this.setState({ selectedAlbum: e.target.value });
+		this.setState({ selectedAlbum: e.target.value != 'Wybierz album' ? e.target.value : '' });
 
 	handleFileInput = (): void => {
 		// @ts-ignore
@@ -107,12 +102,25 @@ class AddPhoto extends Component<Props, AddPhotoState> {
 
 	submitPhotos = async (e: SyntheticEvent<HTMLButtonElement>): Promise<void> => {
 		e.preventDefault();
-		this.props.resetUploadImagesRequest();
-		await BaseModel.asyncForEach(this.state.images, async (image, i) => {
-			this.props.startUploadImageRequest(i);
-			await this.sendImageToServer(image, i);
-			this.props.endUploadImageRequest(i);
-		});
+		console.log(this.state.selectedAlbum);
+		if (this.state.selectedAlbum == '') {
+			this.props.toastManager.add('Wybierz album do którego chcesz dodać zdjęcia.', {
+				appearance: 'error',
+				autoDismiss: true,
+			});
+		} else if (this.state.images.length == 0) {
+			this.props.toastManager.add('Wybierz zdjęcia, które chcesz wgrać.', {
+				appearance: 'error',
+				autoDismiss: true,
+			});
+		} else {
+			this.props.resetUploadImagesRequest();
+			this.state.images.forEach(async (image, i) => {
+				this.props.startUploadImageRequest(i);
+				await this.sendImageToServer(image, i);
+				this.props.endUploadImageRequest(i);
+			});
+		}
 	};
 
 	private sendImageToServer = async (photo: File, photoIndex: number): Promise<void> => {
@@ -130,8 +138,27 @@ class AddPhoto extends Component<Props, AddPhotoState> {
 				if (response.ok) {
 					this.setState({ sendedImages: this.state.sendedImages + 1 });
 					console.log(`Zdjęcie numer ${photoIndex} zostało wysłane.`);
+				} else {
+					let message: string;
+					switch (response.status) {
+						case 400:
+							message = 'Jakieś dane zostały podane nieprawidłowo.';
+							break;
+						case 500:
+						default:
+							message = 'Niespodziewany błąd serwera.';
+					}
+					message += 'Jeśli często go widzisz skontaktuj się z twórcami';
+					this.props.toastManager.add(message, {
+						appearance: 'error',
+						autoDismiss: true,
+					});
 				}
 			} catch (error) {
+				this.props.toastManager.add('Nie udało połączyć się z serwerem. Sprawdź połączenie sieciowe.', {
+					appearance: 'error',
+					autoDismiss: true,
+				});
 				console.error(error);
 			}
 		}
