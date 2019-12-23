@@ -1,5 +1,8 @@
+import { History } from 'history';
+
 export interface CarouselProps {
 	selectedAlbum: string;
+	history: History<any>;
 }
 
 export interface CarouselState {
