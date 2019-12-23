@@ -9,7 +9,14 @@ import {
 	UPLOAD_IMAGE_REQUEST_START,
 	UploadImageRequestEndAction,
 	UPLOAD_IMAGE_REQUEST_END,
+	ShowUploadImagesSuccess,
+	SHOW_UPLOAD_IMAGES_SUCCESS,
+	HIDE_UPLOAD_IMAGES_SUCCESS,
+	HideUploadImagesSuccess,
+	ActionType,
 } from './types';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { AppState } from '../reducers';
 
 function startLoginRequest(): LoginRequestStartedAction {
 	return {
@@ -43,4 +50,33 @@ function endUploadImageRequest(index: number): UploadImageRequestEndAction {
 	};
 }
 
-export { startLoginRequest, endLoginRequest, resetUploadImagesRequest, startUploadImageRequest, endUploadImageRequest };
+function showUploadImagesSuccess(): ShowUploadImagesSuccess {
+	return {
+		type: SHOW_UPLOAD_IMAGES_SUCCESS,
+	};
+}
+
+function hideUploadImagesSuccess(): HideUploadImagesSuccess {
+	return {
+		type: HIDE_UPLOAD_IMAGES_SUCCESS,
+	};
+}
+
+function displayUploadImageSuccess(timeInSeconds: number): ThunkAction<Promise<void>, AppState, {}, ActionType> {
+	return async dispatch => {
+		dispatch(showUploadImagesSuccess());
+		await new Promise(res => {
+			setTimeout(res, timeInSeconds * 1000);
+		});
+		dispatch(hideUploadImagesSuccess());
+	};
+}
+
+export {
+	startLoginRequest,
+	endLoginRequest,
+	resetUploadImagesRequest,
+	startUploadImageRequest,
+	endUploadImageRequest,
+	displayUploadImageSuccess,
+};

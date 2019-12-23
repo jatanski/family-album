@@ -3,11 +3,20 @@ import { connect } from 'react-redux';
 import { AppState } from '../../redux/reducers';
 import View from './AddPhoto.view';
 import BaseModel from '../../utils/baseModel';
-import { AddPhotoState, HandleDescInputState, HandleDateInputState, AddPhotoProps } from './AddPhoto.types';
+import { AddPhotoState, HandleDescInputState, HandleDateInputState } from './AddPhoto.types';
 import AlbumService from '../Albums/albums.service';
-import { resetUploadImagesRequest, startUploadImageRequest, endUploadImageRequest } from '../../redux/request/actions';
+import {
+	resetUploadImagesRequest,
+	startUploadImageRequest,
+	endUploadImageRequest,
+	displayUploadImageSuccess,
+} from '../../redux/request/actions';
+import { bindActionCreators, AnyAction, Dispatch } from 'redux';
+import { withToastManager, ToastConsumerContext } from 'react-toast-notifications';
 
-class AddPhoto extends Component<AddPhotoProps, AddPhotoState> {
+type Props = { toastManager: ToastConsumerContext } & ReturnType<typeof mapStateToProps> &
+	ReturnType<typeof mapDispatchToProps>;
+class AddPhoto extends Component<Props, AddPhotoState> {
 	readonly albumService = new AlbumService();
 	private endpoint: string = 'image';
 	public fileInput: RefObject<HTMLInputElement> = createRef();
@@ -22,7 +31,6 @@ class AddPhoto extends Component<AddPhotoProps, AddPhotoState> {
 	};
 
 	componentDidMount(): void {
-		console.log(this);
 		this.saveDownloadAlbumsToState();
 		this.setSelectedAlbum();
 	}
@@ -38,12 +46,16 @@ class AddPhoto extends Component<AddPhotoProps, AddPhotoState> {
 		this.setState({ selectedAlbum: selectedAlbum });
 	}
 
-	componentDidUpdate(_prevProps: AddPhotoProps, prevState: AddPhotoState): void {
+	componentDidUpdate(_prevProps: Props, prevState: AddPhotoState): void {
 		if (prevState.sendedImages !== this.state.sendedImages) this.clearImagesInStateAfterSendToServer();
 	}
 
 	private clearImagesInStateAfterSendToServer(): void {
 		if (this.state.sendedImages === this.state.images.length && this.state.images.length !== 0) {
+			this.props.toastManager.add('Udało się załadować wszystkie zdjęcia.', {
+				appearance: 'success',
+				autoDismiss: true,
+			});
 			this.setState({ images: [], desc: [] });
 		}
 	}
@@ -159,6 +171,15 @@ const mapStateToProps = (state: AppState) => ({
 	album: state.album.selectedAlbum,
 });
 
-export default connect(mapStateToProps, { resetUploadImagesRequest, startUploadImageRequest, endUploadImageRequest })(
-	AddPhoto,
-);
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
+	return bindActionCreators(
+		{
+			resetUploadImagesRequest,
+			startUploadImageRequest,
+			endUploadImageRequest,
+		},
+		dispatch,
+	);
+};
+
+export default withToastManager(connect(mapStateToProps, mapDispatchToProps)(AddPhoto));
