@@ -10,9 +10,6 @@ export interface MenuViewProps {
 const MenuView: FC<MenuViewProps> = ({ activeWrapper }) => {
 	return (
 		<MDBNavbarNav left>
-			<MDBNavItem active={activeWrapper.dashboardActive}>
-				<MDBNavLink to="/dashboard">Pulpit</MDBNavLink>
-			</MDBNavItem>
 			<MDBNavItem active={activeWrapper.addPhotoActive}>
 				<MDBNavLink to="/add">Dodaj zdjęcia</MDBNavLink>
 			</MDBNavItem>

@@ -17,6 +17,7 @@ const View: FC<AlbumViewProps> = ({
 	setAlbum,
 	addUserToOtherAlbum,
 }) => {
+	console.log(otherAlbums.length);
 	return (
 		<>
 			<div className="albums__addButton">
@@ -33,15 +34,16 @@ const View: FC<AlbumViewProps> = ({
 						))}
 				</div>
 			</MDBJumbotron>
-			<MDBJumbotron>
-				<h2>Here will be albums others users</h2>
-				<div className="albums__wrap">
-					{otherAlbums &&
-						otherAlbums.map((album: AlbumType, index) => (
+			{otherAlbums.length !== 0 && (
+				<MDBJumbotron>
+					<h2>Here will be albums others users</h2>
+					<div className="albums__wrap">
+						{otherAlbums.map((album: AlbumType, index) => (
 							<OtherAlbum key={index} {...album} addUserToOtherAlbum={addUserToOtherAlbum} />
 						))}
-				</div>
-			</MDBJumbotron>
+					</div>
+				</MDBJumbotron>
+			)}
 			<Portal>
 				<AddNewAlbum
 					handleInputChange={handleInputChange}

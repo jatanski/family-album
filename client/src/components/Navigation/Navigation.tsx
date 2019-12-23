@@ -3,7 +3,6 @@ import { MDBNavbar, MDBNavbarToggler, MDBCollapse } from 'mdbreact';
 import Portal from '../Utils/Portal';
 import Menu from './Menu/Navigation.menu';
 import NavBarBrand from './Navigation.navBarBrand';
-import Dashboard from '../Dashboard/AddPhoto/AddPhoto';
 import BaseModel from '../../utils/baseModel';
 
 const Navigation: FC = () => {
@@ -24,9 +23,6 @@ const Navigation: FC = () => {
 			<MDBNavbarToggler onClick={toggleCollapse} />
 			<MDBCollapse isOpen={collapse} navbar>
 				<Menu />
-				<Portal>
-					<Dashboard></Dashboard>
-				</Portal>
 			</MDBCollapse>
 		</MDBNavbar>
 	) : null;
