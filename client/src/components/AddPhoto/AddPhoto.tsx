@@ -140,12 +140,13 @@ class AddPhoto extends Component<Props, AddPhotoState> {
 	private createPhotoData(photo: File, photoIndex: number): FormData {
 		const photoData = new FormData();
 
-		console.log(this.state.createdDates[photoIndex]);
+		const dateToSend = this.state.createdDates[photoIndex];
+		if (dateToSend) photoData.append('creationDate', Date.parse(this.state.createdDates[photoIndex]) + '');
 
 		photoData.append('file', photo);
 		photoData.append('description', this.state.desc[photoIndex]);
-		photoData.append('creationDate', Date.parse(this.state.createdDates[photoIndex]) + '');
 		photoData.append('albumId', this.state.selectedAlbum);
+
 		return photoData;
 	}
 

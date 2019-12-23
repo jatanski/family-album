@@ -29,7 +29,7 @@ export default class PostImageHandler {
 	}
 
 	private constructor(req: Request, res: Response) {
-		req.body.creationDate = Number(req.body.creationDate);
+		req.body.creationDate = Number(req.body.creationDate) || void 0;
 		PostImageValidator.checkBody(req.body);
 		this.body = req.body;
 		PostImageValidator.checkFiles(req.files);
@@ -78,7 +78,7 @@ export default class PostImageHandler {
 			id: this.imageId,
 			imageId: this.imageId,
 			description,
-			creationDate: +creationDate || undefined,
+			creationDate: creationDate,
 			albumId
 		});
 	}
