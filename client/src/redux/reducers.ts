@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
 import albumReducer from './album';
-import isLoginRequestStarted from './request';
+import { isLoginRequestStarted, areUploadImageRequestsStarted } from './request/reducers';
 
 const rootReducer = combineReducers({
 	album: albumReducer,
 	isLoginRequestStarted,
+	areUploadImageRequestsStarted,
 });
 
 export default rootReducer;
