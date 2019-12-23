@@ -32,7 +32,7 @@ const PhotoToAdd = ({ photo, handleDescInput, handleDateInput, index, deletePhot
 							type="textarea"
 						/>
 					) : (
-						<MDBBtn size="sm" onClick={toggleInputDesc}>
+						<MDBBtn size="sm" onSubmit={toggleInputDesc}>
 							Dodaj opis
 						</MDBBtn>
 					)}
@@ -47,7 +47,7 @@ const PhotoToAdd = ({ photo, handleDescInput, handleDateInput, index, deletePhot
 							type="date"
 						/>
 					) : (
-						<MDBBtn onClick={toggleInputDate} size="sm" color="orange">
+						<MDBBtn onSubmit={toggleInputDate} size="sm" color="orange">
 							Dodaj date
 						</MDBBtn>
 					)}

@@ -6,12 +6,12 @@ import { Link } from 'react-router-dom';
 const AlbumButtons: FC<AlbumTypeAndSetAlbum> = ({ setAlbum, _id }) => (
 	<div className="albums__wrap--el--buttons">
 		<Link to="carousel">
-			<MDBBtn onClick={setAlbum} id={_id} color="red" size="sm">
+			<MDBBtn onSubmit={setAlbum} id={_id} color="red" size="sm">
 				Obejrzyj
 			</MDBBtn>
 		</Link>
 		<Link to="add">
-			<MDBBtn onClick={setAlbum} id={_id} color="indigo" size="sm">
+			<MDBBtn onSubmit={setAlbum} id={_id} color="indigo" size="sm">
 				Dodaj zdjęcia
 			</MDBBtn>
 		</Link>

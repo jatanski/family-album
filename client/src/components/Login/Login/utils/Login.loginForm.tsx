@@ -40,7 +40,7 @@ const LoginForm: FC<LoginViewProps> = function LoginForm({
 				/>
 			</div>
 			<div className="text-center">
-				<MDBBtn onClick={submitLogin}>
+				<MDBBtn type="submit" onClick={submitLogin}>
 					{isLoading && <Loader />}
 					Login
 				</MDBBtn>

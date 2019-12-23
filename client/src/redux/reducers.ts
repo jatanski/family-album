@@ -5,12 +5,14 @@ import {
 	areUploadImageRequestsStarted,
 	isUpdateSuccessNotificationShowed,
 } from './request/reducers';
+import { token } from './token/token';
 
 const rootReducer = combineReducers({
 	album: albumReducer,
 	isLoginRequestStarted,
 	areUploadImageRequestsStarted,
 	isUpdateSuccessNotificationShowed,
+	token,
 });
 
 export default rootReducer;
