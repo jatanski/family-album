@@ -52,4 +52,28 @@ export default class AlbumService {
 		}
 		return false;
 	}
+
+	public async sendAlbumsWithNewAuthors(albums: Array<string>, albumId: string): Promise<boolean> {
+		const token = BaseModel.getAuthToken();
+
+		const albumData = { authorsId: albums };
+
+		if (token) {
+			try {
+				await fetch(BaseModel.baseApiUrl + this.endpoint + '/' + albumId, {
+					method: 'PATCH',
+					headers: {
+						'Content-Type': 'application/json',
+						'x-token': token,
+					},
+					body: JSON.stringify(albumData),
+				});
+
+				return true;
+			} catch (error) {
+				console.error(error);
+			}
+		}
+		return false;
+	}
 }

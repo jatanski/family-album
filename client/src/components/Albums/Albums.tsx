@@ -3,7 +3,6 @@ import { AlbumsState, AlbumType } from './Album.types';
 import AlbumService from './albums.service';
 import BaseModel from '../../utils/baseModel';
 import View from './Albums.view';
-import jwt from 'jsonwebtoken';
 
 class Albums extends Component<{}, AlbumsState> {
 	startState = {
@@ -34,26 +33,15 @@ class Albums extends Component<{}, AlbumsState> {
 	private divideAlbumsIntoMineAndOthers(
 		albums: Array<AlbumType>,
 	): { myAlbums: Array<AlbumType>; othersAlbums: Array<AlbumType> } {
-		const myId = this.giveUserIdFromToken()!;
+		const myId = BaseModel.giveUserIdFromToken()!;
 
 		const myAlbums = albums.filter(album => album.authorsId?.some(author => author === myId));
-		const otherAlbums = albums.filter(album => album.authorsId?.some(author => author !== myId));
+		const otherAlbums = albums.filter(album => album.authorsId?.every(author => author !== myId));
 
 		return {
 			myAlbums,
 			othersAlbums: otherAlbums,
 		};
-	}
-
-	private giveUserIdFromToken(): string | undefined {
-		const token = BaseModel.getAuthToken();
-		const tokenAfterDecode = jwt.decode(token!);
-
-		if (typeof tokenAfterDecode === 'string') {
-			return undefined;
-		} else {
-			return tokenAfterDecode!.id;
-		}
 	}
 
 	toggleShowModal = (): void => {
@@ -85,15 +73,39 @@ class Albums extends Component<{}, AlbumsState> {
 
 	setSelectedAlbum = (e: SyntheticEvent<HTMLButtonElement>) => BaseModel.setSelectedAlbum(e);
 
+	addUserToOtherAlbum = async (e: SyntheticEvent<HTMLButtonElement>) => {
+		const userId = BaseModel.giveUserIdFromToken()!;
+		const albumId = e.currentTarget.id;
+		const otherAlbums = [...this.state.otherAlbums];
+
+		const albumsToAddUser: Array<AlbumType> = otherAlbums.filter(
+			(otherAlbum: AlbumType) => otherAlbum._id === albumId,
+		);
+
+		albumsToAddUser[0].authorsId?.push(userId);
+
+		const albumsAfterAddUser = albumsToAddUser[0].authorsId!;
+		const userAdded = await this.albumService.sendAlbumsWithNewAuthors(albumsAfterAddUser, albumId);
+
+		// if server received ok status refresh myAlbums and otherAlbums in state
+		if (userAdded) {
+			const newMyAlbums = [...this.state.myAlbums, albumsToAddUser[0]];
+			const newOtherAlbums = otherAlbums.filter((otherAlbum: AlbumType) => otherAlbum._id !== albumId);
+			this.setState({ myAlbums: newMyAlbums, otherAlbums: newOtherAlbums });
+		}
+	};
+
 	render() {
 		return (
 			<View
 				handleInputChange={this.handleInputChange}
 				showModalAddAlbum={this.state.showModalAddAlbum}
 				toggleShowModal={this.toggleShowModal}
-				albumsArr={this.state.myAlbums}
+				myAlbums={this.state.myAlbums}
+				otherAlbums={this.state.otherAlbums}
 				addAlbum={this.addAlbum}
 				setAlbum={this.setSelectedAlbum}
+				addUserToOtherAlbum={this.addUserToOtherAlbum}
 			/>
 		);
 	}

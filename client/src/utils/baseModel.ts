@@ -1,11 +1,23 @@
 import { SyntheticEvent } from 'react';
 import { allActions } from '../redux/store';
+import jwt from 'jsonwebtoken';
 
 class BaseModel {
 	static baseApiUrl = 'http://localhost:3069/';
 
 	static saveAuthToken(token: string): void {
 		localStorage.setItem('token', token);
+	}
+
+	static giveUserIdFromToken(): string | undefined {
+		const token = BaseModel.getAuthToken();
+		const tokenAfterDecode = jwt.decode(token!);
+
+		if (typeof tokenAfterDecode === 'string') {
+			return undefined;
+		} else {
+			return tokenAfterDecode!.id;
+		}
 	}
 
 	static getAuthToken(): string | null {
