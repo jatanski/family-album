@@ -6,6 +6,8 @@ import {
 	UPLOAD_IMAGES_REQUEST_RESET,
 	UPLOAD_IMAGE_REQUEST_START,
 	UPLOAD_IMAGE_REQUEST_END,
+	SHOW_UPLOAD_IMAGES_SUCCESS,
+	HIDE_UPLOAD_IMAGES_SUCCESS,
 } from './types';
 
 const defaultLoginState = false;
@@ -31,6 +33,22 @@ export function areUploadImageRequestsStarted(state = defaultUploadImagesState, 
 			return state.set(action.payload.index, true);
 		case UPLOAD_IMAGE_REQUEST_END:
 			return state.set(action.payload.index, false);
+		default:
+			return state;
+	}
+}
+
+const defaultUploadImageSuccesNotificationState = false;
+
+export function isUpdateSuccessNotificationShowed(
+	state = defaultUploadImageSuccesNotificationState,
+	action: ActionType,
+) {
+	switch (action.type) {
+		case SHOW_UPLOAD_IMAGES_SUCCESS:
+			return true;
+		case HIDE_UPLOAD_IMAGES_SUCCESS:
+			return false;
 		default:
 			return state;
 	}

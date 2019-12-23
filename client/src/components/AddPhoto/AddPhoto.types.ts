@@ -1,6 +1,11 @@
 import { ReactNode, SyntheticEvent, FormEvent, ChangeEvent } from 'react';
 import { AlbumType } from '../Albums/Album.types';
-import { resetUploadImagesRequest, startUploadImageRequest, endUploadImageRequest } from '../../redux/request/actions';
+import {
+	resetUploadImagesRequest,
+	startUploadImageRequest,
+	endUploadImageRequest,
+	displayUploadImageSuccess,
+} from '../../redux/request/actions';
 
 export interface ViewProps {
 	handleFileInput: () => void;
@@ -44,13 +49,6 @@ export interface HandleDescInputState {
 
 export interface HandleDateInputState {
 	createdDates: Array<string>;
-}
-
-export interface AddPhotoProps {
-	album: string;
-	resetUploadImagesRequest: typeof resetUploadImagesRequest;
-	startUploadImageRequest: typeof startUploadImageRequest;
-	endUploadImageRequest: typeof endUploadImageRequest;
 }
 
 export interface AddPhotoState {
