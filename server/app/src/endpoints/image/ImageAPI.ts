@@ -55,10 +55,12 @@ export default class ImageAPI {
 			.equals(id)
 			.select("-miniature");
 		if (imageData) {
-			const { description, imageId } = imageData;
+			const { description, imageId, creationDate, albumId } = imageData;
 			res.status(200).send({
 				description,
-				imageId
+				imageId,
+				creationDate: +creationDate || undefined,
+				albumId
 			});
 		} else {
 			res.status(404).send("There is no image with provided id.");
@@ -71,7 +73,12 @@ export default class ImageAPI {
 			.where("ownerId")
 			.equals(userId)
 			.select("imageId");
-		res.status(200).send(images.map(image => image.imageId));
+		res.status(200).send(images.map(({description, imageId, creationDate, albumId}) => ({
+			description,
+			imageId,
+			creationDate: +creationDate || undefined,
+			albumId
+		})));
 	};
 
 	private deleteImageCallback = async (req: Request, res: Response) => {

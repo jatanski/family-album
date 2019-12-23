@@ -1,30 +1,55 @@
+import { SyntheticEvent } from 'react';
+import { allActions } from '../redux/store';
+
 class BaseModel {
-  public static baseApiUrl = 'http://localhost:3069/';
+	static baseApiUrl = 'http://localhost:3069/';
 
-  public static getAuthTokenHeaderObj() {
-    return { 'x-auth-token': this.getAuthToken() };
-  }
+	static saveAuthToken(token: string): void {
+		localStorage.setItem('token', token);
+	}
 
-  public static saveAuthToken = (token: string) => {
-    localStorage.setItem('x-auth-token', token);
-  };
+	static getAuthToken(): string | null {
+		return localStorage.getItem('token');
+	}
 
-  public static saveToLocalStorage(where: string, what: string) {
-    localStorage.setItem(where, JSON.stringify(what));
-  }
+	static onLogout(): void {
+		localStorage.removeItem('token');
+	}
 
-  public static loadFromLocalStorage = (what: string) => {
-    return JSON.parse(localStorage.getItem(what) || '{}');
-  };
+	static async downloadAnythingWithBody(endpoint: string): Promise<any> {
+		const token: string | null = BaseModel.getAuthToken();
 
-  public static getAuthToken() {
-    return localStorage.getItem('x-auth-token');
-  }
+		if (token) {
+			try {
+				const response = await fetch(BaseModel.baseApiUrl + endpoint, {
+					method: 'GET',
+					headers: { 'x-token': token },
+				});
 
-  public static onLogout() {
-    localStorage.removeItem('user');
-    localStorage.removeItem('x-auth-token');
-  }
+				const responseData = await response.json();
+
+				return responseData;
+			} catch (error) {
+				console.error(error);
+			}
+		}
+	}
+
+	static setSelectedAlbum(e: SyntheticEvent<HTMLButtonElement>): void {
+		allActions.setAlbum(e.currentTarget.id);
+	}
+
+	static async asyncForEach<T>(
+		array: Array<T>,
+		callbackfn: (value: T, index: number, array: T[]) => Promise<void>,
+		thisArg?: any,
+	): Promise<void> {
+		let index = 0;
+		for (const item of thisArg ?? array) {
+			await callbackfn(item, index, array);
+			index++;
+		}
+	}
 }
 
 export default BaseModel;

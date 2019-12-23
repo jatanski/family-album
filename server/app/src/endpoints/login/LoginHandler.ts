@@ -69,7 +69,7 @@ export default class LoginHandler {
 		this.res
 			.status(200)
 			.header("x-token", this.getToken())
-			.send();
+			.send({ token: this.getToken() });
 	}
 
 	private getToken(): string {

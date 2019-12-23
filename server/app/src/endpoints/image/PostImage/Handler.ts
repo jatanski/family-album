@@ -11,6 +11,7 @@ interface PostImageInput {
 	userId: ImageDataDocument["ownerId"];
 	albumId: ImageDataDocument["albumId"];
 	description?: ImageDataDocument["description"];
+	creationDate?: number;
 }
 
 export default class PostImageHandler {
@@ -28,6 +29,7 @@ export default class PostImageHandler {
 	}
 
 	private constructor(req: Request, res: Response) {
+		req.body.creationDate = Number(req.body.creationDate) || void 0;
 		PostImageValidator.checkBody(req.body);
 		this.body = req.body;
 		PostImageValidator.checkFiles(req.files);
@@ -39,9 +41,7 @@ export default class PostImageHandler {
 
 	private async handle() {
 		await this.saveImage();
-		this.res.status(200).send({
-			id: this.imageId
-		});
+		this.sendSuccess();
 	}
 
 	private async saveImage() {
@@ -50,14 +50,15 @@ export default class PostImageHandler {
 			contentType: this.image.mimetype
 		});
 		this.imageId = imageDocument.id;
-		const { userId: ownerId, description, albumId } = this.body;
+		const { userId: ownerId, description, albumId, creationDate } = this.body;
 		const miniature = await this.getMiniature();
 		const imageDate = new ImageDataModel({
 			imageId: imageDocument.id.toString(),
 			miniature,
 			ownerId,
 			description,
-			albumId
+			albumId,
+			creationDate
 		});
 		await imageDocument.save();
 		await imageDate.save();
@@ -69,5 +70,16 @@ export default class PostImageHandler {
 		} catch (error) {
 			throw new InvalidDataError(error.message ?? "Invalid image.");
 		}
+	}
+
+	private sendSuccess() {
+		const { description, creationDate, albumId } = this.body;
+		this.res.status(200).send({
+			id: this.imageId,
+			imageId: this.imageId,
+			description,
+			creationDate: creationDate,
+			albumId
+		});
 	}
 }

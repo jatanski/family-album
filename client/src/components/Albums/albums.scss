@@ -1,0 +1,12 @@
+.albums__wrap {
+  display: flex;
+  flex-wrap: wrap;
+
+  &--el {
+    margin: 2vh 0;
+
+    &--buttons {
+      display: flex;
+    }
+  }
+}

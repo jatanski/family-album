@@ -14,9 +14,14 @@ console.clear();
 const MONGO_URI = process.env.DB_URI;
 
 if (MONGO_URI) {
-	mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
-		console.log("Database connected.");
-	});
+	mongoose.connect(
+		MONGO_URI,
+		{ useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
+		(err) => {
+			if (!err) console.log("Database connected.");
+			else console.error(err);
+		}
+	);
 } else throw new EnvVarError("DB_URI");
 
 const PORT: string = process.env.PORT ?? "3000";
