@@ -11,7 +11,7 @@ export default class AlbumService {
 		this.toastManager = toastManager;
 	}
 
-	public async downloadAllAlbums(): Promise<Array<AlbumType>> {
+	public async fetchAllAlbums(): Promise<Array<AlbumType>> {
 		const downloadAlbums = (await BaseModel.downloadAnythingWithBody(this.endpoint)) as AlbumType[];
 
 		return this.changeDatesToDateType(downloadAlbums);

@@ -38,7 +38,7 @@ const Login: FC<LoginViewProps> = ({ toggleForm }) => {
 				const token = response.headers.get('x-token');
 				if (token) BaseModel.saveAuthToken(token);
 
-				history.push('/dashboard');
+				history.push('/photos');
 			} else {
 				// setLoginValue('');
 				setPasswordValue('');

@@ -36,11 +36,6 @@ const Menu: FC = () => {
 		const pathname = history.location.pathname;
 		setActiveWrapper({ ...startedActiveWrapper });
 		switch (pathname) {
-			case pathnames.dashboard:
-				setActiveWrapper({
-					dashboardActive: true,
-				});
-				break;
 			case pathnames.albums:
 				setActiveWrapper({
 					albumsActive: true,
