@@ -34,7 +34,7 @@ const View = forwardRef(function AddPhotoView(
 				handleDescInput={handleDescInput}
 				handleDateInput={handleDateInput}
 				photos={photos}
-			></Gallery>
+			/>
 		</>
 	);
 });

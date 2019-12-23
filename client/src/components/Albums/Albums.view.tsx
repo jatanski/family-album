@@ -25,11 +25,10 @@ const View: FC<AlbumViewProps> = ({
 				<h2 className="albums__header">Twoje albumy</h2>
 				<div className="albums__wrap">
 					<div className="albums__wrap--newAlbumButton"></div>
-					{albumsArr
-						? albumsArr.map((album: AlbumType, index) => (
-								<Album key={index} {...album} setAlbum={setAlbum}></Album>
-						  ))
-						: null}
+					{albumsArr &&
+						albumsArr.map((album: AlbumType, index) => (
+							<Album key={index} {...album} setAlbum={setAlbum}></Album>
+						))}
 				</div>
 			</MDBJumbotron>
 			<MDBJumbotron>
@@ -44,7 +43,7 @@ const View: FC<AlbumViewProps> = ({
 					toggle={toggleShowModal}
 					show={showModalAddAlbum}
 					addAlbum={addAlbum}
-				></AddNewAlbum>
+				/>
 			</Portal>
 		</>
 	);

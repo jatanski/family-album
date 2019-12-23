@@ -36,7 +36,7 @@ export default class AlbumService {
 
 		if (token) {
 			try {
-				const response = await fetch(BaseModel.baseApiUrl + this.endpoint, {
+				await fetch(BaseModel.baseApiUrl + this.endpoint, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',

@@ -23,6 +23,6 @@ export default class WatchPhotos extends Component {
 	setSelectedAlbum = (e: SyntheticEvent<HTMLButtonElement>) => BaseModel.setSelectedAlbum(e);
 
 	render() {
-		return <View setSelectedAlbum={this.setSelectedAlbum} albums={this.state.albums}></View>;
+		return <View setSelectedAlbum={this.setSelectedAlbum} albums={this.state.albums} />;
 	}
 }
