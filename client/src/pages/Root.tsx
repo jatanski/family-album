@@ -16,7 +16,7 @@ import { ToastProvider } from 'react-toast-notifications';
 const Root: FC = () => (
 	<Provider store={store}>
 		<ToastProvider>
-			<BrowserRouter>
+			<HashRouter>
 				<Navigation />
 				<Switch>
 					<Route exact path="/" component={LandingPage} />
@@ -28,7 +28,7 @@ const Root: FC = () => (
 					<Route path="/miniatures" component={Miniatures} />
 					<Route path="/carousel" component={Carousel} />
 				</Switch>
-			</BrowserRouter>
+			</HashRouter>
 		</ToastProvider>
 	</Provider>
 );
