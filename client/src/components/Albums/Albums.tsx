@@ -3,8 +3,14 @@ import { AlbumsState, AlbumType } from './Album.types';
 import AlbumService from './albums.service';
 import BaseModel from '../../utils/baseModel';
 import View from './Albums.view';
+import { withToastManager, ToastConsumerContext } from 'react-toast-notifications';
 
-class Albums extends Component<{}, AlbumsState> {
+class Albums extends Component<
+	{
+		toastManager: ToastConsumerContext;
+	},
+	AlbumsState
+> {
 	startState = {
 		showModalAddAlbum: false,
 		name: '',
@@ -17,7 +23,7 @@ class Albums extends Component<{}, AlbumsState> {
 
 	state = this.startState;
 
-	albumService = new AlbumService();
+	albumService = new AlbumService(this.props.toastManager);
 
 	componentDidMount(): void {
 		this.saveFetchedAlbumsToState();
@@ -62,8 +68,8 @@ class Albums extends Component<{}, AlbumsState> {
 		this.setState(state);
 	};
 
-	addAlbum = (): void => {
-		const albumIsCreated = this.albumService.submitAlbum(this.state);
+	addAlbum = async (): Promise<void> => {
+		const albumIsCreated = await this.albumService.submitAlbum(this.state);
 
 		if (albumIsCreated) {
 			const { showModalAddAlbum, myAlbums: albums, ...albumToAddData } = this.state;
@@ -111,4 +117,4 @@ class Albums extends Component<{}, AlbumsState> {
 	}
 }
 
-export default Albums;
+export default withToastManager(Albums);

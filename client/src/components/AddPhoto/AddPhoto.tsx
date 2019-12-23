@@ -12,7 +12,7 @@ import { withToastManager, ToastConsumerContext } from 'react-toast-notification
 type Props = { toastManager: ToastConsumerContext } & ReturnType<typeof mapStateToProps> &
 	ReturnType<typeof mapDispatchToProps>;
 class AddPhoto extends Component<Props, AddPhotoState> {
-	readonly albumService = new AlbumService();
+	readonly albumService = new AlbumService(this.props.toastManager);
 	private endpoint: string = 'image';
 	public fileInput: RefObject<HTMLInputElement> = createRef();
 

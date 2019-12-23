@@ -5,6 +5,7 @@ import BaseModel from '../../../utils/baseModel';
 import View from './Login.view';
 import { useDispatch } from 'react-redux';
 import { startLoginRequest, endLoginRequest } from '../../../redux/request/actions';
+import { useToasts } from 'react-toast-notifications';
 
 const Login: FC<LoginViewProps> = ({ toggleForm }) => {
 	const [loginValue, setLoginValue] = useState('');
@@ -12,6 +13,7 @@ const Login: FC<LoginViewProps> = ({ toggleForm }) => {
 
 	const history = useHistory();
 	const dispatch = useDispatch();
+	const { addToast } = useToasts();
 
 	const endpoint: string = 'login';
 
@@ -38,12 +40,23 @@ const Login: FC<LoginViewProps> = ({ toggleForm }) => {
 
 				history.push('/dashboard');
 			} else {
-				setLoginValue('');
+				// setLoginValue('');
 				setPasswordValue('');
-				alert('Niepoprawny email lub hasło.');
+				addToast(
+					response.status == 400
+						? 'Niepoprawny email lub hasło.'
+						: 'Niespodziewany błąd. Spróbuj ponownie później.',
+					{
+						appearance: 'error',
+						autoDismiss: true,
+					},
+				);
 			}
 		} catch (error) {
-			console.error(error);
+			addToast('Nie udało połączyć się z serwerem. Sprawdź połączenie internetowe', {
+				appearance: 'error',
+				autoDismiss: true,
+			});
 		} finally {
 			dispatch(endLoginRequest());
 		}
