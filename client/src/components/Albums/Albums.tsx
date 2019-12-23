@@ -1,5 +1,5 @@
 import React, { Component, FormEvent, SyntheticEvent } from 'react';
-import { AlbumsState } from './Album.types';
+import { AlbumsState, AlbumType } from './Album.types';
 import AlbumService from './albums.service';
 import BaseModel from '../../utils/baseModel';
 import View from './Albums.view';
@@ -17,7 +17,8 @@ class Albums extends Component<
 		description: '',
 		beginningDate: '',
 		endDate: '',
-		albums: [],
+		myAlbums: [],
+		otherAlbums: [],
 	};
 
 	state = this.startState;
@@ -25,21 +26,37 @@ class Albums extends Component<
 	albumService = new AlbumService(this.props.toastManager);
 
 	componentDidMount(): void {
-		this.saveDownloadAlbumsToState();
+		this.saveFetchedAlbumsToState();
 	}
 
-	private async saveDownloadAlbumsToState(): Promise<void> {
-		const albums = await this.albumService.downloadAllAlbums();
-		this.setState({ albums: albums });
+	private async saveFetchedAlbumsToState(): Promise<void> {
+		const albums = await this.albumService.fetchAllAlbums();
+
+		const albumsAlfterDivided = this.divideAlbumsIntoMineAndOthers(albums);
+		this.setState({ myAlbums: albumsAlfterDivided.myAlbums, otherAlbums: albumsAlfterDivided.othersAlbums });
+	}
+
+	private divideAlbumsIntoMineAndOthers(
+		albums: Array<AlbumType>,
+	): { myAlbums: Array<AlbumType>; othersAlbums: Array<AlbumType> } {
+		const myId = BaseModel.giveUserIdFromToken()!;
+
+		const myAlbums = albums.filter(album => album.authorsId?.some(author => author === myId));
+		const otherAlbums = albums.filter(album => album.authorsId?.every(author => author !== myId));
+
+		return {
+			myAlbums,
+			othersAlbums: otherAlbums,
+		};
 	}
 
 	toggleShowModal = (): void => {
-		const { showModalAddAlbum, albums, ...restStartState } = this.startState;
+		const { showModalAddAlbum, myAlbums: albums, ...restStartState } = this.startState;
 
 		// reset several state property
 		this.setState({
 			showModalAddAlbum: !this.state.showModalAddAlbum,
-			albums: this.state.albums,
+			myAlbums: this.state.myAlbums,
 			...restStartState,
 		});
 	};
@@ -55,12 +72,34 @@ class Albums extends Component<
 		const albumIsCreated = await this.albumService.submitAlbum(this.state);
 
 		if (albumIsCreated) {
-			const { showModalAddAlbum, albums, ...albumToAddData } = this.state;
-			this.setState({ albums: [...this.state.albums, albumToAddData], showModalAddAlbum: false });
+			const { showModalAddAlbum, myAlbums: albums, ...albumToAddData } = this.state;
+			this.setState({ myAlbums: [...this.state.myAlbums, albumToAddData], showModalAddAlbum: false });
 		}
 	};
 
 	setSelectedAlbum = (e: SyntheticEvent<HTMLButtonElement>) => BaseModel.setSelectedAlbum(e);
+
+	addUserToOtherAlbum = async (e: SyntheticEvent<HTMLButtonElement>) => {
+		const userId = BaseModel.giveUserIdFromToken()!;
+		const albumId = e.currentTarget.id;
+		const otherAlbums = [...this.state.otherAlbums];
+
+		const albumsToAddUser: Array<AlbumType> = otherAlbums.filter(
+			(otherAlbum: AlbumType) => otherAlbum._id === albumId,
+		);
+
+		albumsToAddUser[0].authorsId?.push(userId);
+
+		const albumsAfterAddUser = albumsToAddUser[0].authorsId!;
+		const userAdded = await this.albumService.sendAlbumsWithNewAuthors(albumsAfterAddUser, albumId);
+
+		// if server received ok status refresh myAlbums and otherAlbums in state
+		if (userAdded) {
+			const newMyAlbums = [...this.state.myAlbums, albumsToAddUser[0]];
+			const newOtherAlbums = otherAlbums.filter((otherAlbum: AlbumType) => otherAlbum._id !== albumId);
+			this.setState({ myAlbums: newMyAlbums, otherAlbums: newOtherAlbums });
+		}
+	};
 
 	render() {
 		return (
@@ -68,9 +107,11 @@ class Albums extends Component<
 				handleInputChange={this.handleInputChange}
 				showModalAddAlbum={this.state.showModalAddAlbum}
 				toggleShowModal={this.toggleShowModal}
-				albumsArr={this.state.albums}
+				myAlbums={this.state.myAlbums}
+				otherAlbums={this.state.otherAlbums}
 				addAlbum={this.addAlbum}
 				setAlbum={this.setSelectedAlbum}
+				addUserToOtherAlbum={this.addUserToOtherAlbum}
 			/>
 		);
 	}

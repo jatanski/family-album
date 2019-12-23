@@ -42,7 +42,7 @@ const Login: FC<LoginViewProps> = ({ toggleForm }) => {
 					dispatch(setToken(token));
 				}
 
-				history.push('/dashboard');
+				history.push('/photos');
 			} else {
 				// setLoginValue('');
 				setPasswordValue('');

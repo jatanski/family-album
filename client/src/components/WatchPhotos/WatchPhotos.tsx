@@ -16,7 +16,7 @@ export default class WatchPhotos extends Component {
 	};
 
 	private saveDownloadAlbumsToState = async (): Promise<void> => {
-		const albums = await this.albumService.downloadAllAlbums();
+		const albums = await this.albumService.fetchAllAlbums();
 		this.setState({ albums: albums });
 	};
 

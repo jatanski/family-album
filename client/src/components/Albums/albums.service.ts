@@ -4,13 +4,14 @@ import { ToastConsumerContext } from 'react-toast-notifications';
 
 export default class AlbumService {
 	readonly endpoint: string = `album`;
+
 	private readonly toastManager?: ToastConsumerContext;
 
 	constructor(toastManager?: ToastConsumerContext) {
 		this.toastManager = toastManager;
 	}
 
-	public async downloadAllAlbums(): Promise<Array<AlbumType>> {
+	public async fetchAllAlbums(): Promise<Array<AlbumType>> {
 		const downloadAlbums = (await BaseModel.downloadAnythingWithBody(this.endpoint)) as AlbumType[];
 
 		return this.changeDatesToDateType(downloadAlbums);
@@ -33,6 +34,8 @@ export default class AlbumService {
 	public async submitAlbum(albumState: AlbumsState): Promise<boolean> {
 		const token = BaseModel.getAuthToken();
 
+		const { showModalAddAlbum, myAlbums: albums, beginningDate, endDate, ...stateToSend } = albumState;
+
 		if (albumState.name == '') {
 			this.toastManager?.add('Musisz wpisać nazwę albumu', {
 				appearance: 'info',
@@ -40,8 +43,6 @@ export default class AlbumService {
 			});
 			return false;
 		}
-
-		const { showModalAddAlbum, albums, beginningDate, endDate, ...stateToSend } = albumState;
 
 		const albumData = {
 			...stateToSend,
@@ -76,6 +77,30 @@ export default class AlbumService {
 					appearance: 'error',
 					autoDismiss: true,
 				});
+				console.error(error);
+			}
+		}
+		return false;
+	}
+
+	public async sendAlbumsWithNewAuthors(albums: Array<string>, albumId: string): Promise<boolean> {
+		const token = BaseModel.getAuthToken();
+
+		const albumData = { authorsId: albums };
+
+		if (token) {
+			try {
+				await fetch(BaseModel.baseApiUrl + this.endpoint + '/' + albumId, {
+					method: 'PATCH',
+					headers: {
+						'Content-Type': 'application/json',
+						'x-token': token,
+					},
+					body: JSON.stringify(albumData),
+				});
+
+				return true;
+			} catch (error) {
 				console.error(error);
 			}
 		}

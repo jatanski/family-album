@@ -3,17 +3,21 @@ import { MDBBtn, MDBJumbotron } from 'mdbreact';
 import { AlbumViewProps, AlbumType } from './Album.types';
 import './albums.scss';
 import Portal from '../Utils/Portal';
-import Album from './Albums.utils/Albums.album';
+import MyAlbum from './Albums.utils/Albums.myAlbum';
+import OtherAlbum from './Albums.utils/Albums.otherAlbum';
 import AddNewAlbum from './Albums.utils/AddNewAlbum/Albums.addNewAlbum';
 
 const View: FC<AlbumViewProps> = ({
-	albumsArr,
+	myAlbums,
+	otherAlbums,
 	toggleShowModal,
 	showModalAddAlbum,
 	handleInputChange,
 	addAlbum,
 	setAlbum,
+	addUserToOtherAlbum,
 }) => {
+	console.log(otherAlbums.length);
 	return (
 		<>
 			<div className="albums__addButton">
@@ -24,19 +28,22 @@ const View: FC<AlbumViewProps> = ({
 			<MDBJumbotron>
 				<h2 className="albums__header">Twoje albumy</h2>
 				<div className="albums__wrap">
-					<div className="albums__wrap--newAlbumButton"></div>
-					{albumsArr &&
-						albumsArr.map((album: AlbumType, index) => (
-							<Album key={index} {...album} setAlbum={setAlbum}></Album>
+					{myAlbums &&
+						myAlbums.map((album: AlbumType, index) => (
+							<MyAlbum key={index} {...album} setAlbum={setAlbum} />
 						))}
 				</div>
 			</MDBJumbotron>
-			<MDBJumbotron>
-				{
+			{otherAlbums.length !== 0 && (
+				<MDBJumbotron>
 					<h2>Here will be albums others users</h2>
-					// here will be albums others users
-				}
-			</MDBJumbotron>
+					<div className="albums__wrap">
+						{otherAlbums.map((album: AlbumType, index) => (
+							<OtherAlbum key={index} {...album} addUserToOtherAlbum={addUserToOtherAlbum} />
+						))}
+					</div>
+				</MDBJumbotron>
+			)}
 			<Portal>
 				<AddNewAlbum
 					handleInputChange={handleInputChange}
