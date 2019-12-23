@@ -12,7 +12,7 @@ const Gallery = ({ photos, handleDescInput, handleDateInput, deletePhoto }: Gall
 				photo={photo}
 				key={i}
 				index={i}
-			></PhotoToAdd>
+			/>
 		);
 	});
 };

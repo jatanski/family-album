@@ -68,7 +68,7 @@ class Carousel extends Component<CarouselProps, CarouselState> {
 				imageDescriptions={this.state.imageDescriptions}
 				imageCreationDates={this.state.imageCreationDates}
 				imageIds={this.state.imageIds}
-			></View>
+			/>
 		);
 	}
 }

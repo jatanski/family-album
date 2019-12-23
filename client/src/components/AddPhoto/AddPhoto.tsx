@@ -162,7 +162,7 @@ class AddPhoto extends Component<Props, AddPhotoState> {
 				handleDateInput={this.handleDateInput}
 				handleSelectAlbumInput={this.handleSelectAlbumInput}
 				deletePhoto={this.deletePhoto}
-			></View>
+			/>
 		);
 	}
 }
