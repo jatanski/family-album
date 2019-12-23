@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { MDBCarouselItem, MDBView, MDBMask, MDBCarouselCaption } from 'mdbreact';
 import { CarouselImageProps } from '../Carousel.types';
 
-const CarouselImage: FC<CarouselImageProps> = ({ image, itemId, description }) => {
+const CarouselImage: FC<CarouselImageProps> = ({ image, itemId, description, createdDate }) => {
 	const src: string = `http://localhost:3069/image/${image}/full`;
 	return (
 		<MDBCarouselItem itemId={itemId}>
@@ -12,6 +12,7 @@ const CarouselImage: FC<CarouselImageProps> = ({ image, itemId, description }) =
 			<MDBCarouselCaption>
 				{/* <h3 className="h3-responsive">Light mask</h3> */}
 				<p>{description}</p>
+				<p>{createdDate}</p>
 			</MDBCarouselCaption>
 		</MDBCarouselItem>
 	);

@@ -3,7 +3,7 @@ import { MDBCarousel, MDBCarouselInner, MDBContainer } from 'mdbreact';
 import CarouselImage from './Carousel.utils/Carousel.image';
 import { CarouselViewProps } from './Carousel.types';
 
-const CarouselView: FC<CarouselViewProps> = ({ imageIds, imageDescriptions }) => {
+const CarouselView: FC<CarouselViewProps> = ({ imageIds, imageDescriptions, imageCreatedDates }) => {
 	return (
 		<MDBContainer>
 			<MDBCarousel
@@ -18,6 +18,7 @@ const CarouselView: FC<CarouselViewProps> = ({ imageIds, imageDescriptions }) =>
 						? imageIds.map((image, i) => (
 								<CarouselImage
 									description={imageDescriptions[i]}
+									createdDate={imageCreatedDates[i]}
 									key={image}
 									image={image}
 									itemId={i + 1}

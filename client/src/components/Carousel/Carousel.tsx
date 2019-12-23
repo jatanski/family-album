@@ -6,7 +6,7 @@ import { AlbumType } from '../Albums/Album.types';
 import BaseModel from '../../utils/baseModel';
 import { CarouselProps, CarouselState } from './Carousel.types';
 
-type fullImageObjectsType = { description: string; imageId: string };
+type fullImageObjectsType = { description: string; createdDate: string; imageId: string };
 
 class Carousel extends Component<CarouselProps, CarouselState> {
 	albumEndpoint: string = `album/${this.props.selectedAlbum}`;
@@ -14,6 +14,7 @@ class Carousel extends Component<CarouselProps, CarouselState> {
 	state = {
 		imageIds: [],
 		imageDescriptions: [],
+		imageCreatedDates: [],
 	};
 
 	async componentDidMount(): Promise<void> {
@@ -32,17 +33,18 @@ class Carousel extends Component<CarouselProps, CarouselState> {
 
 	private async downloadAndSetStateImageDescriptions(imageIds: Array<string> | undefined): Promise<void> {
 		const imageDescriptions: Array<string> = [];
+		const imageCreatedDates: Array<string> = [];
 
 		if (imageIds) {
 			await BaseModel.asyncForEach(imageIds, async (imageId: string) => {
 				const fullImageObjects = await this.downloadFullImageObjects(imageId);
 
-
 				imageDescriptions.push(fullImageObjects.description);
+				imageCreatedDates.push(fullImageObjects.createdDate);
 			});
 		}
 
-		this.setState({ imageDescriptions: imageDescriptions });
+		this.setState({ imageDescriptions: imageDescriptions, imageCreatedDates: imageCreatedDates });
 	}
 
 	private async downloadFullImageObjects(imageId: string): Promise<fullImageObjectsType> {
@@ -53,7 +55,7 @@ class Carousel extends Component<CarouselProps, CarouselState> {
 	}
 
 	render() {
-		return <View imageDescriptions={this.state.imageDescriptions} imageIds={this.state.imageIds}></View>;
+		return <View imageDescriptions={this.state.imageDescriptions} imageCreatedDates={this.state.imageCreatedDates} imageIds={this.state.imageIds}></View>;
 	}
 }
 
