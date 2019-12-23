@@ -6,17 +6,18 @@ import Auth from "../../middlewares/Auth/Auth";
 import PostImageHandler from "./PostImage/Handler";
 import AuthenticationError from "../../../lib/errors/AuthenticationError";
 import EmptyQueryError from "../../../lib/errors/EmptyQueryError";
+import checkParamId from "../../middlewares/checkIdParam";
 
 export default class ImageAPI {
 	readonly router: Router = Router();
 
 	constructor() {
 		this.router.post("/", fileUpload(), Auth.middleware, PostImageHandler.callback);
-		this.router.get("/:id/full", this.getFullImageCallback);
-		this.router.get("/:id/miniature", this.getMiniatureCallback);
-		this.router.get("/:id", this.getImageCallback);
-		this.router.get("/user/:userId", this.getUserImagesCallback);
-		this.router.delete("/:id", Auth.middleware, this.deleteImageCallback);
+		this.router.get("/:id/full", checkParamId("id"), this.getFullImageCallback);
+		this.router.get("/:id/miniature", checkParamId("id"), this.getMiniatureCallback);
+		this.router.get("/:id", checkParamId("id"), this.getImageCallback);
+		this.router.get("/user/:userId", checkParamId("userId"), this.getUserImagesCallback);
+		this.router.delete("/:id", checkParamId("id"), Auth.middleware, this.deleteImageCallback);
 	}
 
 	private getFullImageCallback = async (req: Request, res: Response) => {
@@ -73,12 +74,14 @@ export default class ImageAPI {
 			.where("ownerId")
 			.equals(userId)
 			.select("imageId");
-		res.status(200).send(images.map(({description, imageId, creationDate, albumId}) => ({
-			description,
-			imageId,
-			creationDate: +creationDate || undefined,
-			albumId
-		})));
+		res.status(200).send(
+			images.map(({ description, imageId, creationDate, albumId }) => ({
+				description,
+				imageId,
+				creationDate: +creationDate || undefined,
+				albumId
+			}))
+		);
 	};
 
 	private deleteImageCallback = async (req: Request, res: Response) => {
