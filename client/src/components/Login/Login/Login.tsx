@@ -6,6 +6,7 @@ import View from './Login.view';
 import { useDispatch } from 'react-redux';
 import { startLoginRequest, endLoginRequest } from '../../../redux/request/actions';
 import { useToasts } from 'react-toast-notifications';
+import { setToken } from '../../../redux/token/token';
 
 const Login: FC<LoginViewProps> = ({ toggleForm }) => {
 	const [loginValue, setLoginValue] = useState('');
@@ -36,7 +37,10 @@ const Login: FC<LoginViewProps> = ({ toggleForm }) => {
 			});
 			if (response.ok) {
 				const token = response.headers.get('x-token');
-				if (token) BaseModel.saveAuthToken(token);
+				if (token) {
+					BaseModel.saveAuthToken(token);
+					dispatch(setToken(token));
+				}
 
 				history.push('/photos');
 			} else {
