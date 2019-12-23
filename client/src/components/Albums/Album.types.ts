@@ -6,7 +6,7 @@ export interface AlbumType {
 	beginningDate: number | string;
 	endDate: number | string;
 	_id?: string;
-	authorId?: Array<string>;
+	authorsId?: Array<string>;
 	children?: ReactNode;
 	images?: Array<string>;
 }
@@ -18,16 +18,19 @@ export interface AlbumTypeAndSetAlbum extends AlbumType {
 	endDate: number | string;
 	_id?: string;
 	authorId?: Array<string>;
-	setAlbum: (e: SyntheticEvent<HTMLButtonElement>) => void;
+	setAlbum?: (e: SyntheticEvent<HTMLButtonElement>) => void;
+	addUserToOtherAlbum?: (e: SyntheticEvent<HTMLButtonElement>) => void;
 }
 
 export interface AlbumViewProps {
-	albumsArr: Array<AlbumType>;
+	myAlbums: Array<AlbumType>;
+	otherAlbums: Array<AlbumType>;
 	toggleShowModal: () => void;
 	showModalAddAlbum: boolean;
 	handleInputChange: (e: FormEvent<HTMLInputElement>) => void;
 	addAlbum: () => void;
 	setAlbum: (e: SyntheticEvent<HTMLButtonElement>) => void;
+	addUserToOtherAlbum: (e: SyntheticEvent<HTMLButtonElement>) => void;
 }
 
 export interface AddAlbumModalProps {
@@ -43,5 +46,6 @@ export interface AlbumsState {
 	description: string;
 	beginningDate: string;
 	endDate: string;
-	albums: Array<AlbumType>;
+	myAlbums: Array<AlbumType>;
+	otherAlbums: Array<AlbumType>;
 }
