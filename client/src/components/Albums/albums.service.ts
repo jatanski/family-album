@@ -3,7 +3,7 @@ import BaseModel from '../../utils/baseModel';
 
 export default class AlbumService {
 	readonly endpoint: string = `album`;
-	public async downloadAllAlbums(): Promise<Array<AlbumType>> {
+	public async fetchAllAlbums(): Promise<Array<AlbumType>> {
 		const downloadAlbums = (await BaseModel.downloadAnythingWithBody(this.endpoint)) as AlbumType[];
 
 		return this.changeDatesToDateType(downloadAlbums);
@@ -26,7 +26,7 @@ export default class AlbumService {
 	public async submitAlbum(albumState: AlbumsState): Promise<boolean> {
 		const token = BaseModel.getAuthToken();
 
-		const { showModalAddAlbum, albums, beginningDate, endDate, ...stateToSend } = albumState;
+		const { showModalAddAlbum, myAlbums: albums, beginningDate, endDate, ...stateToSend } = albumState;
 
 		const albumData = {
 			...stateToSend,

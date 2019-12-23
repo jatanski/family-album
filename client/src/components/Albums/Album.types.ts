@@ -6,7 +6,7 @@ export interface AlbumType {
 	beginningDate: number | string;
 	endDate: number | string;
 	_id?: string;
-	authorId?: Array<string>;
+	authorsId?: Array<string>;
 	children?: ReactNode;
 	images?: Array<string>;
 }
@@ -43,5 +43,6 @@ export interface AlbumsState {
 	description: string;
 	beginningDate: string;
 	endDate: string;
-	albums: Array<AlbumType>;
+	myAlbums: Array<AlbumType>;
+	otherAlbums: Array<AlbumType>;
 }

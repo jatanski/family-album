@@ -31,7 +31,7 @@ class AddPhoto extends Component<Props, AddPhotoState> {
 	}
 
 	private async saveDownloadAlbumsToState(): Promise<void> {
-		const albums = await this.albumService.downloadAllAlbums();
+		const albums = await this.albumService.fetchAllAlbums();
 		this.setState({ albums: albums });
 	}
 

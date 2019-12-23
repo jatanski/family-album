@@ -1,8 +1,9 @@
 import React, { Component, FormEvent, SyntheticEvent } from 'react';
-import { AlbumsState } from './Album.types';
+import { AlbumsState, AlbumType } from './Album.types';
 import AlbumService from './albums.service';
 import BaseModel from '../../utils/baseModel';
 import View from './Albums.view';
+import jwt from 'jsonwebtoken';
 
 class Albums extends Component<{}, AlbumsState> {
 	startState = {
@@ -11,7 +12,8 @@ class Albums extends Component<{}, AlbumsState> {
 		description: '',
 		beginningDate: '',
 		endDate: '',
-		albums: [],
+		myAlbums: [],
+		otherAlbums: [],
 	};
 
 	state = this.startState;
@@ -19,21 +21,48 @@ class Albums extends Component<{}, AlbumsState> {
 	albumService = new AlbumService();
 
 	componentDidMount(): void {
-		this.saveDownloadAlbumsToState();
+		this.saveFetchedAlbumsToState();
 	}
 
-	private async saveDownloadAlbumsToState(): Promise<void> {
-		const albums = await this.albumService.downloadAllAlbums();
-		this.setState({ albums: albums });
+	private async saveFetchedAlbumsToState(): Promise<void> {
+		const albums = await this.albumService.fetchAllAlbums();
+
+		const albumsAlfterDivided = this.divideAlbumsIntoMineAndOthers(albums);
+		this.setState({ myAlbums: albumsAlfterDivided.myAlbums, otherAlbums: albumsAlfterDivided.othersAlbums });
+	}
+
+	private divideAlbumsIntoMineAndOthers(
+		albums: Array<AlbumType>,
+	): { myAlbums: Array<AlbumType>; othersAlbums: Array<AlbumType> } {
+		const myId = this.giveUserIdFromToken()!;
+
+		const myAlbums = albums.filter(album => album.authorsId?.some(author => author === myId));
+		const otherAlbums = albums.filter(album => album.authorsId?.some(author => author !== myId));
+
+		return {
+			myAlbums,
+			othersAlbums: otherAlbums,
+		};
+	}
+
+	private giveUserIdFromToken(): string | undefined {
+		const token = BaseModel.getAuthToken();
+		const tokenAfterDecode = jwt.decode(token!);
+
+		if (typeof tokenAfterDecode === 'string') {
+			return undefined;
+		} else {
+			return tokenAfterDecode!.id;
+		}
 	}
 
 	toggleShowModal = (): void => {
-		const { showModalAddAlbum, albums, ...restStartState } = this.startState;
+		const { showModalAddAlbum, myAlbums: albums, ...restStartState } = this.startState;
 
 		// reset several state property
 		this.setState({
 			showModalAddAlbum: !this.state.showModalAddAlbum,
-			albums: this.state.albums,
+			myAlbums: this.state.myAlbums,
 			...restStartState,
 		});
 	};
@@ -49,8 +78,8 @@ class Albums extends Component<{}, AlbumsState> {
 		const albumIsCreated = this.albumService.submitAlbum(this.state);
 
 		if (albumIsCreated) {
-			const { showModalAddAlbum, albums, ...albumToAddData } = this.state;
-			this.setState({ albums: [...this.state.albums, albumToAddData], showModalAddAlbum: false });
+			const { showModalAddAlbum, myAlbums: albums, ...albumToAddData } = this.state;
+			this.setState({ myAlbums: [...this.state.myAlbums, albumToAddData], showModalAddAlbum: false });
 		}
 	};
 
@@ -62,7 +91,7 @@ class Albums extends Component<{}, AlbumsState> {
 				handleInputChange={this.handleInputChange}
 				showModalAddAlbum={this.state.showModalAddAlbum}
 				toggleShowModal={this.toggleShowModal}
-				albumsArr={this.state.albums}
+				albumsArr={this.state.myAlbums}
 				addAlbum={this.addAlbum}
 				setAlbum={this.setSelectedAlbum}
 			/>
