@@ -40,6 +40,7 @@ module.exports = {
 		'@typescript-eslint/no-inferrable-types': 0,
 		'@typescript-eslint/no-explicit-any': 0,
 		'@typescript-eslint/no-use-before-define': 0,
+		'@typescript-eslint/ban-ts-ignore': 0,
 	},
 	settings: {
 		react: {

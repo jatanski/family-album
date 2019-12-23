@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCol, MDBInput, MDBIcon } from 'mdbreact';
 import { PhotoPropsI } from '../../AddPhoto.types';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../../../redux/reducers';
+import Loader from '../../../Loader/Loader';
 
 const PhotoToAdd = ({ photo, handleDescInput, handleDateInput, index, deletePhoto }: PhotoPropsI) => {
 	const [showInputDescOrButton, setShowInputDescOrButton] = useState(false);
@@ -12,10 +15,12 @@ const PhotoToAdd = ({ photo, handleDescInput, handleDateInput, index, deletePhot
 	const photoToRead: string = URL.createObjectURL(photo);
 
 	const indexInString: string = index.toString();
+	const isFetching = useSelector((state: AppState) => state.areUploadImageRequestsStarted.get(index, false));
 
 	return (
 		<MDBCol>
 			<MDBCard style={{ width: '14rem' }}>
+				{isFetching && <Loader />}
 				<MDBCardImage className="img-fluid" src={photoToRead} waves />
 				<MDBCardBody>
 					{showInputDescOrButton ? (

@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { AppState } from '../../redux/reducers';
 import View from './AddPhoto.view';
 import BaseModel from '../../utils/baseModel';
-import { AddPhotoState, handleDescInputState, handleDateInputState } from './AddPhoto.types';
+import { AddPhotoState, HandleDescInputState, HandleDateInputState, AddPhotoProps } from './AddPhoto.types';
 import AlbumService from '../Albums/albums.service';
+import { resetUploadImagesRequest, startUploadImageRequest, endUploadImageRequest } from '../../redux/request/actions';
 
-class AddPhoto extends Component<any, AddPhotoState> {
+class AddPhoto extends Component<AddPhotoProps, AddPhotoState> {
 	readonly albumService = new AlbumService();
 	private endpoint: string = 'image';
 	public fileInput: RefObject<HTMLInputElement> = createRef();
@@ -21,6 +22,7 @@ class AddPhoto extends Component<any, AddPhotoState> {
 	};
 
 	componentDidMount(): void {
+		console.log(this);
 		this.saveDownloadAlbumsToState();
 		this.setSelectedAlbum();
 	}
@@ -36,7 +38,7 @@ class AddPhoto extends Component<any, AddPhotoState> {
 		this.setState({ selectedAlbum: selectedAlbum });
 	}
 
-	componentDidUpdate(prevState: AddPhotoState): void {
+	componentDidUpdate(_prevProps: AddPhotoProps, prevState: AddPhotoState): void {
 		if (prevState.sendedImages !== this.state.sendedImages) this.clearImagesInStateAfterSendToServer();
 	}
 
@@ -64,7 +66,7 @@ class AddPhoto extends Component<any, AddPhotoState> {
 	handleDescInput = (e: FormEvent<HTMLInputElement>): void => {
 		const imageIndex: number = Number(e.currentTarget.name);
 
-		const state: handleDescInputState = { desc: this.state.desc };
+		const state: HandleDescInputState = { desc: this.state.desc };
 		state.desc[imageIndex] = e.currentTarget.value;
 
 		this.setState(state);
@@ -73,7 +75,7 @@ class AddPhoto extends Component<any, AddPhotoState> {
 	handleDateInput = (e: FormEvent<HTMLInputElement>): void => {
 		const imageIndex: number = Number(e.currentTarget.name);
 
-		const state: handleDateInputState = { createdDates: this.state.createdDates };
+		const state: HandleDateInputState = { createdDates: this.state.createdDates };
 		state.createdDates[imageIndex] = e.currentTarget.value;
 		this.setState(state);
 	};
@@ -93,9 +95,11 @@ class AddPhoto extends Component<any, AddPhotoState> {
 
 	submitPhotos = async (e: SyntheticEvent<HTMLButtonElement>): Promise<void> => {
 		e.preventDefault();
-
-		this.state.images.forEach(async (image, i) => {
+		this.props.resetUploadImagesRequest();
+		await BaseModel.asyncForEach(this.state.images, async (image, i) => {
+			this.props.startUploadImageRequest(i);
 			await this.sendImageToServer(image, i);
+			this.props.endUploadImageRequest(i);
 		});
 	};
 
@@ -155,4 +159,6 @@ const mapStateToProps = (state: AppState) => ({
 	album: state.album.selectedAlbum,
 });
 
-export default connect(mapStateToProps, {})(AddPhoto);
+export default connect(mapStateToProps, { resetUploadImagesRequest, startUploadImageRequest, endUploadImageRequest })(
+	AddPhoto,
+);
