@@ -5,17 +5,25 @@ import { AppState } from '../../redux/reducers';
 import { AlbumType } from '../Albums/Album.types';
 import BaseModel from '../../utils/baseModel';
 import { CarouselProps, CarouselState } from './Carousel.types';
+import enHanceComponentWithHistory from '../Utils/Hoc/enHanceComponentWithHIstory';
 
 type fullImageObjectsType = { description: string; creationDate: string; imageId: string };
 
 class Carousel extends Component<CarouselProps, CarouselState> {
-	albumEndpoint: string = `album/${this.props.selectedAlbum}`;
-
 	state = {
 		imageIds: [],
 		imageDescriptions: [],
 		imageCreationDates: [],
 	};
+
+	readonly albumEndpoint: string = `album/${this.takeAlbumIdFromQuery()}`;
+
+	private takeAlbumIdFromQuery(): string {
+		return this.props.history.location.pathname
+			.split('/')
+			.slice(2)
+			.join();
+	}
 
 	async componentDidMount(): Promise<void> {
 		const imageIds = await this.downloadImagesIds();
@@ -69,4 +77,4 @@ const mapStateToProps = (state: AppState) => ({
 	selectedAlbum: state.album.selectedAlbum,
 });
 
-export default connect(mapStateToProps, {})(Carousel);
+export default enHanceComponentWithHistory(connect(mapStateToProps, {})(Carousel));

@@ -5,9 +5,17 @@ import View from './Miniatures.view';
 import BaseModel from '../../utils/baseModel';
 import { AppState } from '../../redux/reducers';
 import { AlbumType } from '../Albums/Album.types';
+import enHanceComponentWithHistory from '../Utils/Hoc/enHanceComponentWithHIstory';
 
 class Miniatures extends Component<MiniaturesProps, MiniaturesState> {
-	albumEndpoint: string = `album/${this.props.selectedAlbum}`;
+	readonly albumEndpoint: string = `album/${this.takeAlbumIdFromQuery()}`;
+
+	private takeAlbumIdFromQuery(): string {
+		return this.props.history.location.pathname
+			.split('/')
+			.slice(2)
+			.join();
+	}
 
 	state = {
 		images: [],
@@ -31,4 +39,4 @@ const mapStateToProps = (state: AppState) => ({
 	selectedAlbum: state.album.selectedAlbum,
 });
 
-export default connect(mapStateToProps, {})(Miniatures);
+export default enHanceComponentWithHistory(connect(mapStateToProps, {})(Miniatures));

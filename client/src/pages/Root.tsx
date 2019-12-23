@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, Switch, HashRouter } from 'react-router-dom';
 import Navigation from '../components/Navigation/Navigation';
 import SignInAndSignUp from './SignInAndSignUp';
 import Dashboard from './Dashboard';
@@ -14,7 +14,7 @@ import { store } from '../redux/store';
 
 const Root: FC = () => (
 	<Provider store={store}>
-		<BrowserRouter>
+		<HashRouter>
 			<Navigation />
 			<Switch>
 				<Route exact path="/" component={LandingPage} />
@@ -26,7 +26,7 @@ const Root: FC = () => (
 				<Route path="/miniatures" component={Miniatures} />
 				<Route path="/carousel" component={Carousel} />
 			</Switch>
-		</BrowserRouter>
+		</HashRouter>
 	</Provider>
 );
 
