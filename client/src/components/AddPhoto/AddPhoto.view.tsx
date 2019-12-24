@@ -4,6 +4,7 @@ import FileInput from './Utils/Form/AddPhoto.form.fileInput';
 import SelectAlbumInput from './Utils/Form/AddPhoto.form.selectAlbumInput';
 import AlbumForm from './Utils/Form/AddPhoto.form.albumForm';
 import Gallery from './Utils/Photos/AddPhoto.photos.gallery';
+import './addPhoto.scss';
 
 const View = forwardRef(function AddPhotoView(
 	{
@@ -20,7 +21,7 @@ const View = forwardRef(function AddPhotoView(
 	ref: Ref<HTMLInputElement>,
 ) {
 	return (
-		<>
+		<div className="addPhoto__wrapper">
 			<AlbumForm submitForm={submitForm}>
 				<SelectAlbumInput
 					handleSelectAlbumInput={handleSelectAlbumInput}
@@ -35,7 +36,7 @@ const View = forwardRef(function AddPhotoView(
 				handleDateInput={handleDateInput}
 				photos={photos}
 			/>
-		</>
+		</div>
 	);
 });
 

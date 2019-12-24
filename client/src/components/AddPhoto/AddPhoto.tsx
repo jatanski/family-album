@@ -89,7 +89,6 @@ class AddPhoto extends Component<Props, AddPhotoState> {
 
 	deletePhoto = (e: SyntheticEvent<HTMLButtonElement>) => {
 		const imageIndex: number = Number(e.currentTarget.name);
-		console.log(this.state);
 
 		const images = this.state.images;
 		const desc = this.state.desc;

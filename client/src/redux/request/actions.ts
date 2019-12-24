@@ -15,7 +15,7 @@ import {
 	HideUploadImagesSuccess,
 	ActionType,
 } from './types';
-import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { ThunkAction } from 'redux-thunk';
 import { AppState } from '../reducers';
 
 function startLoginRequest(): LoginRequestStartedAction {

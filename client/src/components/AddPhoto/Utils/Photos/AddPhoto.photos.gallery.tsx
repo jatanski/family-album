@@ -2,9 +2,9 @@ import React from 'react';
 import PhotoToAdd from './AddPhoto.photos.photoToAdd';
 import { GalleryPropsI } from '../../AddPhoto.types';
 
-const Gallery = ({ photos, handleDescInput, handleDateInput, deletePhoto }: GalleryPropsI) => {
-	return photos.map((photo: HTMLImageElement, i: number) => {
-		return (
+const Gallery = ({ photos, handleDescInput, handleDateInput, deletePhoto }: GalleryPropsI) => (
+	<div className="addPhoto__wrapper__photos">
+		{photos.map((photo: HTMLImageElement, i: number) => (
 			<PhotoToAdd
 				deletePhoto={deletePhoto}
 				handleDescInput={handleDescInput}
@@ -13,8 +13,8 @@ const Gallery = ({ photos, handleDescInput, handleDateInput, deletePhoto }: Gall
 				key={i}
 				index={i}
 			/>
-		);
-	});
-};
+		))}
+	</div>
+);
 
 export default Gallery;
