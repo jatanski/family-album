@@ -16,7 +16,6 @@ const PhotoToAdd = ({ photo, handleDescInput, handleDateInput, index, deletePhot
 
 	const indexInString: string = index.toString();
 	const isFetching = useSelector((state: AppState) => state.areUploadImageRequestsStarted.get(index, false));
-	console.log(date);
 	return (
 		<MDBCol>
 			<MDBCard className="addPhoto__wrapper--photo" style={{ width: '14rem' }}>
