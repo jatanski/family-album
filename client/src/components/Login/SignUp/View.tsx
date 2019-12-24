@@ -45,7 +45,7 @@ const View: FC<Props> = ({
 					</div>
 					{invalidPassword ? <p>Hasła nie są takie same.</p> : null}
 					<div className="text-center">
-						<MDBBtn onSubmit={submitRegister} color="elegant">
+						<MDBBtn onClick={submitRegister} color="elegant">
 							Login
 						</MDBBtn>
 					</div>

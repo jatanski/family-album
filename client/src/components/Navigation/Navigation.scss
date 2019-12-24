@@ -1,0 +1,12 @@
+@import "../../scss/abstracts/variables";
+
+.logoWrapper {
+    color: $second-color;
+    font-size: 32px;
+    padding: .6em 1em .3em;
+    width: 100vw;
+
+    @media only screen and (min-width: 1024px) {
+        font-size: 40px;
+    }
+}

@@ -8,7 +8,7 @@ const AlbumForm = ({ children, submitForm }: AlbumFormProps) => (
 			<MDBCol>
 				<form action="submit">
 					{children}
-					<MDBBtn onSubmit={submitForm} type="submit" color="info">
+					<MDBBtn onClick={submitForm} type="submit" color="info">
 						Wyślij
 					</MDBBtn>
 				</form>

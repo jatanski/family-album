@@ -1,3 +1,37 @@
+@import "../../../scss/abstracts//variables";
+
 .loginForm {
   width: 80vw;
+
+  @media only screen and (min-width: 1024px) {
+    width: 60vw;
+  }
+}
+
+
+.loginButtonWrapper {
+  margin-top: 15vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button.loginButton {
+  position: relative;
+  padding-left: 3.5em;
+  padding-right: 3.5em;
+  background-color: #92140C !important;
+}
+
+.loginLoader {
+  position: absolute;
+  top: 50%;
+  left: 7%;
+  transform: translate(0, -50%);
+}
+
+p.loginTitle {
+  margin-bottom: 10vh !important;
+  color: $second-color;
+  font-size: 1.5em;
 }
