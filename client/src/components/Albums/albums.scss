@@ -1,12 +1,18 @@
-.albums__wrap {
-  display: flex;
-  flex-wrap: wrap;
+.albums {
+	padding: 1vh 2vw;
+	&__wrap {
+		display: flex;
+		flex-wrap: wrap;
 
-  &--el {
-    margin: 2vh 0;
+		&--el {
+			margin: 2vh 0;
 
-    &--buttons {
-      display: flex;
-    }
-  }
+			&--buttons {
+				display: flex;
+			}
+		}
+	}
+	&__addButton {
+		margin: 1vh 1vw 3vh;
+	}
 }

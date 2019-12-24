@@ -6,11 +6,18 @@ const AlbumForm = ({ children, submitForm }: AlbumFormProps) => (
 	<MDBContainer>
 		<MDBRow>
 			<MDBCol>
-				<form action="submit">
+				<form className="addPhoto__wrapper--form" action="submit">
 					{children}
-					<MDBBtn onSubmit={submitForm} type="submit" color="info">
-						Wyślij
-					</MDBBtn>
+					<div className="addPhoto__wrapper--addButtonWrap">
+						<MDBBtn
+							className="addPhoto__wrapper--addButton"
+							onClick={submitForm}
+							type="submit"
+							color="info"
+						>
+							Zapisz zdjęcia
+						</MDBBtn>
+					</div>
 				</form>
 			</MDBCol>
 		</MDBRow>

@@ -34,7 +34,7 @@ export default class AlbumService {
 	public async submitAlbum(albumState: AlbumsState): Promise<boolean> {
 		const token = BaseModel.getAuthToken();
 
-		const { showModalAddAlbum, myAlbums: albums, beginningDate, endDate, ...stateToSend } = albumState;
+		const { showModalAddAlbum, myAlbums: albums, otherAlbums, beginningDate, endDate, ...stateToSend } = albumState;
 
 		if (albumState.name == '') {
 			this.toastManager?.add('Musisz wpisać nazwę albumu', {

@@ -5,7 +5,7 @@ import { AlbumType } from '../Albums/Album.types';
 const Album: FC<AlbumType> = ({ name, description, beginningDate, endDate, children }) => (
 	<div className="albums__wrap--el">
 		<MDBCol>
-			<MDBCard style={{ width: '19rem', height: '18rem' }}>
+			<MDBCard style={{ width: '19rem', height: '20rem' }}>
 				<MDBCardImage
 					className="img-fluid"
 					src="https://mdbootstrap.com/img/Photos/Others/images/42.jpg"
@@ -14,8 +14,8 @@ const Album: FC<AlbumType> = ({ name, description, beginningDate, endDate, child
 				<MDBCardBody>
 					<MDBCardTitle>{name}</MDBCardTitle>
 					<MDBCardText>{description}</MDBCardText>
-					<MDBCardText>Pierwszy dzień: {beginningDate}</MDBCardText>
-					<MDBCardText>Ostatni dzień: {endDate}</MDBCardText>
+					<MDBCardText>{beginningDate && <span>Pierwszy dzień: {beginningDate}</span>}</MDBCardText>
+					<MDBCardText>{endDate && <span>Ostatni dzień: {endDate}</span>}</MDBCardText>
 					{children}
 				</MDBCardBody>
 			</MDBCard>
