@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { AppState } from '../../../../redux/reducers';
 import Loader from '../../../Loader/Loader';
 
-const PhotoToAdd = ({ photo, handleDescInput, handleDateInput, index, deletePhoto }: PhotoPropsI) => {
+const PhotoToAdd = ({ photo, handleDescInput, handleDateInput, index, deletePhoto, date }: PhotoPropsI) => {
 	const [showInputDescOrButton, setShowInputDescOrButton] = useState(false);
 	const [showInputDateOrButton, setShowInputDateOrButton] = useState(false);
 
@@ -16,7 +16,7 @@ const PhotoToAdd = ({ photo, handleDescInput, handleDateInput, index, deletePhot
 
 	const indexInString: string = index.toString();
 	const isFetching = useSelector((state: AppState) => state.areUploadImageRequestsStarted.get(index, false));
-
+	console.log(date);
 	return (
 		<MDBCol>
 			<MDBCard className="addPhoto__wrapper--photo" style={{ width: '14rem' }}>
@@ -49,6 +49,7 @@ const PhotoToAdd = ({ photo, handleDescInput, handleDateInput, index, deletePhot
 								label="Data"
 								icon="calendar-alt"
 								type="date"
+								value={date}
 							/>
 						) : (
 							<MDBBtn onClick={toggleInputDate} size="sm" color="orange">

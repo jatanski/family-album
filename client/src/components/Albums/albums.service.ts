@@ -23,8 +23,8 @@ export default class AlbumService {
 
 			return {
 				...restAlbum,
-				beginningDate: beginningDate ? new Date(beginningDate).toDateString() : '',
-				endDate: endDate ? new Date(endDate).toDateString() : '',
+				beginningDate: beginningDate ? BaseModel.getDateString(beginningDate as number) : '',
+				endDate: endDate ? BaseModel.getDateString(endDate as number) : '',
 			};
 		});
 

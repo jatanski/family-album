@@ -9,6 +9,16 @@ class BaseModel {
 		localStorage.setItem('token', token);
 	}
 
+	static getDateString(time: number) {
+		const date = new Date(time);
+		const day = date.getDate();
+		const days = String(day).length == 2 ? `${day}` : `0${day}`;
+		const month = date.getMonth() + 1;
+		const months = String(month).length == 2 ? `${month}` : `0${month}`;
+		const years = String(date.getFullYear());
+		return `${years}-${months}-${days}`;
+	}
+
 	static giveUserIdFromToken(): string | undefined {
 		const token = BaseModel.getAuthToken();
 		const tokenAfterDecode = jwt.decode(token!);

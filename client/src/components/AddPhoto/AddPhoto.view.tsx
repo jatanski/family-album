@@ -17,6 +17,7 @@ const View = forwardRef(function AddPhotoView(
 		albums,
 		selectedAlbum,
 		deletePhoto,
+		dates,
 	}: ViewProps,
 	ref: Ref<HTMLInputElement>,
 ) {
@@ -31,6 +32,7 @@ const View = forwardRef(function AddPhotoView(
 				<FileInput handleFileInput={handleFileInput} ref={ref} />
 			</AlbumForm>
 			<Gallery
+				dates={dates}
 				deletePhoto={deletePhoto}
 				handleDescInput={handleDescInput}
 				handleDateInput={handleDateInput}

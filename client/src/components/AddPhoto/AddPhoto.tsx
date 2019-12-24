@@ -58,15 +58,18 @@ class AddPhoto extends Component<Props, AddPhotoState> {
 	handleSelectAlbumInput = (e: ChangeEvent<HTMLSelectElement>): void =>
 		this.setState({ selectedAlbum: e.target.value != 'Wybierz album' ? e.target.value : '' });
 
-	handleFileInput = (): void => {
+	handleFileInput = async () => {
 		// @ts-ignore
 		const photos = Array.from(this.fileInput.current?.files);
-		const emptyDescriptionsAndDate = photos.map(() => '');
-
+		const emptyDescriptions = photos.map(() => '');
+		const dates = photos.map((photo: File) => {
+			return BaseModel.getDateString(photo.lastModified);
+		});
+		console.log(dates);
 		this.setState({
 			images: [...this.state.images, ...photos],
-			desc: [...emptyDescriptionsAndDate],
-			createdDates: [...emptyDescriptionsAndDate],
+			desc: [...this.state.desc, ...emptyDescriptions],
+			createdDates: [...this.state.createdDates, ...dates],
 		});
 	};
 
@@ -182,6 +185,7 @@ class AddPhoto extends Component<Props, AddPhotoState> {
 				ref={this.fileInput}
 				albums={this.state.albums}
 				photos={this.state.images}
+				dates={this.state.createdDates}
 				selectedAlbum={this.state.selectedAlbum}
 				submitForm={this.submitPhotos}
 				handleFileInput={this.handleFileInput}

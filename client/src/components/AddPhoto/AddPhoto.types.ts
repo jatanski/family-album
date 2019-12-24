@@ -17,6 +17,7 @@ export interface ViewProps {
 	photos: Array<HTMLImageElement>;
 	albums: Array<AlbumType>;
 	selectedAlbum: string;
+	dates: string[];
 }
 
 export interface FormProps {
@@ -29,6 +30,7 @@ export interface AlbumFormProps {
 }
 
 export interface GalleryPropsI {
+	dates: string[];
 	photos: any;
 	handleDescInput: (e: FormEvent<HTMLInputElement>) => void;
 	handleDateInput: (e: FormEvent<HTMLInputElement>) => void;
@@ -36,6 +38,7 @@ export interface GalleryPropsI {
 }
 
 export interface PhotoPropsI {
+	date: string;
 	index: number;
 	photo: HTMLImageElement;
 	handleDescInput: (e: FormEvent<HTMLInputElement>) => void;
