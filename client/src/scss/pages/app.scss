@@ -1,5 +1,11 @@
 @import '../abstracts/variables';
 
 p {
-  color: $primary-color;
+    color: $primary-color;
+}
+
+body {
+    background-color: $first-color;
+    overflow-x: hidden;
+    width: 100vw;
 }

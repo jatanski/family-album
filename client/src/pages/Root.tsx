@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Route, Switch, HashRouter } from 'react-router-dom';
+import { Route, Switch, HashRouter, Redirect } from 'react-router-dom';
 import Navigation from '../components/Navigation/Navigation';
 import SignInAndSignUp from './SignInAndSignUp';
 import LandingPage from './LandingPage';
@@ -8,27 +8,43 @@ import AddPhoto from './AddPhoto';
 import WatchPhotos from './WatchPhotos';
 import Miniatures from './Miniatures';
 import Carousel from './Carousel';
-import { Provider } from 'react-redux';
-import { store } from '../redux/store';
+import { useSelector } from 'react-redux';
 import { ToastProvider } from 'react-toast-notifications';
+import { AppState } from '../redux/reducers';
+import RouteWithRedirect from '../components/RouteWithRedirect';
 
-const Root: FC = () => (
-	<Provider store={store}>
+const Root: FC = function Root() {
+	const isLogged = useSelector((state: AppState) => !!state.token);
+	return (
 		<ToastProvider>
 			<HashRouter>
 				<Navigation />
 				<Switch>
-					<Route exact path="/" component={LandingPage} />
-					<Route path="/login" component={SignInAndSignUp} />
-					<Route path="/albums" component={Albums} />
-					<Route path="/add" component={AddPhoto} />
-					<Route path="/photos" component={WatchPhotos} />
-					<Route path="/miniatures" component={Miniatures} />
-					<Route path="/carousel" component={Carousel} />
+					<RouteWithRedirect exact path="/" redirect={isLogged} redirectPath="/photos">
+						<LandingPage />
+					</RouteWithRedirect>
+					<RouteWithRedirect path="/login" redirect={isLogged} redirectPath="/photos">
+						<SignInAndSignUp />
+					</RouteWithRedirect>
+					<RouteWithRedirect path="/albums" redirect={!isLogged} redirectPath="/login">
+						<Albums />
+					</RouteWithRedirect>
+					<RouteWithRedirect path="/add" redirect={!isLogged} redirectPath="/login">
+						<AddPhoto />
+					</RouteWithRedirect>
+					<RouteWithRedirect path="/photos" redirect={!isLogged} redirectPath="/login">
+						<WatchPhotos />{' '}
+					</RouteWithRedirect>
+					<RouteWithRedirect path="/miniatures" redirect={!isLogged} redirectPath="/login">
+						<Miniatures />
+					</RouteWithRedirect>
+					<RouteWithRedirect path="/carousel" redirect={!isLogged} redirectPath="/login">
+						<Carousel />
+					</RouteWithRedirect>
 				</Switch>
 			</HashRouter>
 		</ToastProvider>
-	</Provider>
-);
+	);
+};
 
 export default Root;

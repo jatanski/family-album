@@ -21,7 +21,7 @@ const View: FC<AlbumViewProps> = ({
 	return (
 		<>
 			<div className="albums__addButton">
-				<MDBBtn onSubmit={toggleShowModal} color="secondary">
+				<MDBBtn onClick={toggleShowModal} color="secondary">
 					Dodaj nowy album
 				</MDBBtn>
 			</div>

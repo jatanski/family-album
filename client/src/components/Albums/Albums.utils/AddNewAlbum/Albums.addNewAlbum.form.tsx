@@ -43,7 +43,7 @@ const AddAlbumForm: FC<AddAlbumModalProps> = ({ handleInputChange, addAlbum }) =
 							/>
 						</div>
 						<div className="text-center">
-							<MDBBtn onSubmit={addAlbum}>Dodaj album</MDBBtn>
+							<MDBBtn onClick={addAlbum}>Dodaj album</MDBBtn>
 						</div>
 					</form>
 				</MDBCol>
