@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-import { MDBCarouselItem, MDBView, MDBCarouselCaption } from 'mdbreact';
+import { MDBCarouselItem, MDBView, MDBCarouselCaption, MDBCardImage } from 'mdbreact';
 import { CarouselImageProps } from '../Carousel.types';
+import BaseModel from '../../../utils/baseModel';
 
 const CarouselImage: FC<CarouselImageProps> = ({ image, itemId, description, creationDate }) => {
 	const src: string = `http://localhost:3069/image/${image}/full`;
@@ -16,7 +17,7 @@ const CarouselImage: FC<CarouselImageProps> = ({ image, itemId, description, cre
 					{creationDate && (
 						<p className="carousel__caption--el">
 							{' '}
-							<span>Data zrobienia: {new Date(creationDate).toDateString()}</span>
+							<span>Data zrobienia: {BaseModel.getDateString(+creationDate)}</span>
 						</p>
 					)}
 				</div>

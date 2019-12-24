@@ -5,7 +5,7 @@ import { CarouselViewProps } from './Carousel.types';
 import './carousel.scss';
 
 const CarouselView: FC<CarouselViewProps> = ({ imageIds, imageDescriptions, imageCreationDates }) => (
-	<MDBContainer>
+	<MDBContainer className="fotos">
 		<MDBCarousel
 			activeItem={1}
 			length={imageIds?.length}
