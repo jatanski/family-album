@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Route, Switch, HashRouter, Redirect } from 'react-router-dom';
+import { Switch, HashRouter, useLocation } from 'react-router-dom';
 import Navigation from '../components/Navigation/Navigation';
 import SignInAndSignUp from './SignInAndSignUp';
 import LandingPage from './LandingPage';
@@ -12,13 +12,16 @@ import { useSelector } from 'react-redux';
 import { ToastProvider } from 'react-toast-notifications';
 import { AppState } from '../redux/reducers';
 import RouteWithRedirect from '../components/RouteWithRedirect';
+import BaseModel from '../utils/baseModel';
 
 const Root: FC = function Root() {
 	const isLogged = useSelector((state: AppState) => !!state.token);
+
+	const token = BaseModel.getAuthToken();
 	return (
 		<ToastProvider>
 			<HashRouter>
-				<Navigation />
+				{token && <Navigation />}
 				<Switch>
 					<RouteWithRedirect exact path="/" redirect={isLogged} redirectPath="/photos">
 						<LandingPage />

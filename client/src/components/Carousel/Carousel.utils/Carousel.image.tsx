@@ -4,6 +4,7 @@ import { CarouselImageProps } from '../Carousel.types';
 
 const CarouselImage: FC<CarouselImageProps> = ({ image, itemId, description, creationDate }) => {
 	const src: string = `http://localhost:3069/image/${image}/full`;
+
 	return (
 		<MDBCarouselItem itemId={itemId}>
 			<MDBView>
@@ -12,7 +13,12 @@ const CarouselImage: FC<CarouselImageProps> = ({ image, itemId, description, cre
 			<MDBCarouselCaption style={{ position: 'static', padding: '0px' }}>
 				<div className="carousel__caption">
 					<p className="carousel__caption--el">{description}</p>
-					<p className="carousel__caption--el">Data zrobienia: {new Date(creationDate).toDateString()}</p>
+					{creationDate && (
+						<p className="carousel__caption--el">
+							{' '}
+							<span>Data zrobienia: {new Date(creationDate).toDateString()}</span>
+						</p>
+					)}
 				</div>
 			</MDBCarouselCaption>
 		</MDBCarouselItem>

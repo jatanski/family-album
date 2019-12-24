@@ -48,6 +48,7 @@ class Carousel extends Component<CarouselProps, CarouselState> {
 				const fullImageObjects = await this.downloadFullImageObjects(imageId);
 
 				imageDescriptions.push(fullImageObjects.description);
+
 				imageCreationDate.push(fullImageObjects.creationDate);
 			});
 		}
