@@ -2,12 +2,32 @@
 
 .carousel {
 	margin-top: 4vh;
+
 	&__caption {
 		background-color: rgba(255, 255, 255, 0.7);
 		padding: 1vh 3vw;
+
 		&--el {
 			color: $fourth-color;
 			font-weight: bold;
 		}
+	}
+}
+
+.fotos {
+	@media (min-width: 576px) {
+		max-width: 500px !important;
+	}
+
+	@media (min-width: 768px) {
+		max-width: 600px !important;
+	}
+
+	@media (min-width: 992px) {
+		max-width: 770px !important;
+	}
+
+	@media (min-width: 1200px) {
+		max-width: 1100px;
 	}
 }
