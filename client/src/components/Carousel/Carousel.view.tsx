@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { MDBCarousel, MDBCarouselInner, MDBContainer } from 'mdbreact';
 import CarouselImage from './Carousel.utils/Carousel.image';
 import { CarouselViewProps } from './Carousel.types';
+import './carousel.scss';
 
 const CarouselView: FC<CarouselViewProps> = ({ imageIds, imageDescriptions, imageCreationDates }) => (
 	<MDBContainer>
@@ -9,7 +10,7 @@ const CarouselView: FC<CarouselViewProps> = ({ imageIds, imageDescriptions, imag
 			activeItem={1}
 			length={imageIds?.length}
 			showControls={true}
-			showIndicators={true}
+			showIndicators={false}
 			className="z-depth-1"
 		>
 			<MDBCarouselInner>

@@ -9,9 +9,11 @@ const CarouselImage: FC<CarouselImageProps> = ({ image, itemId, description, cre
 			<MDBView>
 				<img className="d-block w-100" src={src} alt="First slide" />
 			</MDBView>
-			<MDBCarouselCaption>
-				<p>{description}</p>
-				<p>Data zrobienia: {new Date(creationDate).toDateString()}</p>
+			<MDBCarouselCaption style={{ position: 'static', padding: '0px' }}>
+				<div className="carousel__caption">
+					<p className="carousel__caption--el">{description}</p>
+					<p className="carousel__caption--el">Data zrobienia: {new Date(creationDate).toDateString()}</p>
+				</div>
 			</MDBCarouselCaption>
 		</MDBCarouselItem>
 	);
