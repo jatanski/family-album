@@ -6,7 +6,6 @@ const Album: FC<AlbumType> = ({ name, description, beginningDate, endDate, child
 	const randomCover = `https://mdbootstrap.com/img/Photos/Others/images/${Math.floor(Math.random() * 99)}.jpg`;
 
 	const cover = `http://localhost:3069/album/${_id}/cover`;
-	console.log(cover);
 	return (
 		<div className="albums__wrap--el">
 			<MDBCol>

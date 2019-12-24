@@ -65,7 +65,6 @@ class AddPhoto extends Component<Props, AddPhotoState> {
 		const dates = photos.map((photo: File) => {
 			return BaseModel.getDateString(photo.lastModified);
 		});
-		console.log(dates);
 		this.setState({
 			images: [...this.state.images, ...photos],
 			desc: [...this.state.desc, ...emptyDescriptions],
@@ -104,7 +103,7 @@ class AddPhoto extends Component<Props, AddPhotoState> {
 
 	submitPhotos = async (e: SyntheticEvent<HTMLButtonElement>): Promise<void> => {
 		e.preventDefault();
-		console.log(this.state.selectedAlbum);
+
 		if (this.state.selectedAlbum == '') {
 			this.props.toastManager.add('Wybierz album do którego chcesz dodać zdjęcia.', {
 				appearance: 'error',
@@ -139,7 +138,7 @@ class AddPhoto extends Component<Props, AddPhotoState> {
 
 				if (response.ok) {
 					this.setState({ sendedImages: this.state.sendedImages + 1 });
-					console.log(`Zdjęcie numer ${photoIndex} zostało wysłane.`);
+					// console.log(`Zdjęcie numer ${photoIndex} zostało wysłane.`);
 				} else {
 					let message: string;
 					switch (response.status) {
