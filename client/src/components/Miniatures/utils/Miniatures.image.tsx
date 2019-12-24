@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import { MiniaturesImageProps } from '../Miniatures.types';
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import { MDBNavbarNav, MDBNavItem, MDBNavLink } from 'mdbreact';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const Images: FC<MiniaturesImageProps> = ({ image }) => {
 	const src: string = `http://localhost:3069/image/${image}/miniature`;

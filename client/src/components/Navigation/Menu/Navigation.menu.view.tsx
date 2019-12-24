@@ -1,6 +1,5 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC } from 'react';
 import { MDBNavbarNav, MDBNavItem, MDBNavLink } from 'mdbreact';
-import { useHistory } from 'react-router-dom';
 import { ActiveWrapper } from './Navigation.menu';
 
 export interface MenuViewProps {

@@ -1,9 +1,7 @@
 import React, { useState, FC, useEffect } from 'react';
 import { MDBNavbar, MDBNavbarToggler, MDBCollapse } from 'mdbreact';
-import Portal from '../Utils/Portal';
 import Menu from './Menu/Navigation.menu';
 import NavBarBrand from './Navigation.navBarBrand';
-import BaseModel from '../../utils/baseModel';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../redux/reducers';
 
