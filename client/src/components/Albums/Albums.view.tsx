@@ -28,6 +28,7 @@ const View: FC<AlbumViewProps> = ({
 			<div className="albums__wrap">
 				{myAlbums &&
 					myAlbums.map((album: AlbumType, index) => <MyAlbum key={index} {...album} setAlbum={setAlbum} />)}
+
 			</div>
 		</MDBJumbotron>
 		{otherAlbums.length !== 0 && (

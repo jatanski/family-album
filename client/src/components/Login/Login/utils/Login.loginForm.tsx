@@ -16,8 +16,8 @@ const LoginForm: FC<LoginViewProps> = function LoginForm({
 	const isLoading = useSelector((state: AppState) => state.isLoginRequestStarted);
 	return (
 		<form>
-			<p className="h5 text-center mb-4">Logowanie</p>
-			<div className="grey-text">
+			<p className="h4 text-center mb-4 loginTitle">Logowanie</p>
+			<div className="deep-grey-text ">
 				<MDBInput
 					label="Email"
 					icon="envelope"
@@ -39,15 +39,15 @@ const LoginForm: FC<LoginViewProps> = function LoginForm({
 					validate
 				/>
 			</div>
-			<div className="text-center">
-				<MDBBtn type="submit" onClick={submitLogin}>
-					{isLoading && <Loader />}
+			<div className="text-center loginButtonWrapper">
+				<MDBBtn type="submit" className="loginButton" onClick={submitLogin}>
+					{isLoading && <Loader className="loginLoader" />}
 					Login
 				</MDBBtn>
 			</div>
-			<div className="text-right">
+			{/* <div className="text-right">
 				<p onClick={toggleForm}>Nie masz konta? Zarejestruj się</p>
-			</div>
+			</div> */}
 		</form>
 	);
 };

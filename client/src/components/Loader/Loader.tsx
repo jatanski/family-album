@@ -6,13 +6,12 @@ interface Props {
 	className?: string;
 }
 
-const Loader: FC<Props> = function Loader({ color = '#1d3f72', size = 1, className }) {
+const Loader: FC<Props> = function Loader({ color = 'currentColor', size = 1, className }) {
 	return (
 		<svg
 			style={{
-				margin: 'auto',
 				background: 'none',
-				display: 'inline-block',
+				display: 'block',
 				shapeRendering: 'auto',
 			}}
 			width={`${30 * size}px`}
