@@ -1,0 +1,14 @@
+.landing-page {
+	background-image: url(../../assets/wishes3.png);
+	background-size: cover;
+	min-height: 100vh;
+	z-index: 1052;
+	position: relative;
+	top: -20%;
+
+	&__btnWrap {
+		position: absolute;
+		top: 5vh;
+		right: 5vw;
+	}
+}

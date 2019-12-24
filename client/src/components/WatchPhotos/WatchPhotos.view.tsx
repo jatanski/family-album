@@ -10,11 +10,15 @@ const View = ({ albums, setSelectedAlbum }: WatchPhotoProps) => (
 		{albums && (
 			<MDBJumbotron>
 				<div className="watchPhotos__wrap">
-					{albums.map(album => (
-						<AlbumMain key={album._id} {...album}>
-							<AlbumButtons id={album._id} setSelectedAlbum={setSelectedAlbum} />
-						</AlbumMain>
-					))}
+					{albums ? (
+						albums.map(album => (
+							<AlbumMain key={album._id} {...album}>
+								<AlbumButtons id={album._id} setSelectedAlbum={setSelectedAlbum} />
+							</AlbumMain>
+						))
+					) : (
+						<h3>Dodaj album, aby móc przeglądać zdjęcia</h3>
+					)}
 				</div>
 			</MDBJumbotron>
 		)}
