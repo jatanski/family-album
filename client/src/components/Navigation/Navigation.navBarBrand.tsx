@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import { MDBNavbarBrand } from 'mdbreact';
+import Logo from '../Logo/Logo';
 
 const NavBarBrand: FC = () => (
 	<MDBNavbarBrand href="/">
-		<strong>Prezent od psa</strong>
+		<Logo className="customNavColor" />
 	</MDBNavbarBrand>
 );
 

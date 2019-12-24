@@ -8,12 +8,12 @@ const AlbumButtons: FC<AlbumTypeAndSetAlbum> = ({ setAlbum, _id }) => {
 	return (
 		<div className="albums__wrap--el--buttons">
 			<Link to={linkToCarouselWithAlbumId}>
-				<MDBBtn onClick={setAlbum} id={_id} color="red" size="sm">
+				<MDBBtn onClick={setAlbum} id={_id} color="red" size="sm" className="buttonPrimary">
 					Obejrzyj
 				</MDBBtn>
 			</Link>
 			<Link to="add">
-				<MDBBtn onClick={setAlbum} id={_id} color="indigo" size="sm">
+				<MDBBtn onClick={setAlbum} id={_id} color="indigo" size="sm" className="buttonSecondary">
 					Dodaj zdjęcia
 				</MDBBtn>
 			</Link>

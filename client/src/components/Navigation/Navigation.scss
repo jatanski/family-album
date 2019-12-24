@@ -1,7 +1,12 @@
 @import "../../scss/abstracts/variables";
 
+.navigation {
+    background-color: $fourth-color;
+    color: $first-color;
+}
+
 .logoWrapper {
-    color: $second-color;
+    color: $fourth-color;
     font-size: 32px;
     padding: .6em 1em .3em;
     width: 100vw;
@@ -9,4 +14,38 @@
     @media only screen and (min-width: 1024px) {
         font-size: 40px;
     }
+}
+
+.logoutWrapper {
+    padding: 1em 6px;
+    cursor: pointer;
+    font-weight: 700;
+
+    @media only screen and (min-width: 768px) {
+        position: absolute;
+        right: 20px;
+    }
+}
+
+.logoutIcon {
+    padding-right: 1em;
+}
+
+.logoutText {
+    @media only screen and (min-width: 768px) {
+        // display: none;
+    }
+}
+
+.navBar {
+    @media only screen and (min-width: 768px) {
+        display: flex;
+        align-items: center;
+        position: relative;
+        width: 100%;
+    }
+}
+
+.customNavColor {
+    color: $first-color !important;
 }

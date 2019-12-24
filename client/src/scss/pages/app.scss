@@ -9,3 +9,15 @@ body {
     overflow-x: hidden;
     width: 100vw;
 }
+
+.buttonPrimary {
+    background-color: $third-color !important;
+}
+
+.buttonSecondary {
+    background-color: $fifth-color !important;
+}
+
+.buttonThrimary {
+    background-color: $sixth-color !important;
+}

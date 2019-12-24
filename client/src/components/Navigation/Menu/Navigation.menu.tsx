@@ -19,9 +19,9 @@ const Menu: FC = () => {
 
 	const [activeWrapper, setActiveWrapper] = useState<ActiveWrapper>({ ...startedActiveWrapper });
 
-	const pathnames = {
+	const pathNames = {
 		dashboard: '/dashboard',
-		addphoto: '/add',
+		addPhoto: '/add',
 		albums: '/albums',
 		watchPhotos: '/photos',
 	};
@@ -36,17 +36,17 @@ const Menu: FC = () => {
 		const pathname = history.location.pathname;
 		setActiveWrapper({ ...startedActiveWrapper });
 		switch (pathname) {
-			case pathnames.albums:
+			case pathNames.albums:
 				setActiveWrapper({
 					albumsActive: true,
 				});
 				break;
-			case pathnames.addphoto:
+			case pathNames.addPhoto:
 				setActiveWrapper({
 					addPhotoActive: true,
 				});
 				break;
-			case pathnames.watchPhotos:
+			case pathNames.watchPhotos:
 				setActiveWrapper({
 					watchPhotosActive: true,
 				});
