@@ -1,3 +1,5 @@
+@import '../../scss/abstracts/variables';
+
 .addPhoto__wrapper {
 	margin-top: 7vh;
 	display: flex;
@@ -15,7 +17,11 @@
 	}
 
 	&--select {
-		margin-bottom: 2vh;
+		margin: 0 auto 2vh;
+		max-width: 400px;
+		background-color: lighten($color: $second-color, $amount: 10%) !important ;
+		color: #ddd !important;
+		font-size: 1.1em !important;
 	}
 
 	&__photos {
@@ -27,15 +33,6 @@
 	&--photo {
 		margin: 0 auto;
 	}
-
-	// &__body {
-	// 	display: flex;
-	// 	justify-content: space-between;
-
-	// 	&--inputs {
-	// 		margin-top: 2vh;
-	// 	}
-	// }
 }
 
 .inputfile {
