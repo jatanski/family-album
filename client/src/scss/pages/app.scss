@@ -21,3 +21,11 @@ body {
 .buttonThrimary {
     background-color: $sixth-color !important;
 }
+
+.nav-item.active>.nav-link {
+    background-color: rgba($color: #fff, $alpha: .1) !important;
+}
+
+.react-toast-notifications__container {
+    z-index: 1051 !important;
+}

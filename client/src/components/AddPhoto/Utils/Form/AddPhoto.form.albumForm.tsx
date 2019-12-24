@@ -10,7 +10,7 @@ const AlbumForm = ({ children, submitForm }: AlbumFormProps) => (
 					{children}
 					<div className="addPhoto__wrapper--addButtonWrap">
 						<MDBBtn
-							className="addPhoto__wrapper--addButton"
+							className="addPhoto__wrapper--addButton buttonSecondary"
 							onClick={submitForm}
 							type="submit"
 							color="info"

@@ -10,12 +10,12 @@ const WatchPhotosAlbumButtons = ({ setSelectedAlbum, id }: WatchPhotosAlbumButto
 	return (
 		<div className="albums__wrap--el--buttons">
 			<Link to={linkToMiniaturesWithAlbumId}>
-				<MDBBtn id={id} onClick={setSelectedAlbum} color="red" size="sm">
+				<MDBBtn id={id} onClick={setSelectedAlbum} color="red" size="sm" className="buttonPrimary">
 					Zobasz wszystkie
 				</MDBBtn>
 			</Link>
 			<Link to={linkToCarouselWithAlbumId}>
-				<MDBBtn id={id} onClick={setSelectedAlbum} color="green" size="sm">
+				<MDBBtn id={id} onClick={setSelectedAlbum} color="green" size="sm" className="buttonThrimary">
 					Oglądaj po kolei
 				</MDBBtn>
 			</Link>
