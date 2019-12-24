@@ -22,13 +22,9 @@ const Images: FC<MiniaturesImageProps> = ({ image }) => {
 	};
 
 	return (
-		<MDBContainer className="mt-5">
-			<MDBRow className="mb-4">
-				<MDBCol md="4">
-					<img onClick={changeUrl} src={src} className="img-fluid" alt="" />
-				</MDBCol>
-			</MDBRow>
-		</MDBContainer>
+		<div className="miniatures__wrap--el">
+			<img onClick={changeUrl} src={src} className="img-fluid" alt="" />
+		</div>
 	);
 };
 

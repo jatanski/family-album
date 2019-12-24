@@ -23,6 +23,19 @@
 		display: flex;
 		justify-content: space-around;
 	}
+
+	&--photo {
+		margin: 0 auto;
+	}
+
+	// &__body {
+	// 	display: flex;
+	// 	justify-content: space-between;
+
+	// 	&--inputs {
+	// 		margin-top: 2vh;
+	// 	}
+	// }
 }
 
 .inputfile {

@@ -11,7 +11,7 @@ const Album: FC<AlbumType> = ({ name, description, beginningDate, endDate, child
 					src="https://mdbootstrap.com/img/Photos/Others/images/42.jpg"
 					waves
 				/>
-				<MDBCardBody>
+				<MDBCardBody className="albumCardBody">
 					<MDBCardTitle>{name}</MDBCardTitle>
 					<MDBCardText>{description}</MDBCardText>
 					<MDBCardText>{beginningDate && <span>Pierwszy dzień: {beginningDate}</span>}</MDBCardText>

@@ -19,38 +19,44 @@ const PhotoToAdd = ({ photo, handleDescInput, handleDateInput, index, deletePhot
 
 	return (
 		<MDBCol>
-			<MDBCard style={{ width: '14rem' }}>
+			<MDBCard className="addPhoto__wrapper--photo" style={{ width: '14rem' }}>
 				{isFetching && <Loader />}
 				<MDBCardImage className="img-fluid" src={photoToRead} waves />
-				<MDBCardBody>
-					{showInputDescOrButton ? (
-						<MDBInput
-							name={indexInString}
-							onChange={handleDescInput}
-							label="Opis"
-							icon="image"
-							type="textarea"
-						/>
-					) : (
-						<MDBBtn size="sm" onClick={toggleInputDesc}>
-							Dodaj opis
-						</MDBBtn>
-					)}
-					<MDBIcon id={indexInString} onClick={deletePhoto} icon="times" />
-
-					{showInputDateOrButton ? (
-						<MDBInput
-							name={indexInString}
-							onChange={handleDateInput}
-							label="Data"
-							icon="date"
-							type="date"
-						/>
-					) : (
-						<MDBBtn onClick={toggleInputDate} size="sm" color="orange">
-							Dodaj date
-						</MDBBtn>
-					)}
+				<MDBCardBody className="addPhoto__wrapper__body">
+					<MDBBtn size="sm" color="brown" id={indexInString} onClick={deletePhoto}>
+						<MDBIcon icon="times" /> {''}
+						Usuń
+					</MDBBtn>
+					<div className="addPhoto__wrapper__body--inputs">
+						{showInputDescOrButton ? (
+							<MDBInput
+								name={indexInString}
+								onChange={handleDescInput}
+								label="Opis"
+								icon="edit"
+								type="textarea"
+							/>
+						) : (
+							<MDBBtn size="sm" onClick={toggleInputDesc}>
+								<MDBIcon icon="pen" /> {''}
+								Dodaj opis
+							</MDBBtn>
+						)}
+						{showInputDateOrButton ? (
+							<MDBInput
+								name={indexInString}
+								onChange={handleDateInput}
+								label="Data"
+								icon="calendar-alt"
+								type="date"
+							/>
+						) : (
+							<MDBBtn onClick={toggleInputDate} size="sm" color="orange">
+								<MDBIcon icon="calendar-plus" /> {''}
+								Dodaj date
+							</MDBBtn>
+						)}
+					</div>
 				</MDBCardBody>
 			</MDBCard>
 		</MDBCol>

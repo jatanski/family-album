@@ -1,4 +1,13 @@
 .miniatures {
 	&__wrap {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		margin: 2vh 2vw;
+
+		&--el {
+			margin: 1.5vh 0;
+			cursor: pointer;
+		}
 	}
 }
