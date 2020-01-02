@@ -22,7 +22,13 @@ const PhotoToAdd = ({ photo, handleDescInput, handleDateInput, index, deletePhot
 				{isFetching && <Loader />}
 				<MDBCardImage className="img-fluid" src={photoToRead} waves />
 				<MDBCardBody className="addPhoto__wrapper__body">
-					<MDBBtn size="sm" color="brown" id={indexInString} onClick={deletePhoto}>
+					<MDBBtn
+						className="buttonSecondary"
+						size="sm"
+						color="brown"
+						id={indexInString}
+						onClick={deletePhoto}
+					>
 						<MDBIcon icon="times" /> {''}
 						Usuń
 					</MDBBtn>
@@ -36,7 +42,7 @@ const PhotoToAdd = ({ photo, handleDescInput, handleDateInput, index, deletePhot
 								type="textarea"
 							/>
 						) : (
-							<MDBBtn size="sm" onClick={toggleInputDesc}>
+							<MDBBtn className="buttonPrimary" size="sm" onClick={toggleInputDesc}>
 								<MDBIcon icon="pen" /> {''}
 								Dodaj opis
 							</MDBBtn>
@@ -51,7 +57,7 @@ const PhotoToAdd = ({ photo, handleDescInput, handleDateInput, index, deletePhot
 								value={date}
 							/>
 						) : (
-							<MDBBtn onClick={toggleInputDate} size="sm" color="orange">
+							<MDBBtn className="buttonThrimary" onClick={toggleInputDate} size="sm" color="orange">
 								<MDBIcon icon="calendar-plus" /> {''}
 								Dodaj date
 							</MDBBtn>

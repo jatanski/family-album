@@ -28,10 +28,11 @@
 		margin-top: 4vh;
 		display: flex;
 		justify-content: space-around;
+		flex-wrap: wrap;
 	}
 
 	&--photo {
-		margin: 0 auto;
+		margin: 2vh auto;
 	}
 }
 
