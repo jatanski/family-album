@@ -26,6 +26,13 @@ Professional workout and diet diary in React and Express / MongoDB backend with 
 * react,
 * redux,
 
+## Demo Instruction
+
+In demo version you can log in example account: 
+
+ID: Admin
+Password: Admin
+
 ## Available Scripts
 
 In the project directory, you can run:
