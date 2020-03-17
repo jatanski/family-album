@@ -1,37 +1,42 @@
 ![Family Album](https://github.com/jatanski/family-album/blob/deployPortfolio/main-photo.JPG)
+
 # Family Album
-Professional workout and diet diary in React and Express / MongoDB backend with Material Design Boostrap and Bootstrap 4. Style wrote in SASS.
+
+Family Album is an app made for collecting memories and sharing it with your relatives. Made by [Jakub](https://github.com/jatanski) and [Gustaw](https://github.com/gustawTanski) for their parents as a Christmas gift.
 
 ## What's in the package?
 
 **CLIENT**
-* **assets** - all images used in projects,
-* **components** - all no-view React .js components in folders with styles in SASS,
-* **pages** - all view React .js components in folders with styles
-* **redux** - all redux files used in projects,
-* **scss** - global.scss file with global styles, mixins & variables in SaSS,
+
+- **assets** - all images used in projects,
+- **components** - all no-view React .js components in folders with styles in SASS,
+- **pages** - all view React .js components in folders with styles
+- **redux** - all redux files used in projects,
+- **scss** - global.scss file with global styles, mixins & variables in SaSS,
 
 **SERVER**
-* **middleware** - all middleware connections,
-* **models** - models for data validation,
-* **routes** - all routes for react-router,
-* **schemas** - all schemas for express object 
+
+- **middleware** - all middleware connections,
+- **models** - models for data validation,
+- **routes** - all routes for react-router,
+- **schemas** - all schemas for express object
 
 ## NPM Packages
-* 
-* expressJS,
-* 
-* mongodb,
-* mongoose,
-* react,
-* redux,
+
+- typescript,
+- expressJS,
+- bcrypt,
+- mongodb,
+- mongoose,
+- react,
+- redux,
 
 ## Demo Instruction
 
-In demo version you can log in example account: 
+In [demo version](http://family-album.surge.sh/) you can log in example account:
 
-* Login: admin@admin.pl
-* Password: Admin123
+- Login: admin@admin.pl
+- Password: Admin123
 
 ## Available Scripts
 
