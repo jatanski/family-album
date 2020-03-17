@@ -30,8 +30,8 @@ Professional workout and diet diary in React and Express / MongoDB backend with 
 
 In demo version you can log in example account: 
 
-ID: Admin
-Password: Admin
+* ID: Admin
+* Password: Admin
 
 ## Available Scripts
 
