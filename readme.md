@@ -1,4 +1,4 @@
-![Family Album](https://github.com/jatanski/master-of-sport/blob/master/main-page.JPG)
+![Family Album](https://github.com/jatanski/family-album/blob/deployPortfolio/main-photo.JPG)
 # Family Album
 Professional workout and diet diary in React and Express / MongoDB backend with Material Design Boostrap and Bootstrap 4. Style wrote in SASS.
 
