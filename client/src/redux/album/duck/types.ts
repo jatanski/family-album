@@ -1,7 +1,8 @@
-import { AlbumType } from '../../../components/Albums/Album.types';
+/* eslint-disable import/no-anonymous-default-export */
+import { AlbumType } from "../../../components/Albums/Album.types";
 
-const SET_SELECTED_ALBUM = 'SET_SELECTED_ALBUM';
-const SAVE_ALBUMS = 'SAVE_ALBUMS';
+const SET_SELECTED_ALBUM = "SET_SELECTED_ALBUM";
+const SAVE_ALBUMS = "SAVE_ALBUMS";
 
 export interface AlbumStateType {
 	selectedAlbum: string;

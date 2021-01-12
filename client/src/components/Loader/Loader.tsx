@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 
-interface Props {
+interface LoaderProps {
 	color?: string;
 	size?: number;
 	className?: string;
 }
 
-const Loader: FC<Props> = function Loader({ color = 'currentColor', size = 1, className }) {
+const Loader: FC<LoaderProps> = function Loader({ color = 'currentColor', size = 1, className }) {
 	return (
 		<svg
 			style={{

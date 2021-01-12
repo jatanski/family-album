@@ -1,20 +1,20 @@
-import { SyntheticEvent } from 'react';
-import { allActions } from '../redux/store';
-import jwt from 'jsonwebtoken';
+import { SyntheticEvent } from "react";
+import { allActions } from "../redux/store";
+import jwt from "jsonwebtoken";
 
 class BaseModel {
-	static baseApiUrl = 'http://localhost:3069/';
+	static baseApiUrl = `${process.env.REACT_APP_SERVER_URL ?? ""}/`;
 
 	static saveAuthToken(token: string): void {
-		localStorage.setItem('token', token);
+		localStorage.setItem("token", token);
 	}
 
 	static getDateString(time: number) {
 		const date = new Date(time);
 		const day = date.getDate();
-		const days = String(day).length == 2 ? `${day}` : `0${day}`;
+		const days = String(day).length === 2 ? `${day}` : `0${day}`;
 		const month = date.getMonth() + 1;
-		const months = String(month).length == 2 ? `${month}` : `0${month}`;
+		const months = String(month).length === 2 ? `${month}` : `0${month}`;
 		const years = String(date.getFullYear());
 		return `${years}-${months}-${days}`;
 	}
@@ -23,7 +23,7 @@ class BaseModel {
 		const token = BaseModel.getAuthToken();
 		const tokenAfterDecode = jwt.decode(token!);
 
-		if (typeof tokenAfterDecode === 'string') {
+		if (typeof tokenAfterDecode === "string") {
 			return undefined;
 		} else {
 			return tokenAfterDecode!.id;
@@ -31,11 +31,11 @@ class BaseModel {
 	}
 
 	static getAuthToken(): string | null {
-		return localStorage.getItem('token');
+		return localStorage.getItem("token");
 	}
 
 	static onLogout(): void {
-		localStorage.removeItem('token');
+		localStorage.removeItem("token");
 	}
 
 	static async downloadAnythingWithBody(endpoint: string): Promise<any> {
@@ -44,8 +44,8 @@ class BaseModel {
 		if (token) {
 			try {
 				const response = await fetch(BaseModel.baseApiUrl + endpoint, {
-					method: 'GET',
-					headers: { 'x-token': token },
+					method: "GET",
+					headers: { "x-token": token },
 				});
 
 				const responseData = await response.json();

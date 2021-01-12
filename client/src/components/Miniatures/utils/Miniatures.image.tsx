@@ -1,23 +1,21 @@
-import React, { FC } from 'react';
-import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
-import { MiniaturesImageProps } from '../Miniatures.types';
-import { useHistory, useLocation } from 'react-router-dom';
+import { FC } from "react";
+import { MiniaturesImageProps } from "../Miniatures.types";
+import { useHistory, useLocation } from "react-router-dom";
 
 const Images: FC<MiniaturesImageProps> = ({ image }) => {
-	const src: string = `http://localhost:3069/image/${image}/miniature`;
+	const serverUrl = process.env.REACT_APP_SERVER_URL ?? "";
+	const src: string = `${serverUrl}/image/${image}/miniature`;
+
 	const history = useHistory();
 	const location = useLocation();
 
 	function takeAlbumIdFromQuery(): string {
-		return history.location.pathname
-			.split('/')
-			.slice(2)
-			.join();
+		return history.location.pathname.split("/").slice(2).join();
 	}
 
 	const changeUrl = () => {
 		const linkToCarouselWithAlbumId = `carousel/${takeAlbumIdFromQuery()}`;
-		location.pathname = '';
+		location.pathname = "";
 		history.replace(linkToCarouselWithAlbumId);
 	};
 

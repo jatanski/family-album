@@ -1,18 +1,18 @@
-import React, { FC } from 'react';
-import { Switch, HashRouter, useLocation } from 'react-router-dom';
-import Navigation from '../components/Navigation/Navigation';
-import SignInAndSignUp from './SignInAndSignUp';
-import LandingPage from './LandingPage';
-import Albums from './Albums';
-import AddPhoto from './AddPhoto';
-import WatchPhotos from './WatchPhotos';
-import Miniatures from './Miniatures';
-import Carousel from './Carousel';
-import { useSelector } from 'react-redux';
-import { ToastProvider } from 'react-toast-notifications';
-import { AppState } from '../redux/reducers';
-import RouteWithRedirect from '../components/RouteWithRedirect';
-import BaseModel from '../utils/baseModel';
+import React, { FC } from "react";
+import { Switch, HashRouter } from "react-router-dom";
+import Navigation from "../components/Navigation/Navigation";
+import SignInAndSignUp from "./SignInAndSignUp";
+import LandingPage from "./LandingPage";
+import Albums from "./Albums";
+import AddPhoto from "./AddPhoto";
+import WatchPhotos from "./WatchPhotos";
+import Miniatures from "./Miniatures";
+import Carousel from "./Carousel";
+import { useSelector } from "react-redux";
+import { ToastProvider } from "react-toast-notifications";
+import { AppState } from "../redux/reducers";
+import RouteWithRedirect from "../components/RouteWithRedirect";
+import BaseModel from "../utils/baseModel";
 
 const Root: FC = function Root() {
 	const isLogged = useSelector((state: AppState) => !!state.token);
@@ -36,7 +36,7 @@ const Root: FC = function Root() {
 						<AddPhoto />
 					</RouteWithRedirect>
 					<RouteWithRedirect path="/photos" redirect={!isLogged} redirectPath="/login">
-						<WatchPhotos />{' '}
+						<WatchPhotos />{" "}
 					</RouteWithRedirect>
 					<RouteWithRedirect path="/miniatures" redirect={!isLogged} redirectPath="/login">
 						<Miniatures />

@@ -1,6 +1,7 @@
-import React, { FC, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import View from './Navigation.menu.view';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { FC, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import View from "./Navigation.menu.view";
 
 export interface ActiveWrapper {
 	dashboardActive?: boolean;
@@ -20,10 +21,10 @@ const Menu: FC = () => {
 	const [activeWrapper, setActiveWrapper] = useState<ActiveWrapper>({ ...startedActiveWrapper });
 
 	const pathNames = {
-		dashboard: '/dashboard',
-		addPhoto: '/add',
-		albums: '/albums',
-		watchPhotos: '/photos',
+		dashboard: "/dashboard",
+		addPhoto: "/add",
+		albums: "/albums",
+		watchPhotos: "/photos",
 	};
 
 	const history = useHistory();

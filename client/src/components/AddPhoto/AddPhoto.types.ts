@@ -55,7 +55,7 @@ export interface HandleDateInputState {
 }
 
 export interface AddPhotoState {
-	images: Array<HTMLImageElement>;
+	images: Array<File>;
 	desc: Array<string>;
 	createdDates: Array<string>;
 	albums: Array<AlbumType>;
@@ -73,3 +73,7 @@ export type SelectAlbumInputProps = {
 	handleSelectAlbumInput: (e: ChangeEvent<HTMLSelectElement>) => void;
 	selectedAlbum: string;
 };
+
+export interface FileInputContainerProps {
+	children: ReactNode;
+}

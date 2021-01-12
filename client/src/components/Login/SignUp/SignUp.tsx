@@ -49,10 +49,7 @@ const SignUp: FC<Props> = ({ toggleForm }) => {
 			});
 
 			const token = response.headers.get('x-auth-token');
-
 			if (token) BaseModel.saveAuthToken(token);
-
-			console.log(history);
 
 			history.push('/dashboard');
 		} catch (error) {

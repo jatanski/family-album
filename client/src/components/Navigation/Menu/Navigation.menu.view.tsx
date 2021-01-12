@@ -1,8 +1,8 @@
-import React, { FC, useCallback } from 'react';
-import { MDBNavbarNav, MDBNavItem, MDBNavLink, MDBIcon } from 'mdbreact';
-import { ActiveWrapper } from './Navigation.menu';
-import { deleteToken } from '../../../redux/token/token';
-import { useDispatch } from 'react-redux';
+import React, { FC, useCallback } from "react";
+import { MDBNavbarNav, MDBNavItem, MDBNavLink, MDBIcon } from "mdbreact";
+import { ActiveWrapper } from "./Navigation.menu";
+import { deleteToken } from "../../../redux/token/token";
+import { useDispatch } from "react-redux";
 
 export interface MenuViewProps {
 	activeWrapper: ActiveWrapper;
@@ -12,7 +12,7 @@ const MenuView: FC<MenuViewProps> = function MenuView({ activeWrapper }) {
 	const dispatch = useDispatch();
 	const logOutCallback = useCallback(() => {
 		dispatch(deleteToken());
-	}, []);
+	}, [dispatch]);
 	return (
 		<MDBNavbarNav className="navBar" left>
 			<MDBNavItem active={activeWrapper.addPhotoActive}>

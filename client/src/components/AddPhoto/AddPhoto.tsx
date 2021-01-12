@@ -1,19 +1,19 @@
-import React, { Component, createRef, SyntheticEvent, RefObject, FormEvent, ChangeEvent } from 'react';
-import { connect } from 'react-redux';
-import { AppState } from '../../redux/reducers';
-import View from './AddPhoto.view';
-import BaseModel from '../../utils/baseModel';
-import { AddPhotoState, HandleDescInputState, HandleDateInputState } from './AddPhoto.types';
-import AlbumService from '../Albums/albums.service';
-import { resetUploadImagesRequest, startUploadImageRequest, endUploadImageRequest } from '../../redux/request/actions';
-import { bindActionCreators, AnyAction, Dispatch } from 'redux';
-import { withToastManager, ToastConsumerContext } from 'react-toast-notifications';
+import React, { Component, createRef, SyntheticEvent, RefObject, FormEvent, ChangeEvent } from "react";
+import { connect } from "react-redux";
+import { AppState } from "../../redux/reducers";
+import View from "./AddPhoto.view";
+import BaseModel from "../../utils/baseModel";
+import { AddPhotoState, HandleDescInputState, HandleDateInputState } from "./AddPhoto.types";
+import AlbumService from "../Albums/albums.service";
+import { resetUploadImagesRequest, startUploadImageRequest, endUploadImageRequest } from "../../redux/request/actions";
+import { bindActionCreators, AnyAction, Dispatch } from "redux";
+import { ToastConsumerContext, withToastManager } from "react-toast-notifications";
 
-type Props = { toastManager: ToastConsumerContext } & ReturnType<typeof mapStateToProps> &
+type AddPhotoProps = { toastManager: ToastConsumerContext } & ReturnType<typeof mapStateToProps> &
 	ReturnType<typeof mapDispatchToProps>;
-class AddPhoto extends Component<Props, AddPhotoState> {
+class AddPhoto extends Component<AddPhotoProps, AddPhotoState> {
 	readonly albumService = new AlbumService(this.props.toastManager);
-	private endpoint: string = 'image';
+	private endpoint: string = "image";
 	public fileInput: RefObject<HTMLInputElement> = createRef();
 
 	state = {
@@ -21,7 +21,7 @@ class AddPhoto extends Component<Props, AddPhotoState> {
 		desc: [],
 		createdDates: [],
 		albums: [],
-		selectedAlbum: '',
+		selectedAlbum: "",
 		sendedImages: 0,
 	};
 
@@ -41,14 +41,14 @@ class AddPhoto extends Component<Props, AddPhotoState> {
 		this.setState({ selectedAlbum: selectedAlbum });
 	}
 
-	componentDidUpdate(_prevProps: Props, prevState: AddPhotoState): void {
+	componentDidUpdate(_prevProps: AddPhotoProps, prevState: AddPhotoState): void {
 		if (prevState.sendedImages !== this.state.sendedImages) this.clearImagesInStateAfterSendToServer();
 	}
 
 	private clearImagesInStateAfterSendToServer(): void {
 		if (this.state.sendedImages === this.state.images.length && this.state.images.length !== 0) {
-			this.props.toastManager.add('Udało się załadować wszystkie zdjęcia.', {
-				appearance: 'success',
+			this.props.toastManager.add("Udało się załadować wszystkie zdjęcia.", {
+				appearance: "success",
 				autoDismiss: true,
 			});
 			this.setState({ images: [], desc: [] });
@@ -56,12 +56,12 @@ class AddPhoto extends Component<Props, AddPhotoState> {
 	}
 
 	handleSelectAlbumInput = (e: ChangeEvent<HTMLSelectElement>): void =>
-		this.setState({ selectedAlbum: e.target.value != 'Wybierz album' ? e.target.value : '' });
+		this.setState({ selectedAlbum: e.target.value !== "Wybierz album" ? e.target.value : "" });
 
 	handleFileInput = async () => {
 		// @ts-ignore
 		const photos = Array.from(this.fileInput.current?.files);
-		const emptyDescriptions = photos.map(() => '');
+		const emptyDescriptions = photos.map(() => "");
 		const dates = photos.map((photo: File) => {
 			return BaseModel.getDateString(photo.lastModified);
 		});
@@ -104,14 +104,14 @@ class AddPhoto extends Component<Props, AddPhotoState> {
 	submitPhotos = async (e: SyntheticEvent<HTMLButtonElement>): Promise<void> => {
 		e.preventDefault();
 
-		if (this.state.selectedAlbum == '') {
-			this.props.toastManager.add('Wybierz album do którego chcesz dodać zdjęcia.', {
-				appearance: 'error',
+		if (this.state.selectedAlbum === "") {
+			this.props.toastManager.add("Wybierz album do którego chcesz dodać zdjęcia.", {
+				appearance: "error",
 				autoDismiss: true,
 			});
-		} else if (this.state.images.length == 0) {
-			this.props.toastManager.add('Wybierz zdjęcia, które chcesz wgrać.', {
-				appearance: 'error',
+		} else if (this.state.images.length === 0) {
+			this.props.toastManager.add("Wybierz zdjęcia, które chcesz wgrać.", {
+				appearance: "error",
 				autoDismiss: true,
 			});
 		} else {
@@ -131,33 +131,31 @@ class AddPhoto extends Component<Props, AddPhotoState> {
 		if (token) {
 			try {
 				const response = await fetch(BaseModel.baseApiUrl + this.endpoint, {
-					method: 'POST',
-					headers: { 'x-token': token },
+					method: "POST",
+					headers: { "x-token": token },
 					body: photoData,
 				});
 
-				if (response.ok) {
-					this.setState({ sendedImages: this.state.sendedImages + 1 });
-					// console.log(`Zdjęcie numer ${photoIndex} zostało wysłane.`);
-				} else {
+				if (response.ok) this.setState({ sendedImages: this.state.sendedImages + 1 });
+				else {
 					let message: string;
 					switch (response.status) {
 						case 400:
-							message = 'Jakieś dane zostały podane nieprawidłowo.';
+							message = "Jakieś dane zostały podane nieprawidłowo.";
 							break;
 						case 500:
 						default:
-							message = 'Niespodziewany błąd serwera.';
+							message = "Niespodziewany błąd serwera.";
 					}
-					message += 'Jeśli często go widzisz skontaktuj się z twórcami';
+					message += "Jeśli często go widzisz skontaktuj się z twórcami";
 					this.props.toastManager.add(message, {
-						appearance: 'error',
+						appearance: "error",
 						autoDismiss: true,
 					});
 				}
 			} catch (error) {
-				this.props.toastManager.add('Nie udało połączyć się z serwerem. Sprawdź połączenie sieciowe.', {
-					appearance: 'error',
+				this.props.toastManager.add("Nie udało połączyć się z serwerem. Sprawdź połączenie sieciowe.", {
+					appearance: "error",
 					autoDismiss: true,
 				});
 				console.error(error);
@@ -169,11 +167,11 @@ class AddPhoto extends Component<Props, AddPhotoState> {
 		const photoData = new FormData();
 
 		const dateToSend = this.state.createdDates[photoIndex];
-		if (dateToSend) photoData.append('creationDate', Date.parse(this.state.createdDates[photoIndex]) + '');
+		if (dateToSend) photoData.append("creationDate", Date.parse(this.state.createdDates[photoIndex]) + "");
 
-		photoData.append('file', photo);
-		photoData.append('description', this.state.desc[photoIndex]);
-		photoData.append('albumId', this.state.selectedAlbum);
+		photoData.append("file", photo);
+		photoData.append("description", this.state.desc[photoIndex]);
+		photoData.append("albumId", this.state.selectedAlbum);
 
 		return photoData;
 	}

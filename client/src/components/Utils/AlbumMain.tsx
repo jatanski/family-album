@@ -3,9 +3,9 @@ import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol }
 import { AlbumType } from '../Albums/Album.types';
 
 const Album: FC<AlbumType> = ({ name, description, beginningDate, endDate, children, _id }) => {
-	const randomCover = `https://mdbootstrap.com/img/Photos/Others/images/${Math.floor(Math.random() * 99)}.jpg`;
+	const serverUrl = process.env.REACT_APP_SERVER_URL ?? '';
+	const cover = `${serverUrl}/album/${_id}/cover`;
 
-	const cover = `http://localhost:3069/album/${_id}/cover`;
 	return (
 		<div className="albums__wrap--el">
 			<MDBCol>

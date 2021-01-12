@@ -4,10 +4,8 @@ import { connect } from 'react-redux';
 import { AppState } from '../../redux/reducers';
 import { AlbumType } from '../Albums/Album.types';
 import BaseModel from '../../utils/baseModel';
-import { CarouselProps, CarouselState } from './Carousel.types';
+import { CarouselProps, CarouselState, FullImageObjectsType } from './Carousel.types';
 import enHanceComponentWithHistory from '../Utils/Hoc/enHanceComponentWithHIstory';
-
-type fullImageObjectsType = { description: string; creationDate: string; imageId: string };
 
 class Carousel extends Component<CarouselProps, CarouselState> {
 	state = {
@@ -56,9 +54,9 @@ class Carousel extends Component<CarouselProps, CarouselState> {
 		this.setState({ imageDescriptions: imageDescriptions, imageCreationDates: imageCreationDate });
 	}
 
-	private async downloadFullImageObjects(imageId: string): Promise<fullImageObjectsType> {
+	private async downloadFullImageObjects(imageId: string): Promise<FullImageObjectsType> {
 		const imageEndpoint: string = `image/${imageId}`;
-		const fullImageObjects: fullImageObjectsType = await BaseModel.downloadAnythingWithBody(imageEndpoint);
+		const fullImageObjects: FullImageObjectsType = await BaseModel.downloadAnythingWithBody(imageEndpoint);
 
 		return fullImageObjects;
 	}

@@ -23,3 +23,9 @@ export interface CarouselImageProps {
 	description: string;
 	creationDate: string;
 }
+
+export interface FullImageObjectsType {
+	description: string;
+	creationDate: string;
+	imageId: string;
+}

@@ -1,9 +1,9 @@
-import React, { Component, FormEvent, SyntheticEvent } from 'react';
-import { AlbumsState, AlbumType } from './Album.types';
-import AlbumService from './albums.service';
-import BaseModel from '../../utils/baseModel';
-import View from './Albums.view';
-import { withToastManager, ToastConsumerContext } from 'react-toast-notifications';
+import { Component, FormEvent, SyntheticEvent } from "react";
+import { AlbumsState, AlbumType } from "./Album.types";
+import AlbumService from "./albums.service";
+import BaseModel from "../../utils/baseModel";
+import View from "./Albums.view";
+import { withToastManager, ToastConsumerContext } from "react-toast-notifications";
 
 class Albums extends Component<
 	{
@@ -13,10 +13,10 @@ class Albums extends Component<
 > {
 	startState = {
 		showModalAddAlbum: false,
-		name: '',
-		description: '',
-		beginningDate: '',
-		endDate: '',
+		name: "",
+		description: "",
+		beginningDate: "",
+		endDate: "",
 		myAlbums: [],
 		otherAlbums: [],
 	};
@@ -41,8 +41,8 @@ class Albums extends Component<
 	): { myAlbums: Array<AlbumType>; othersAlbums: Array<AlbumType> } {
 		const myId = BaseModel.giveUserIdFromToken()!;
 
-		const myAlbums = albums.filter(album => album.authorsId?.some(author => author === myId));
-		const otherAlbums = albums.filter(album => album.authorsId?.every(author => author !== myId));
+		const myAlbums = albums.filter((album) => album.authorsId?.some((author) => author === myId));
+		const otherAlbums = albums.filter((album) => album.authorsId?.every((author) => author !== myId));
 
 		return {
 			myAlbums,

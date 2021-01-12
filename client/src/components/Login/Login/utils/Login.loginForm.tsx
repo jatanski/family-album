@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 import { AppState } from '../../../../redux/reducers';
 
 const LoginForm: FC<LoginViewProps> = function LoginForm({
-	toggleForm,
 	handleEmailInput,
 	handlePasswordInput,
 	submitLogin,
