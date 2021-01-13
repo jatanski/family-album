@@ -23,13 +23,13 @@ Family Album is an app made for collecting memories and sharing it with your rel
 
 ## NPM Packages
 
-- typescript,
-- expressJS,
-- bcrypt,
-- mongodb,
-- mongoose,
-- react,
-- redux,
+- Typescript
+- ExpressJS
+- Bcrypt
+- MongoDB
+- Mongoose
+- React
+- Redux
 
 ## Demo Instruction
 
